@@ -1,0 +1,187 @@
+Example for 100 and 10 as inputs
+
+Simulation time = 100 seconds	Number of Emergency Vehicles = 10
+Truck 45 from South approaches the bridge.
+		Truck 45 from South is waiting to cross. Waiting (South): 1
+				Truck 45 from South starts crossing the bridge.
+Car 4 from South approaches the bridge.
+		Car 4 from South is waiting to cross. Waiting (South): 2
+Truck 15 from North approaches the bridge.
+		Truck 15 from North is waiting to cross. Waiting (North): 1
+Car 8 from South approaches the bridge.
+		Car 8 from South is waiting to cross. Waiting (South): 3
+Truck 5 from North approaches the bridge.
+		Truck 5 from North is waiting to cross. Waiting (North): 2
+Car 38 from North approaches the bridge.
+Car 22 from North approaches the bridge.
+		Car 38 from North is waiting to cross. Waiting (North): 3
+		Car 22 from North is waiting to cross. Waiting (North): 4
+Car 32 from North approaches the bridge.
+		Car 32 from North is waiting to cross. Waiting (North): 5
+Car 0 from South approaches the bridge.
+		Car 0 from South is waiting to cross. Waiting (South): 4
+Car 40 from South approaches the bridge.
+		Car 40 from South is waiting to cross. Waiting (South): 5
+Truck 39 from South approaches the bridge.
+		Truck 39 from South is waiting to cross. Waiting (South): 6
+Truck 19 from North approaches the bridge.
+		Truck 19 from North is waiting to cross. Waiting (North): 6
+Car 12 from North approaches the bridge.
+		Car 12 from North is waiting to cross. Waiting (North): 7
+Truck 27 from South approaches the bridge.
+		Truck 27 from South is waiting to cross. Waiting (South): 7
+Truck 37 from North approaches the bridge.
+		Truck 37 from North is waiting to cross. Waiting (North): 8
+Truck 35 from South approaches the bridge.
+		Truck 35 from South is waiting to cross. Waiting (South): 8
+Car 16 from North approaches the bridge.
+		Car 16 from North is waiting to cross. Waiting (North): 9
+Car 42 from North approaches the bridge.
+		Car 42 from North is waiting to cross. Waiting (North): 10
+Truck 41 from South approaches the bridge.
+		Truck 41 from South is waiting to cross. Waiting (South): 9
+Car 10 from South approaches the bridge.
+		Car 10 from South is waiting to cross. Waiting (South): 10
+Truck 1 from South approaches the bridge.
+	Truck 1 from South leaves in frustration due to excessive wait (South Queue full).
+Truck 13 from South approaches the bridge.
+	Truck 13 from South leaves in frustration due to excessive wait (South Queue full).
+Truck 7 from South approaches the bridge.
+	Truck 7 from South leaves in frustration due to excessive wait (South Queue full).
+Car 30 from North approaches the bridge.
+	Car 30 from North leaves in frustration due to excessive wait (North Queue full).
+Truck 47 from North approaches the bridge.
+	Truck 47 from North leaves in frustration due to excessive wait (North Queue full).
+Car 20 from North approaches the bridge.
+	Car 20 from North leaves in frustration due to excessive wait (North Queue full).
+Truck 31 from North approaches the bridge.
+	Truck 31 from North leaves in frustration due to excessive wait (North Queue full).
+Truck 3 from North approaches the bridge.
+	Truck 3 from North leaves in frustration due to excessive wait (North Queue full).
+Car 28 from South approaches the bridge.
+	Car 28 from South leaves in frustration due to excessive wait (South Queue full).
+Car 18 from North approaches the bridge.
+	Car 18 from North leaves in frustration due to excessive wait (North Queue full).
+Truck 49 from South approaches the bridge.
+	Truck 49 from South leaves in frustration due to excessive wait (South Queue full).
+Truck 21 from North approaches the bridge.
+	Truck 21 from North leaves in frustration due to excessive wait (North Queue full).
+Car 2 from North approaches the bridge.
+	Car 2 from North leaves in frustration due to excessive wait (North Queue full).
+Truck 23 from North approaches the bridge.
+	Truck 23 from North leaves in frustration due to excessive wait (North Queue full).
+Truck 29 from North approaches the bridge.
+	Truck 29 from North leaves in frustration due to excessive wait (North Queue full).
+Truck 33 from South approaches the bridge.
+	Truck 33 from South leaves in frustration due to excessive wait (South Queue full).
+Car 24 from South approaches the bridge.
+	Car 24 from South leaves in frustration due to excessive wait (South Queue full).
+Truck 25 from South approaches the bridge.
+	Truck 25 from South leaves in frustration due to excessive wait (South Queue full).
+Car 44 from South approaches the bridge.
+	Car 44 from South leaves in frustration due to excessive wait (South Queue full).
+Car 48 from North approaches the bridge.
+	Car 48 from North leaves in frustration due to excessive wait (North Queue full).
+Truck 11 from South approaches the bridge.
+	Truck 11 from South leaves in frustration due to excessive wait (South Queue full).
+Truck 9 from South approaches the bridge.
+	Truck 9 from South leaves in frustration due to excessive wait (South Queue full).
+Car 34 from South approaches the bridge.
+	Car 34 from South leaves in frustration due to excessive wait (South Queue full).
+Car 36 from North approaches the bridge.
+	Car 36 from North leaves in frustration due to excessive wait (North Queue full).
+Car 14 from South approaches the bridge.
+	Car 14 from South leaves in frustration due to excessive wait (South Queue full).
+Truck 17 from North approaches the bridge.
+	Truck 17 from North leaves in frustration due to excessive wait (North Queue full).
+Car 46 from South approaches the bridge.
+	Car 46 from South leaves in frustration due to excessive wait (South Queue full).
+Car 26 from North approaches the bridge.
+	Car 26 from North leaves in frustration due to excessive wait (North Queue full).
+Truck 43 from South approaches the bridge.
+	Truck 43 from South leaves in frustration due to excessive wait (South Queue full).
+Car 6 from North approaches the bridge.
+	Car 6 from North leaves in frustration due to excessive wait (North Queue full).
+					Truck 45 from South has crossed the bridge.
+				Car 4 from South starts crossing the bridge.
+					Car 4 from South has crossed the bridge.
+				Truck 15 from North starts crossing the bridge.
+					Truck 15 from North has crossed the bridge.
+				Car 8 from South starts crossing the bridge.
+					Car 8 from South has crossed the bridge.
+				Truck 5 from North starts crossing the bridge.
+					Truck 5 from North has crossed the bridge.
+				Car 38 from North starts crossing the bridge.
+					Car 38 from North has crossed the bridge.
+				Car 22 from North starts crossing the bridge.
+					Car 22 from North has crossed the bridge.
+				Car 32 from North starts crossing the bridge.
+Emergency 56 from North approaches the bridge.
+		Emergency 56 from North is waiting to cross (Emergency vehicle has priority).
+					Car 32 from North has crossed the bridge.
+				Emergency 56 from North starts crossing the bridge.
+					Emergency 56 from North has crossed the bridge.
+				Car 0 from South starts crossing the bridge.
+					Car 0 from South has crossed the bridge.
+				Car 40 from South starts crossing the bridge.
+					Car 40 from South has crossed the bridge.
+				Truck 39 from South starts crossing the bridge.
+					Truck 39 from South has crossed the bridge.
+				Truck 19 from North starts crossing the bridge.
+					Truck 19 from North has crossed the bridge.
+				Car 12 from North starts crossing the bridge.
+					Car 12 from North has crossed the bridge.
+				Truck 27 from South starts crossing the bridge.
+					Truck 27 from South has crossed the bridge.
+				Truck 37 from North starts crossing the bridge.
+Emergency 52 from South approaches the bridge.
+		Emergency 52 from South is waiting to cross (Emergency vehicle has priority).
+					Truck 37 from North has crossed the bridge.
+				Emergency 52 from South starts crossing the bridge.
+					Emergency 52 from South has crossed the bridge.
+				Truck 35 from South starts crossing the bridge.
+Emergency 53 from North approaches the bridge.
+		Emergency 53 from North is waiting to cross (Emergency vehicle has priority).
+					Truck 35 from South has crossed the bridge.
+				Emergency 53 from North starts crossing the bridge.
+					Emergency 53 from North has crossed the bridge.
+				Car 16 from North starts crossing the bridge.
+					Car 16 from North has crossed the bridge.
+				Car 42 from North starts crossing the bridge.
+					Car 42 from North has crossed the bridge.
+				Truck 41 from South starts crossing the bridge.
+					Truck 41 from South has crossed the bridge.
+				Car 10 from South starts crossing the bridge.
+Emergency 58 from North approaches the bridge.
+		Emergency 58 from North is waiting to cross (Emergency vehicle has priority).
+					Car 10 from South has crossed the bridge.
+				Emergency 58 from North starts crossing the bridge.
+Emergency 57 from North approaches the bridge.
+		Emergency 57 from North is waiting to cross (Emergency vehicle has priority).
+					Emergency 58 from North has crossed the bridge.
+				Emergency 57 from North starts crossing the bridge.
+					Emergency 57 from North has crossed the bridge.
+Emergency 50 from South approaches the bridge.
+		Emergency 50 from South is waiting to cross (Emergency vehicle has priority).
+				Emergency 50 from South starts crossing the bridge.
+					Emergency 50 from South has crossed the bridge.
+Emergency 55 from South approaches the bridge.
+		Emergency 55 from South is waiting to cross (Emergency vehicle has priority).
+				Emergency 55 from South starts crossing the bridge.
+					Emergency 55 from South has crossed the bridge.
+Emergency 51 from South approaches the bridge.
+		Emergency 51 from South is waiting to cross (Emergency vehicle has priority).
+				Emergency 51 from South starts crossing the bridge.
+Emergency 49 from North approaches the bridge.
+		Emergency 49 from North is waiting to cross (Emergency vehicle has priority).
+					Emergency 51 from South has crossed the bridge.
+				Emergency 49 from North starts crossing the bridge.
+					Emergency 49 from North has crossed the bridge.
+Emergency 54 from North approaches the bridge.
+		Emergency 54 from North is waiting to cross (Emergency vehicle has priority).
+				Emergency 54 from North starts crossing the bridge.
+					Emergency 54 from North has crossed the bridge.
+
+Simulation concludes after 100 seconds.
+Total Vehicles: 60, Cars: 25, Trucks: 25, Emergency Vehicles: 10
+Report: Total Crossed: 30, Vehicles Turned Away: 30

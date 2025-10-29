@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <style>
+body {
+    background-color: #e0d8d0;
+    font-family: verdana, tahoma, geneva, sans-serif;
+    font-size: 20px;
+}
+
+@media (max-width: 990px) {
+    body,td,center {
+        font-size: 34px;
+    }
+}
+        </style>
+    </head>
+    <title>client.html</title>
+    <body>
+        <p id = "how_many">You have pushed that button 0 times</p>
+        <script>
+            const on_push = () => {
+                let payload = {
+                    action: 'push_button',
+                };
+                fetch('ajax', {
+                        body: JSON.stringify(payload),
+                        cache: "no-cache",
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        method: "POST",
+                    })
+                    .then(response => response.text())
+                    .then(text => {
+                        console.log(`The server replied ${text}`);
+                        let response_ob = JSON.parse(text);
+		                let el = document.getElementById('how_many');
+		                el.innerHTML = "You have pushed that button " + response_ob.push_count + " times";
+                    })
+                    .catch(ex => {
+                        console.log(`An error occurred: ${ex}\n${ex.stack}`);
+                    });
+            }
+                </script>
+        <button onclick="on_push()">Never push me</button> 
+        
+        <h2>Have a nice day!</h2>
+        <p>
+            And here is a picture of a smiley face:<br>
+            <img src="smiley.png">
+            <a href="https://www.w3schools.com/html/html_attributes.asp">Visit This</a>
+        </p>
+    </body>
+</html>

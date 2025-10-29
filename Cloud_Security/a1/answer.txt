@@ -1,0 +1,4 @@
+Given the java file provided, simply modifying the map stage to include an extra key, value pair for line count completes the assignment.
+This is due to the fact that the program already combines the key value pairs in the reduce stage, so adding a term with the given name will be combined just the same.
+The answer thus can be found at the bottom of part-r-00000 due to it being sorted alphabetically.
+For the given input the output is 258 lines.

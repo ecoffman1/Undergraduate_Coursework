@@ -1,0 +1,11 @@
+rm -rf output *.jar *.class
+javac *.java
+jar -cvf relativefreq.jar ./*.class
+hadoop jar relativefreq.jar relativefreq input output
+
+
+
+
+
+
+

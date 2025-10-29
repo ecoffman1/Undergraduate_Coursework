@@ -1,0 +1,3 @@
+In order to sort in reverse order, we can simply change the compareTo method to return the opposite result by multiplying the return value by -1
+To count the number of reducer calls. We can create a variable outside the reduce method to count each time it is called. Then during the cleanup stage we write this value to the output.
+The total number of reducer calls is 1426 as found in the output file.

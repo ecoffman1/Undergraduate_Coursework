@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)https://acadgild.com/blog/building-inverted-index-mapreduce -->
+<html lang="en-US" class=" " style="transform: none;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://acadgild.com/blog/xmlrpc.php">
+<script src="./Building Inverted Index in MapReduce __files/osd.js.download"></script><script src="./Building Inverted Index in MapReduce __files/f.txt" id="google_shimpl"></script><script type="text/javascript" async="" src="./Building Inverted Index in MapReduce __files/js"></script><script async="" src="./Building Inverted Index in MapReduce __files/insight.beta.min.js.download"></script><script async="" src="./Building Inverted Index in MapReduce __files/insight.beta.min.js.download"></script><script async="" src="./Building Inverted Index in MapReduce __files/qevents.js.download"></script><script type="text/javascript" async="" src="./Building Inverted Index in MapReduce __files/insight.min.js.download"></script><script type="text/javascript" async="" src="./Building Inverted Index in MapReduce __files/insight.min.js.download"></script><script type="text/javascript" async="" src="./Building Inverted Index in MapReduce __files/analytics.js.download"></script><script type="text/javascript" async="" src="./Building Inverted Index in MapReduce __files/f(1).txt"></script><script type="text/javascript" async="" src="./Building Inverted Index in MapReduce __files/f(1).txt"></script><script type="text/javascript" async="" src="./Building Inverted Index in MapReduce __files/analytics.js.download"></script><script type="text/javascript" async="" src="./Building Inverted Index in MapReduce __files/f(1).txt"></script><script async="" src="./Building Inverted Index in MapReduce __files/script.min.js.download"></script><script type="text/javascript" async="" src="./Building Inverted Index in MapReduce __files/recaptcha__en.js.download" crossorigin="anonymous" integrity="sha384-3QFmGa9WBVUnmTTGehi+1Uin1pmBuS/I5R1Ce52Aiiuviet65v+bH12eR4+kUUcx"></script><script async="" src="./Building Inverted Index in MapReduce __files/gtm.js.download"></script><script>window._wca = window._wca || [];</script>
+
+<title>Building Inverted Index in MapReduce |</title>
+<meta name="description" content="In this post, we will implement the MapReduce application to build an inverted index to generate the list of words in the files">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://acadgild.com/blog/building-inverted-index-mapreduce">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Building Inverted Index in MapReduce |">
+<meta property="og:description" content="In this post, we will implement the MapReduce application to build an inverted index to generate the list of words in the files">
+<meta property="og:url" content="https://acadgild.com/blog/building-inverted-index-mapreduce">
+<meta property="og:site_name" content="AcadGild">
+<meta property="article:publisher" content="https://www.facebook.com/acadgild/">
+<meta property="article:published_time" content="2016-05-23T06:20:20+00:00">
+<meta property="og:image" content="https://acadgild.com/blog/wp-content/uploads/2016/05/Inverted-index-in-MapReduce.jpg">
+<meta property="og:image:width" content="780">
+<meta property="og:image:height" content="300">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://acadgild.com/blog/#organization","name":"AcadGild","url":"https://acadgild.com/blog/","sameAs":["https://www.facebook.com/acadgild/"],"logo":{"@type":"ImageObject","@id":"https://acadgild.com/blog/#logo","inLanguage":"en-US","url":"https://acadgild.com/blog/wp-content/uploads/2018/02/acadgild-logo21.png","width":380,"height":380,"caption":"AcadGild"},"image":{"@id":"https://acadgild.com/blog/#logo"}},{"@type":"WebSite","@id":"https://acadgild.com/blog/#website","url":"https://acadgild.com/blog/","name":"AcadGild","description":"","publisher":{"@id":"https://acadgild.com/blog/#organization"},"potentialAction":[{"@type":"SearchAction","target":"https://acadgild.com/blog/?s={search_term_string}","query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ImageObject","@id":"https://acadgild.com/blog/building-inverted-index-mapreduce#primaryimage","inLanguage":"en-US","url":"https://acadgild.com/blog/wp-content/uploads/2016/05/Inverted-index-in-MapReduce.jpg","width":780,"height":300},{"@type":"WebPage","@id":"https://acadgild.com/blog/building-inverted-index-mapreduce#webpage","url":"https://acadgild.com/blog/building-inverted-index-mapreduce","name":"Building Inverted Index in MapReduce |","isPartOf":{"@id":"https://acadgild.com/blog/#website"},"primaryImageOfPage":{"@id":"https://acadgild.com/blog/building-inverted-index-mapreduce#primaryimage"},"datePublished":"2016-05-23T06:20:20+00:00","dateModified":"2016-05-23T06:20:20+00:00","description":"In this post, we will implement the MapReduce application to build an inverted index to generate the list of words in the files","inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://acadgild.com/blog/building-inverted-index-mapreduce"]}]},{"@type":"Article","@id":"https://acadgild.com/blog/building-inverted-index-mapreduce#article","isPartOf":{"@id":"https://acadgild.com/blog/building-inverted-index-mapreduce#webpage"},"author":{"@id":"https://acadgild.com/blog/#/schema/person/a18277317a72f97d2b616acba1839c13"},"headline":"Building Inverted Index in MapReduce","datePublished":"2016-05-23T06:20:20+00:00","dateModified":"2016-05-23T06:20:20+00:00","commentCount":"5","mainEntityOfPage":{"@id":"https://acadgild.com/blog/building-inverted-index-mapreduce#webpage"},"publisher":{"@id":"https://acadgild.com/blog/#organization"},"image":{"@id":"https://acadgild.com/blog/building-inverted-index-mapreduce#primaryimage"},"articleSection":"Big Data Hadoop &amp; Spark - Advanced","inLanguage":"en-US","potentialAction":[{"@type":"CommentAction","name":"Comment","target":["https://acadgild.com/blog/building-inverted-index-mapreduce#respond"]}]},{"@type":["Person"],"@id":"https://acadgild.com/blog/#/schema/person/a18277317a72f97d2b616acba1839c13","name":"R Brundesh","image":{"@type":"ImageObject","@id":"https://acadgild.com/blog/#personlogo","inLanguage":"en-US","url":"https://secure.gravatar.com/avatar/be42d513b70cfa1a2ad8389d87f4c33f?s=96&d=mm&r=g","caption":"R Brundesh"}}]}</script>
+
+<link rel="dns-prefetch" href="https://acadgild.com/">
+<link rel="dns-prefetch" href="https://stats.wp.com/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/acadgild.com\/blog\/wp-includes\/js\/wp-emoji-release.min.js"}};
+			/*! This file is auto-generated */
+			!function(e,a,t){var r,n,o,i,p=a.createElement("canvas"),s=p.getContext&&p.getContext("2d");function c(e,t){var a=String.fromCharCode;s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,e),0,0);var r=p.toDataURL();return s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,t),0,0),r===p.toDataURL()}function l(e){if(!s||!s.fillText)return!1;switch(s.textBaseline="top",s.font="600 32px Arial",e){case"flag":return!c([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])&&(!c([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!c([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]));case"emoji":return!c([55357,56424,55356,57342,8205,55358,56605,8205,55357,56424,55356,57340],[55357,56424,55356,57342,8203,55358,56605,8203,55357,56424,55356,57340])}return!1}function d(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(i=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},o=0;o<i.length;o++)t.supports[i[o]]=l(i[o]),t.supports.everything=t.supports.everything&&t.supports[i[o]],"flag"!==i[o]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[i[o]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(r=t.source||{}).concatemoji?d(r.concatemoji):r.wpemoji&&r.twemoji&&(d(r.twemoji),d(r.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./Building Inverted Index in MapReduce __files/wp-emoji-release.min.js.download" type="text/javascript" defer=""></script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="validate-engine-css-css" href="./Building Inverted Index in MapReduce __files/validationEngine.jquery.css" type="text/css" media="all">
+<link rel="stylesheet" id="tie-insta-style-css" href="./Building Inverted Index in MapReduce __files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="tie-insta-ilightbox-skin-css" href="./Building Inverted Index in MapReduce __files/skin.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-block-library-css" href="./Building Inverted Index in MapReduce __files/style.min.css" type="text/css" media="all">
+<style id="wp-block-library-inline-css" type="text/css">
+.has-text-align-justify{text-align:justify;}
+</style>
+<link rel="stylesheet" id="wc-block-style-css" href="./Building Inverted Index in MapReduce __files/style(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="contact-form-7-css" href="./Building Inverted Index in MapReduce __files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="email-before-download-css" href="./Building Inverted Index in MapReduce __files/email-before-download-public.css" type="text/css" media="all">
+<link rel="stylesheet" id="mediaelement-css" href="./Building Inverted Index in MapReduce __files/mediaelementplayer-legacy.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-mediaelement-css" href="./Building Inverted Index in MapReduce __files/wp-mediaelement.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="fvp-frontend-css" href="./Building Inverted Index in MapReduce __files/frontend.css" type="text/css" media="all">
+<link rel="stylesheet" id="orgseries-default-css-css" href="./Building Inverted Index in MapReduce __files/orgSeries.css" type="text/css" media="all">
+<link rel="stylesheet" id="page-list-style-css" href="./Building Inverted Index in MapReduce __files/page-list.css" type="text/css" media="all">
+<link rel="stylesheet" id="relatedyoutubevideos_frontendStyles-css" href="./Building Inverted Index in MapReduce __files/themes.css" type="text/css" media="all">
+<link rel="stylesheet" id="taqyeem-buttons-style-css" href="./Building Inverted Index in MapReduce __files/style(2).css" type="text/css" media="all">
+<link rel="stylesheet" id="tve_style_family_tve_flt-css" href="./Building Inverted Index in MapReduce __files/thrive_flat.css" type="text/css" media="all">
+<link rel="stylesheet" id="tve_leads_forms-css" href="./Building Inverted Index in MapReduce __files/frontend(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="tie-css-woocommerce-css" href="./Building Inverted Index in MapReduce __files/woocommerce.min.css" type="text/css" media="all">
+<style id="woocommerce-inline-inline-css" type="text/css">
+.woocommerce form .form-row .required { visibility: visible; }
+</style>
+<link rel="stylesheet" id="wpProQuiz_front_style-css" href="./Building Inverted Index in MapReduce __files/wpProQuiz_front.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="magnific-popup-au-css" href="./Building Inverted Index in MapReduce __files/magnific-popup.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="youtube-channel-css" href="./Building Inverted Index in MapReduce __files/youtube-channel.css" type="text/css" media="all">
+<link rel="stylesheet" id="dlm-frontend-css" href="./Building Inverted Index in MapReduce __files/frontend(2).css" type="text/css" media="all">
+<link rel="stylesheet" id="voice-search-css" href="./Building Inverted Index in MapReduce __files/voice-search.min.css" type="text/css" media="screen">
+<link rel="stylesheet" id="taqyeem-styles-css" href="./Building Inverted Index in MapReduce __files/taqyeem.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="tie-css-styles-css" href="./Building Inverted Index in MapReduce __files/style.min(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="tie-css-ilightbox-css" href="./Building Inverted Index in MapReduce __files/skin(1).css" type="text/css" media="all">
+<style id="tie-css-ilightbox-inline-css" type="text/css">
+.brand-title,a:hover,#tie-popup-search-submit,.components button#search-submit:hover,#logo.text-logo a,#tie-wrapper #top-nav a:hover,#tie-wrapper #top-nav .breaking a:hover,#tie-wrapper #main-nav .components a:hover,#theme-header #top-nav .components > li > a:hover,#theme-header #top-nav .components > li:hover > a,#theme-header #main-nav .components > li > a:hover,#theme-header #main-nav .components > li:hover > a,#top-nav .top-menu .menu > li.tie-current-menu > a,#tie-wrapper #top-nav .top-menu .menu li:hover > a,#tie-wrapper #top-nav .top-menu .menu a:hover,#tie-wrapper #main-nav .main-menu .mega-menu .post-box-title a:hover,#tie-wrapper #main-nav .main-menu .menu .mega-cat-sub-categories.cats-vertical li:hover a,#tie-wrapper #main-nav .main-menu .menu .mega-cat-sub-categories.cats-vertical li a.is-active,div.mag-box .mag-box-options .mag-box-filter-links a.active,.mag-box-filter-links .flexMenu-viewMore:hover > a,.stars-rating-active,body .tabs.tabs .active > a,.video-play-icon,.spinner-circle:after,#go-to-content:hover,.comment-list .comment-author .fn,.commentlist .comment-author .fn,blockquote::before,blockquote cite,blockquote.quote-simple p,.multiple-post-pages a:hover,#story-index li .is-current,.latest-tweets-widget .twitter-icon-wrap span,.wide-next-prev-slider-wrapper .tie-slider-nav li:hover span,#instagram-link:hover,.review-final-score h3,#mobile-menu-icon:hover .menu-text,.entry a,.entry .post-bottom-meta a[href]:hover,#footer-widgets-container a:hover,#footer-widgets-container .stars-rating-active,#footer-widgets-container .latest-tweets-widget .twitter-icon-wrap span,#site-info a:hover,.widget.tie-weather-widget .icon-basecloud-bg:after,.wide-slider-nav-wrapper .slide{color: #e6332a;}#theme-header #main-nav .spinner-circle:after{color: #e6332a;}.button,#tie-wrapper #theme-header .comp-sub-menu .button:hover,#tie-wrapper #theme-header .comp-sub-menu .button.guest-btn:hover,#tie-wrapper #theme-header .comp-sub-menu .button.checkout-button,#tie-wrapper #theme-header #main-nav .comp-sub-menu .button:hover,input[type='submit'],.post-cat,.tie-slider-nav li > span:hover,.pages-nav .next-prev li.current span,.pages-nav .pages-numbers li.current span,#tie-wrapper .mejs-container .mejs-controls,.spinner > div,#mobile-menu-icon:hover .nav-icon,#mobile-menu-icon:hover .nav-icon:before,#mobile-menu-icon:hover .nav-icon:after,#theme-header #main-nav .main-menu .menu > li.tie-current-menu > a,#theme-header #main-nav .main-menu .menu > li:hover > a,#theme-header #main-nav .main-menu .menu > li > a:hover,#tie-wrapper #main-nav .main-menu ul li .mega-links-head:after,#theme-header #main-nav .menu .mega-cat-sub-categories.cats-horizontal li a.is-active,#theme-header #main-nav .menu .mega-cat-sub-categories.cats-horizontal li a:hover,.main-nav-dark .main-menu .menu > li > a:hover,#mobile-menu-icon:hover .nav-icon,#mobile-menu-icon:hover .nav-icon:before,#mobile-menu-icon:hover .nav-icon:after,.mag-box-filter-links a:hover,.slider-arrow-nav a:not(.pagination-disabled):hover,.comment-list .reply a:hover,.commentlist .reply a:hover,#reading-position-indicator,.multiple-post-pages > span,#story-index-icon,.posts-list-counter .posts-list-items li:before,.cat-counter span,.digital-rating-static strong,#wp-calendar #today,.basecloud-bg,.basecloud-bg::before,.basecloud-bg::after,.timeline-widget ul li a:hover .date:before,.cat-counter a + span,.videos-block .playlist-title,.review-percentage .review-item span span,.tie-slick-dots li.slick-active button,.tie-slick-dots li button:hover,#tie-body.magazine2:not(.block-head-4) .dark-widgetized-area .tabs a:hover,#tie-body.magazine2:not(.block-head-4) .dark-widgetized-area .tabs .active a,#tie-body.magazine1 .dark-widgetized-area .tabs a:hover,#tie-body.magazine1 .dark-widgetized-area .tabs .active a,#footer-widgets-container .digital-rating-static strong,#footer-widgets-container .timeline-widget li:hover .date:before,#footer-widgets-container #wp-calendar #today,#footer-widgets-container .basecloud-bg::before,#footer-widgets-container .posts-list-counter .posts-list-items li:before,#footer-widgets-container .cat-counter span,#footer-widgets-container .widget-title:after,#footer-widgets-container .button,#footer-widgets-container input[type='submit'],#footer-widgets-container .tie-slider-nav li > span:hover,#footer-widgets-container .fullwidth-area .widget_tag_cloud .tagcloud a:hover,.demo_store,.demo #logo:after,.widget.tie-weather-widget,span.video-close-btn:hover,#go-to-top{background-color: #e6332a;color: #FFFFFF;}pre,code,.pages-nav .next-prev li.current span,.pages-nav .pages-numbers li.current span,#tie-wrapper #theme-header .comp-sub-menu .button:hover,#tie-wrapper #theme-header .comp-sub-menu .button.guest-btn:hover,.multiple-post-pages > span,.post-content-slideshow .tie-slider-nav li span:hover,.latest-tweets-widget .slider-links .tie-slider-nav li span:hover,.dark-skin .latest-tweets-widget .slider-links .tie-slider-nav span:hover,#instagram-link:before,#instagram-link:after,.slider-arrow-nav a:not(.pagination-disabled):hover,#theme-header #main-nav .menu .mega-cat-sub-categories.cats-horizontal li a.is-active,#theme-header #main-nav .menu .mega-cat-sub-categories.cats-horizontal li a:hover,#footer.dark-skin #instagram-link:before,#footer.dark-skin #instagram-link:after,#footer-widgets-container .tie-slider-nav li > span:hover,#theme-header #main-nav .main-menu .menu > li > .sub-menu,#theme-header #main-nav .main-menu .menu > li > .menu-sub-content{border-color: #e6332a;}#tie-wrapper #top-nav .top-menu .menu li.menu-item-has-children:hover > a:before{border-top-color: #e6332a;}#theme-header .main-menu .menu > li.tie-current-menu > a:before,#theme-header #main-nav .main-menu .menu > li > a:hover:before,#theme-header #main-nav .main-menu .menu > li:hover > a:before{border-top-color: #FFFFFF;}#tie-wrapper #top-nav .top-menu .menu li li.menu-item-has-children:hover > a:before{border-left-color: #e6332a;border-top-color: transparent;}.rtl #tie-wrapper #top-nav .top-menu .menu li li.menu-item-has-children:hover > a:before{border-right-color: #e6332a;border-top-color: transparent;}#tie-wrapper #main-nav .main-menu .menu > li.tie-current-menu{border-bottom-color: #e6332a;}#footer-widgets-container{border-top: 8px solid #e6332a;-webkit-box-shadow: 0 -5px 0 rgba(0,0,0,0.07); -moz-box-shadow: 0 -8px 0 rgba(0,0,0,0.07); box-shadow: 0 -8px 0 rgba(0,0,0,0.07);}::-moz-selection{background-color: #e6332a;color: #FFFFFF;}::selection{background-color: #e6332a;color: #FFFFFF;}circle.circle_bar,#footer-widgets-container circle.circle_bar{stroke: #e6332a;}#reading-position-indicator{box-shadow: 0 0 10px rgba( 230,51,42,0.7);}#tie-popup-search-submit:hover,#logo.text-logo a:hover,.entry a:hover{color: #b40100;}.button:hover,input[type='submit']:hover,a.post-cat:hover,#footer-widgets-container .button:hover,#footer-widgets-container input[type='submit']:hover{background-color: #b40100;color: #FFFFFF;}.search-in-main-nav.autocomplete-suggestions a.button:hover,#tie-wrapper #theme-header #top-nav .comp-sub-menu .button.checkout-button:hover,#tie-wrapper #theme-header #main-nav .comp-sub-menu .button.checkout-button:hover{background-color: #b40100;color: #FFFFFF;}#theme-header #main-nav .comp-sub-menu a.checkout-button:not(:hover),#theme-header #top-nav .comp-sub-menu a.checkout-button:not(:hover),.entry a.button{color: #FFFFFF;}#footer-widgets-container .tie-slider-nav li > span:hover{color: #FFFFFF !important;}@media (max-width: 1600px){#story-index ul{background-color: #e6332a;}#story-index ul li a,#story-index ul li .is-current{color: #FFFFFF;}}.woocommerce div.product span.price,.woocommerce div.product p.price,.woocommerce div.product div.summary .product_meta > span,.woocommerce div.product div.summary .product_meta > span a:hover,.woocommerce ul.products li.product .price ins,.woocommerce .woocommerce-pagination .page-numbers li a.current,.woocommerce .woocommerce-pagination .page-numbers li a:hover,.woocommerce .woocommerce-pagination .page-numbers li span.current,.woocommerce .woocommerce-pagination .page-numbers li span:hover,.woocommerce .widget_rating_filter ul li.chosen a,.woocommerce-MyAccount-navigation ul li.is-active a{color: #e6332a;}.woocommerce span.new,.woocommerce a.button.alt,.woocommerce button.button.alt,.woocommerce input.button.alt,.woocommerce a.button.alt.disabled,.woocommerce a.button.alt:disabled,.woocommerce a.button.alt:disabled[disabled],.woocommerce a.button.alt.disabled:hover,.woocommerce a.button.alt:disabled:hover,.woocommerce a.button.alt:disabled[disabled]:hover,.woocommerce button.button.alt.disabled,.woocommerce button.button.alt:disabled,.woocommerce button.button.alt:disabled[disabled],.woocommerce button.button.alt.disabled:hover,.woocommerce button.button.alt:disabled:hover,.woocommerce button.button.alt:disabled[disabled]:hover,.woocommerce input.button.alt.disabled,.woocommerce input.button.alt:disabled,.woocommerce input.button.alt:disabled[disabled],.woocommerce input.button.alt.disabled:hover,.woocommerce input.button.alt:disabled:hover,.woocommerce input.button.alt:disabled[disabled]:hover,.woocommerce .widget_price_filter .ui-slider .ui-slider-range{background-color: #e6332a;color: #FFFFFF;}.woocommerce div.product #product-images-slider-nav .tie-slick-slider .slide.slick-current img{border-color: #e6332a;}.woocommerce a.button:hover,.woocommerce button.button:hover,.woocommerce input.button:hover,.woocommerce a.button.alt:hover,.woocommerce button.button.alt:hover,.woocommerce input.button.alt:hover{background-color: #b40100;}#tie-body .mag-box-title h3 a,#tie-body .block-more-button{color: #e6332a;}#tie-body .mag-box-title h3 a:hover,#tie-body .block-more-button:hover{color: #b40100;}#tie-body .mag-box-title{color: #e6332a;}#tie-body .mag-box-title:before{border-top-color: #e6332a;}#tie-body .mag-box-title:after,#tie-body #footer .widget-title:after{background-color: #e6332a;} #tie-wrapper #top-nav{ border-width: 0; }#tie-wrapper #top-nav,#tie-wrapper #top-nav .top-menu ul,#tie-wrapper #top-nav .comp-sub-menu,#tie-wrapper #top-nav .ticker-content,#tie-wrapper #top-nav .ticker-swipe,.top-nav-boxed #top-nav .topbar-wrapper,.top-nav-dark.top-nav-boxed #top-nav .topbar-wrapper,.search-in-top-nav.autocomplete-suggestions{background-color : #11050e;}#tie-wrapper #top-nav *,#tie-wrapper #top-nav .components > li,#tie-wrapper #top-nav .comp-sub-menu,#tie-wrapper #top-nav .comp-sub-menu li{border-color: rgba( 255,255,255,0.1);}#tie-wrapper #top-nav .comp-sub-menu .button,#tie-wrapper #top-nav .comp-sub-menu .button.guest-btn{background-color: #000000;}#tie-wrapper #top-nav .comp-sub-menu .button,#tie-wrapper #top-nav .comp-sub-menu .button.guest-btn,.search-in-top-nav.autocomplete-suggestions{border-color: #000000;}#top-nav .weather-menu-item .icon-basecloud-bg:after{color: #11050e;}#tie-wrapper #top-nav a,#tie-wrapper #top-nav .breaking .ticker a,#tie-wrapper #top-nav input,#tie-wrapper #top-nav .components button#search-submit,#tie-wrapper #top-nav .components button#search-submit .fa-spinner,#tie-wrapper #top-nav .top-menu li a,#tie-wrapper #top-nav .dropdown-social-icons li a span,#tie-wrapper #top-nav .components a.button:hover,#tie-wrapper #top-nav .components > li > a,#tie-wrapper #top-nav .components > li.social-icons-item .social-link:not(:hover) span,#tie-wrapper #top-nav .comp-sub-menu .button:hover,#tie-wrapper #top-nav .comp-sub-menu .button.guest-btn:hover,#tie-body .search-in-top-nav.autocomplete-suggestions a:not(.button){color: #ffffff;}#tie-wrapper #top-nav input::-moz-placeholder{color: #ffffff;}#tie-wrapper #top-nav input:-moz-placeholder{color: #ffffff;}#tie-wrapper #top-nav input:-ms-input-placeholder{color: #ffffff;}#tie-wrapper #top-nav input::-webkit-input-placeholder{color: #ffffff;}#tie-wrapper #top-nav .top-menu .menu li.menu-item-has-children > a:before{border-top-color: #ffffff;}#tie-wrapper #top-nav .top-menu .menu li li.menu-item-has-children > a:before{border-top-color: transparent;border-left-color: #ffffff;}.rtl #tie-wrapper #top-nav .top-menu .menu li li.menu-item-has-children > a:before{border-left-color: transparent;border-right-color: #ffffff;}#tie-wrapper #top-nav .comp-sub-menu .button:hover,#tie-wrapper #top-nav .comp-sub-menu .button.guest-btn:hover,#tie-wrapper #top-nav .comp-sub-menu .button.checkout-button,.search-in-top-nav.autocomplete-suggestions a.button{background-color: #ffffff;}#tie-wrapper #top-nav a:hover,#tie-wrapper #top-nav .top-menu .menu a:hover,#tie-wrapper #top-nav .top-menu .menu li:hover > a,#tie-wrapper #top-nav .top-menu .menu > li.tie-current-menu > a,#tie-wrapper #top-nav .breaking .ticker a:hover,#tie-wrapper #top-nav .components > li > a:hover,#tie-wrapper #top-nav .components > li:hover > a,#tie-wrapper #top-nav .components button#search-submit:hover,.search-in-top-nav.autocomplete-suggestions a:not(.button):hover{color: #ffffff;}#tie-wrapper #top-nav .comp-sub-menu .button:hover,#tie-wrapper #top-nav .comp-sub-menu .button.guest-btn:hover{border-color: #ffffff;}#tie-wrapper #top-nav .top-menu .menu li.menu-item-has-children:hover > a:before{border-top-color: #ffffff;}#tie-wrapper #top-nav .top-menu .menu li li.menu-item-has-children:hover > a:before{border-top-color: transparent;border-left-color: #ffffff;}.rtl #tie-wrapper #top-nav .top-menu .menu li li.menu-item-has-children:hover > a:before{border-left-color: transparent;border-right-color: #ffffff;}#tie-wrapper #top-nav .comp-sub-menu .button:hover,#tie-wrapper #top-nav .comp-sub-menu .button.guest-btn:hover,#tie-wrapper #top-nav .comp-sub-menu .button.checkout-button:hover,#tie-wrapper #top-nav .components a.button:hover,#tie-wrapper #top-nav .components a.button.guest-btn:hover,#tie-wrapper #top-nav .comp-sub-menu a.button.checkout-button,.search-in-top-nav.autocomplete-suggestions .widget-post-list a.button{color: #000000;}#tie-wrapper #theme-header #top-nav .comp-sub-menu .button.checkout-button:hover,#tie-body .search-in-top-nav.autocomplete-suggestions a.button:hover{background-color: #e1e1e1;}#tie-wrapper #top-nav,#tie-wrapper #top-nav .top-menu ul,#tie-wrapper #top-nav .comp-sub-menu,.search-in-top-nav.autocomplete-suggestions,#top-nav .weather-menu-item .tie-weather-widget{color: #ffffff;}.search-in-top-nav.autocomplete-suggestions .post-meta,.search-in-top-nav.autocomplete-suggestions .post-meta a:not(:hover){color: rgba( 255,255,255,0.7);}#top-nav .breaking-title{color: #000000;}#top-nav .breaking-title:before{background-color: #ffffff;}#top-nav .breaking-news-nav li:hover{background-color: #ffffff;border-color: #ffffff;}#tie-wrapper #main-nav{background-color : #e74c3c;border-width: 0;}#tie-wrapper #main-nav.fixed-nav{background-color : rgba( 231,76,60 ,0.95);}#main-nav .main-menu-wrapper,#tie-wrapper .main-nav-boxed #main-nav .main-menu-wrapper,#tie-wrapper #main-nav .main-menu .menu li > .sub-menu,#tie-wrapper #main-nav .main-menu .menu-sub-content,#tie-wrapper #main-nav .comp-sub-menu,#tie-body .search-in-main-nav.autocomplete-suggestions{background-color: #e74c3c;}#main-nav .weather-menu-item .icon-basecloud-bg:after{color: #e74c3c;}#tie-wrapper #main-nav .components > li,#tie-wrapper #main-nav .comp-sub-menu,#tie-wrapper #main-nav .comp-sub-menu li,#tie-wrapper #main-nav .main-menu .menu li > .sub-menu > li > a,#tie-wrapper #main-nav .main-menu .menu-sub-content > li > a,#tie-wrapper #main-nav .main-menu li.mega-link-column > ul > li > a,#tie-wrapper #main-nav .main-menu .mega-recent-featured-list a,#tie-wrapper #main-nav .main-menu .mega-cat .mega-cat-more-links > li a,#tie-wrapper #main-nav .main-menu .cats-horizontal li a,#tie-wrapper .main-menu .mega-cat.menu-item-has-children .mega-cat-wrapper{border-color: rgba(255,255,255,0.07);}#tie-wrapper #main-nav .comp-sub-menu .button,#tie-wrapper #main-nav .comp-sub-menu .button.guest-btn,.search-in-main-nav.autocomplete-suggestions{ border-color: #c92e1e; }#tie-wrapper #main-nav .comp-sub-menu .button,#tie-wrapper #main-nav .comp-sub-menu .button.guest-btn{background-color: #c92e1e;}#tie-wrapper #theme-header.main-nav-boxed #main-nav:not(.fixed-nav){background-color: transparent;}.main-nav-boxed.main-nav-light #main-nav .main-menu-wrapper{ border-width: 0;}.main-nav-boxed.main-nav-below.top-nav-below #main-nav .main-menu-wrapper{ border-bottom-width: 1px;}#tie-wrapper #main-nav .menu li.menu-item-has-children > a:before,#tie-wrapper #main-nav .main-menu .mega-menu > a:before{border-top-color: #ffffff;}#tie-wrapper #main-nav .menu li.menu-item-has-children .menu-item-has-children > a:before,#tie-wrapper #main-nav .main-menu .mega-menu .menu-item-has-children > a:before{border-top-color: transparent;border-left-color: #ffffff;}.rtl #tie-wrapper #main-nav .menu li.menu-item-has-children .menu-item-has-children > a:before,.rtl #tie-wrapper #main-nav .main-menu .mega-menu .menu-item-has-children > a:before{border-left-color: transparent;border-right-color: #ffffff;}#tie-wrapper #main-nav .menu > li > a,#tie-wrapper #main-nav .menu-sub-content a,#tie-wrapper #main-nav .comp-sub-menu a:not(:hover),#tie-wrapper #main-nav .dropdown-social-icons li a span,#tie-wrapper #main-nav .components a.button:hover,#tie-wrapper #main-nav .components > li > a,#tie-wrapper #main-nav .comp-sub-menu .button:hover,.search-in-main-nav.autocomplete-suggestions a:not(.button){color: #ffffff;}#tie-wrapper #theme-header:not(.main-nav-boxed) #main-nav,#tie-wrapper .main-nav-boxed .main-menu-wrapper{border-top-color:#ffffff !important;border-bottom-color:#ffffff !important;border-right: 0 none;border-left : 0 none;}#tie-wrapper .main-nav-boxed #main-nav.fixed-nav{box-shadow: none;}#tie-wrapper #main-nav .comp-sub-menu .button:hover,#tie-wrapper #main-nav .main-menu .menu > li.tie-current-menu,#tie-wrapper #main-nav .main-menu .menu > li > .sub-menu,#tie-wrapper #main-nav .main-menu .menu > li > .menu-sub-content,#theme-header #main-nav .menu .mega-cat-sub-categories.cats-horizontal li a.is-active,#theme-header #main-nav .menu .mega-cat-sub-categories.cats-horizontal li a:hover{border-color: #ffffff;}#tie-wrapper #main-nav .main-menu .menu > li.tie-current-menu > a,#tie-wrapper #main-nav .main-menu .menu > li:hover > a,#tie-wrapper #main-nav .main-menu .menu > li > a:hover,#tie-wrapper #main-nav .main-menu ul li .mega-links-head:after,#tie-wrapper #theme-header #main-nav .comp-sub-menu .button:hover,#tie-wrapper #main-nav .comp-sub-menu .button.checkout-button,#theme-header #main-nav .menu .mega-cat-sub-categories.cats-horizontal li a.is-active,#theme-header #main-nav .menu .mega-cat-sub-categories.cats-horizontal li a:hover,.search-in-main-nav.autocomplete-suggestions a.button,#main-nav .spinner > div{background-color: #ffffff;}#tie-wrapper #main-nav .components a:hover,#tie-wrapper #main-nav .components > li > a:hover,#tie-wrapper #main-nav .components > li:hover > a,#tie-wrapper #main-nav .components button#search-submit:hover,#tie-wrapper #main-nav .mega-cat-sub-categories.cats-vertical,#tie-wrapper #main-nav .cats-vertical li:hover a,#tie-wrapper #main-nav .cats-vertical li a.is-active,#tie-wrapper #main-nav .cats-vertical li a:hover,#tie-wrapper #main-nav .main-menu .mega-menu .post-meta a:hover,#tie-wrapper #main-nav .main-menu .menu .mega-cat-sub-categories.cats-vertical li a.is-active,#tie-wrapper #main-nav .main-menu .mega-menu .post-box-title a:hover,.search-in-main-nav.autocomplete-suggestions a:not(.button):hover,#tie-wrapper #main-nav .spinner-circle:after{color: #ffffff;}#tie-wrapper #main-nav .main-menu .menu > li.tie-current-menu > a,#tie-wrapper #main-nav .main-menu .menu > li:hover > a,#tie-wrapper #main-nav .main-menu .menu > li > a:hover,#tie-wrapper #main-nav .components a.button:hover,#tie-wrapper #main-nav .comp-sub-menu a.button.checkout-button,#tie-wrapper #main-nav .components a.button.guest-btn:hover,#theme-header #main-nav .menu .mega-cat-sub-categories.cats-horizontal li a.is-active,#theme-header #main-nav .menu .mega-cat-sub-categories.cats-horizontal li a:hover,.search-in-main-nav.autocomplete-suggestions .widget-post-list a.button{color: #000000;}#tie-wrapper #main-nav .menu > li.tie-current-menu > a:before,#tie-wrapper #theme-header #main-nav .menu > li > a:hover:before,#tie-wrapper #theme-header #main-nav .menu > li:hover > a:before{border-top-color: #000000;}.search-in-main-nav.autocomplete-suggestions a.button:hover,#tie-wrapper #theme-header #main-nav .comp-sub-menu .button.checkout-button:hover{background-color: #e1e1e1;}#tie-wrapper #main-nav,#tie-wrapper #main-nav input,#tie-wrapper #main-nav .components button#search-submit,#tie-wrapper #main-nav .components button#search-submit .fa-spinner,#tie-wrapper #main-nav .comp-sub-menu,.search-in-main-nav.autocomplete-suggestions,#main-nav .weather-menu-item .tie-weather-widget{color: #ffffff;}#tie-wrapper #main-nav input::-moz-placeholder{color: #ffffff;}#tie-wrapper #main-nav input:-moz-placeholder{color: #ffffff;}#tie-wrapper #main-nav input:-ms-input-placeholder{color: #ffffff;}#tie-wrapper #main-nav input::-webkit-input-placeholder{color: #ffffff;}#tie-wrapper #main-nav .main-menu .mega-menu .post-meta,#tie-wrapper #main-nav .main-menu .mega-menu .post-meta a:not(:hover){color: rgba(255,255,255,0.6);}.search-in-main-nav.autocomplete-suggestions .post-meta,.search-in-main-nav.autocomplete-suggestions .post-meta a:not(:hover){color: rgba(255,255,255,0.7);}#tie-wrapper #theme-header{background-color: #e6332a;}#logo.text-logo a,#logo.text-logo a:hover{color: #FFFFFF;}@media (max-width: 991px){#tie-wrapper #theme-header .logo-container.fixed-nav{background-color: rgba(230,51,42,0.95);}}@media (max-width: 991px){#tie-wrapper #theme-header .logo-container{background-color: #e6332a;}}#footer{background-color: #0c0202;}#site-info{background-color: #0a0202;}#footer .posts-list-counter .posts-list-items li:before{ border-color: #0c0202;}#footer .timeline-widget .date:before{ border-color: rgba(12,2,2,0.8);}#footer-widgets-container .footer-boxed-widget-area,#footer-widgets-container textarea,#footer-widgets-container input:not([type=submit]),#footer-widgets-container select,#footer-widgets-container code,#footer-widgets-container kbd,#footer-widgets-container pre,#footer-widgets-container samp,#footer-widgets-container .latest-tweets-slider-widget .latest-tweets-slider .tie-slider-nav li a:not(:hover),#footer-widgets-container .show-more-button,#footer-widgets-container .latest-tweets-widget .slider-links .tie-slider-nav span,#footer .footer-boxed-widget-area{ border-color: rgba(255,255,255,0.1);}#footer.dark-skin .social-statistics-widget ul.white-bg li.social-icons-item a,#footer.dark-skin ul:not(.solid-social-icons) .social-icons-item a:not(:hover),#footer.dark-skin .widget_product_tag_cloud a,#footer.dark-skin .widget_tag_cloud .tagcloud a,#footer.dark-skin .post-tags a,#footer.dark-skin .widget_layered_nav_filters a{border-color: rgba(255,255,255,0.1) !important;}.dark-skin .social-statistics-widget ul.white-bg li.social-icons-item:before{ background: rgba(255,255,255,0.1);}#footer-widgets-container .widget-title,#footer.dark-skin .social-statistics-widget .white-bg .social-icons-item a span.followers span,.dark-skin .social-statistics-widget .circle-three-cols .social-icons-item a span{ color: rgba(255,255,255,0.8);}#footer-widgets-container .timeline-widget ul:before,#footer-widgets-container .timeline-widget .date:before,#footer.dark-skin .tabs-widget .tabs-wrapper .tabs-menu li a{ background-color: #000000;}#site-info,#site-info ul.social-icons li a span{color: #ffffff;}#site-info a:hover{color: #ffffff;}#go-to-top{background: #000000;}.tie-cat-33,.tie-cat-item-33 > span{background-color:#c43a3a !important;color:#FFFFFF !important;}.tie-cat-33:after{border-top-color:#c43a3a !important;}.tie-cat-33:hover{background-color:#a61c1c !important;}.tie-cat-33:hover:after{border-top-color:#a61c1c !important;}.tie-cat-34,.tie-cat-item-34 > span{background-color:#c43a3a !important;color:#FFFFFF !important;}.tie-cat-34:after{border-top-color:#c43a3a !important;}.tie-cat-34:hover{background-color:#a61c1c !important;}.tie-cat-34:hover:after{border-top-color:#a61c1c !important;}.tie-cat-35,.tie-cat-item-35 > span{background-color:#c43a3a !important;color:#FFFFFF !important;}.tie-cat-35:after{border-top-color:#c43a3a !important;}.tie-cat-35:hover{background-color:#a61c1c !important;}.tie-cat-35:hover:after{border-top-color:#a61c1c !important;}.tie-cat-36,.tie-cat-item-36 > span{background-color:#c43a3a !important;color:#FFFFFF !important;}.tie-cat-36:after{border-top-color:#c43a3a !important;}.tie-cat-36:hover{background-color:#a61c1c !important;}.tie-cat-36:hover:after{border-top-color:#a61c1c !important;}.tie-cat-37,.tie-cat-item-37 > span{background-color:#c43a3a !important;color:#FFFFFF !important;}.tie-cat-37:after{border-top-color:#c43a3a !important;}.tie-cat-37:hover{background-color:#a61c1c !important;}.tie-cat-37:hover:after{border-top-color:#a61c1c !important;}.tie-cat-38,.tie-cat-item-38 > span{background-color:#c43a3a !important;color:#FFFFFF !important;}.tie-cat-38:after{border-top-color:#c43a3a !important;}.tie-cat-38:hover{background-color:#a61c1c !important;}.tie-cat-38:hover:after{border-top-color:#a61c1c !important;}.tie-cat-39,.tie-cat-item-39 > span{background-color:#c43a3a !important;color:#FFFFFF !important;}.tie-cat-39:after{border-top-color:#c43a3a !important;}.tie-cat-39:hover{background-color:#a61c1c !important;}.tie-cat-39:hover:after{border-top-color:#a61c1c !important;}.tie-cat-55,.tie-cat-item-55 > span{background-color:#e6332a !important;color:#FFFFFF !important;}.tie-cat-55:after{border-top-color:#e6332a !important;}.tie-cat-55:hover{background-color:#c8150c !important;}.tie-cat-55:hover:after{border-top-color:#c8150c !important;}.tie-cat-63,.tie-cat-item-63 > span{background-color:#e6332a !important;color:#FFFFFF !important;}.tie-cat-63:after{border-top-color:#e6332a !important;}.tie-cat-63:hover{background-color:#c8150c !important;}.tie-cat-63:hover:after{border-top-color:#c8150c !important;}.tie-cat-78,.tie-cat-item-78 > span{background-color:#e6332a !important;color:#FFFFFF !important;}.tie-cat-78:after{border-top-color:#e6332a !important;}.tie-cat-78:hover{background-color:#c8150c !important;}.tie-cat-78:hover:after{border-top-color:#c8150c !important;}@media (max-width: 991px){.side-aside.dark-skin{background: #0a9e01;background: -webkit-linear-gradient(135deg,#0a9e01,#66a501 );background: -moz-linear-gradient(135deg,#0a9e01,#66a501 );background: -o-linear-gradient(135deg,#0a9e01,#66a501 );background: linear-gradient(135deg,#0a9e01,#66a501 );}}.side-aside #mobile-menu li a,.side-aside #mobile-menu .mobile-arrows,.side-aside #mobile-search .search-field{color: #ffffff;}#mobile-search .search-field::-moz-placeholder {color: #ffffff;}#mobile-search .search-field:-moz-placeholder {color: #ffffff;}#mobile-search .search-field:-ms-input-placeholder {color: #ffffff;}#mobile-search .search-field::-webkit-input-placeholder {color: #ffffff;}@media (max-width: 991px){.tie-btn-close span{color: #ffffff;}}#mobile-social-icons .social-icons-item a:not(:hover) span{color: #ffffff!important;}#mobile-search .search-submit{background-color: #e74c3c;color: #FFFFFF;}#mobile-search .search-submit:hover{background-color: #c92e1e;}
+</style>
+<link rel="stylesheet" id="enlighterjs-css" href="./Building Inverted Index in MapReduce __files/enlighterjs.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="./Building Inverted Index in MapReduce __files/jetpack.css" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var tie_insta = {"ajaxurl":"https:\/\/acadgild.com\/blog\/wp-admin\/admin-ajax.php"};
+var tie = {"is_rtl":"","ajaxurl":"https:\/\/acadgild.com\/blog\/wp-admin\/admin-ajax.php","mobile_menu_active":"true","mobile_menu_top":"","mobile_menu_parent":"","lightbox_all":"true","lightbox_gallery":"true","lightbox_skin":"dark","lightbox_thumb":"horizontal","lightbox_arrows":"true","is_singular":"1","is_sticky_video":"1","reading_indicator":"true","lazyload":"","select_share":"true","select_share_twitter":"true","select_share_facebook":"true","select_share_linkedin":"true","select_share_email":"true","facebook_app_id":"","twitter_username":"","responsive_tables":"true","ad_blocker_detector":"","sticky_behavior":"default","sticky_desktop":"true","sticky_mobile":"true","ajax_loader":"<div class=\"loader-overlay\"><div class=\"spinner-circle\"><\/div><\/div>","type_to_search":"1","lang_no_results":"Nothing Found"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/jquery.js.download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/jquery-migrate.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/related-posts.min.js.download"></script>
+<script type="text/javascript">
+var mejsL10n = {"language":"en","strings":{"mejs.download-file":"Download File","mejs.install-flash":"You are using a browser that does not have Flash player enabled or installed. Please turn on your Flash player plugin or download the latest version from https:\/\/get.adobe.com\/flashplayer\/","mejs.fullscreen":"Fullscreen","mejs.play":"Play","mejs.pause":"Pause","mejs.time-slider":"Time Slider","mejs.time-help-text":"Use Left\/Right Arrow keys to advance one second, Up\/Down arrows to advance ten seconds.","mejs.live-broadcast":"Live Broadcast","mejs.volume-help-text":"Use Up\/Down Arrow keys to increase or decrease volume.","mejs.unmute":"Unmute","mejs.mute":"Mute","mejs.volume-slider":"Volume Slider","mejs.video-player":"Video Player","mejs.audio-player":"Audio Player","mejs.captions-subtitles":"Captions\/Subtitles","mejs.captions-chapters":"Chapters","mejs.none":"None","mejs.afrikaans":"Afrikaans","mejs.albanian":"Albanian","mejs.arabic":"Arabic","mejs.belarusian":"Belarusian","mejs.bulgarian":"Bulgarian","mejs.catalan":"Catalan","mejs.chinese":"Chinese","mejs.chinese-simplified":"Chinese (Simplified)","mejs.chinese-traditional":"Chinese (Traditional)","mejs.croatian":"Croatian","mejs.czech":"Czech","mejs.danish":"Danish","mejs.dutch":"Dutch","mejs.english":"English","mejs.estonian":"Estonian","mejs.filipino":"Filipino","mejs.finnish":"Finnish","mejs.french":"French","mejs.galician":"Galician","mejs.german":"German","mejs.greek":"Greek","mejs.haitian-creole":"Haitian Creole","mejs.hebrew":"Hebrew","mejs.hindi":"Hindi","mejs.hungarian":"Hungarian","mejs.icelandic":"Icelandic","mejs.indonesian":"Indonesian","mejs.irish":"Irish","mejs.italian":"Italian","mejs.japanese":"Japanese","mejs.korean":"Korean","mejs.latvian":"Latvian","mejs.lithuanian":"Lithuanian","mejs.macedonian":"Macedonian","mejs.malay":"Malay","mejs.maltese":"Maltese","mejs.norwegian":"Norwegian","mejs.persian":"Persian","mejs.polish":"Polish","mejs.portuguese":"Portuguese","mejs.romanian":"Romanian","mejs.russian":"Russian","mejs.serbian":"Serbian","mejs.slovak":"Slovak","mejs.slovenian":"Slovenian","mejs.spanish":"Spanish","mejs.swahili":"Swahili","mejs.swedish":"Swedish","mejs.tagalog":"Tagalog","mejs.thai":"Thai","mejs.turkish":"Turkish","mejs.ukrainian":"Ukrainian","mejs.vietnamese":"Vietnamese","mejs.welsh":"Welsh","mejs.yiddish":"Yiddish"}};
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/mediaelement-and-player.min.js.download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/mediaelement-migrate.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpmejsSettings = {"pluginPath":"\/blog\/wp-includes\/js\/mediaelement\/","classPrefix":"mejs-","stretching":"responsive"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/wp-mediaelement.min.js.download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/jquery.fitvids.min.js.download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/jquery.domwindow.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var fvpdata = {"ajaxurl":"https:\/\/acadgild.com\/blog\/wp-admin\/admin-ajax.php","nonce":"60bd70eafe","fitvids":"1","dynamic":"","overlay":"1","opacity":"0.75","color":"w","width":"640"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/frontend.min.js.download"></script>
+<script async="" type="text/javascript" src="./Building Inverted Index in MapReduce __files/s-202043.js.download"></script>
+<link rel="https://api.w.org/" href="https://acadgild.com/blog/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://acadgild.com/blog/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://acadgild.com/blog/wp-includes/wlwmanifest.xml">
+<meta name="generator" content="WordPress 5.4.1">
+<meta name="generator" content="WooCommerce 4.1.1">
+<link rel="shortlink" href="https://wp.me/p6YQsA-1kK">
+<link rel="alternate" type="application/json+oembed" href="https://acadgild.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Facadgild.com%2Fblog%2Fbuilding-inverted-index-mapreduce">
+<link rel="alternate" type="text/xml+oembed" href="https://acadgild.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Facadgild.com%2Fblog%2Fbuilding-inverted-index-mapreduce&amp;format=xml">
+<script type="text/javascript">
+/* <![CDATA[ */
+var taqyeem = {"ajaxurl":"https://acadgild.com/blog/wp-admin/admin-ajax.php" , "your_rating":"Your Rating:"};
+/* ]]> */
+</script>
+<style type="text/css" id="tve_global_variables">:root{}</style>
+<link rel="dns-prefetch" href="https://v0.wordpress.com/">
+<style type="text/css">img#wpstats{display:none}</style>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TT9ZZS9');</script>
+
+<script src="./Building Inverted Index in MapReduce __files/api.js.download"></script>
+<script type="text/javascript" async="" defer="" src="./Building Inverted Index in MapReduce __files/platform.js.download" gapi_processed="true">
+</script>
+
+<script type="text/javascript">
+(function(w, d, s, u) {
+w.Verloop = function(c) { w.Verloop._.push(c) }; w.Verloop._ = []; w.Verloop.url = u;
+var h = d.getElementsByTagName(s)[0], j = d.createElement(s); j.async = true;
+j.src = 'https://acadgild.verloop.io/livechat/script.min.js?v=v1.8.4';
+h.parentNode.insertBefore(j, h);
+})(window, document, 'script', 'https://acadgild.verloop.io/livechat');
+</script>
+
+<meta name="generator" content="Jannah 2.1.4">
+<meta name="theme-color" content="#e6332a"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> <noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
+<meta name="onesignal" content="wordpress-plugin">
+<script>
+
+      window.OneSignal = window.OneSignal || [];
+
+      OneSignal.push( function() {
+        OneSignal.SERVICE_WORKER_UPDATER_PATH = "OneSignalSDKUpdaterWorker.js.php";
+        OneSignal.SERVICE_WORKER_PATH = "OneSignalSDKWorker.js.php";
+        OneSignal.SERVICE_WORKER_PARAM = { scope: '/' };
+
+        OneSignal.setDefaultNotificationUrl("https://acadgild.com/blog");
+        var oneSignal_options = {};
+        window._oneSignalInitOptions = oneSignal_options;
+
+        oneSignal_options['wordpress'] = true;
+oneSignal_options['appId'] = '34be7e17-0990-4991-a1a8-4765fdcaef79';
+oneSignal_options['welcomeNotification'] = { };
+oneSignal_options['welcomeNotification']['title'] = "";
+oneSignal_options['welcomeNotification']['message'] = "";
+oneSignal_options['path'] = "https://acadgild.com/blog/wp-content/plugins/onesignal-free-web-push-notifications/sdk_files/";
+oneSignal_options['promptOptions'] = { };
+oneSignal_options['notifyButton'] = { };
+oneSignal_options['notifyButton']['enable'] = true;
+oneSignal_options['notifyButton']['position'] = 'bottom-left';
+oneSignal_options['notifyButton']['theme'] = 'default';
+oneSignal_options['notifyButton']['size'] = 'small';
+oneSignal_options['notifyButton']['showCredit'] = true;
+oneSignal_options['notifyButton']['text'] = {};
+oneSignal_options['notifyButton']['text']['tip.state.unsubscribed'] = 'Sorry to see you go!';
+oneSignal_options['notifyButton']['text']['tip.state.subscribed'] = 'Thank you for subscribing!';
+                OneSignal.init(window._oneSignalInitOptions);
+                      });
+
+      function documentInitOneSignal() {
+        var oneSignal_elements = document.getElementsByClassName("OneSignal-prompt");
+
+        var oneSignalLinkClickHandler = function(event) { OneSignal.push(['registerForPushNotifications']); event.preventDefault(); };        for(var i = 0; i < oneSignal_elements.length; i++)
+          oneSignal_elements[i].addEventListener('click', oneSignalLinkClickHandler, false);
+      }
+
+      if (document.readyState === 'complete') {
+           documentInitOneSignal();
+      }
+      else {
+           window.addEventListener("load", function(event){
+               documentInitOneSignal();
+          });
+      }
+    </script>
+<link rel="amphtml" href="https://acadgild.com/blog/building-inverted-index-mapreduce/amp"><style type="text/css" id="thrive-default-styles"></style> <style type="text/css" id="wp-custom-css">
+				#go-to-top.show-top-button{
+	right:100px
+}
+
+.entry ol, .entry ul, .comment-content ol, .comment-content ul {
+    margin-bottom: 20px;
+    padding-left: 15px;
+    margin-left: 0px; 
+}			</style>
+<style>.theiaStickySidebar:after {content: ""; display: table; clear: both;}</style><style>.theiaStickySidebar:after {content: ""; display: table; clear: both;}</style><script src="./Building Inverted Index in MapReduce __files/OneSignalPageSDKES6.js.download" async=""></script><script id="omapi-script" src="./Building Inverted Index in MapReduce __files/api.min.js.download" async=""></script><script async="" src="./Building Inverted Index in MapReduce __files/hotjar-931580.js.download"></script><style type="text/css">@-webkit-keyframes omBounce{0%,20%,50%,80%,to{-webkit-transform:translateY(0);transform:translateY(0)}40%{-webkit-transform:translateY(-30px);transform:translateY(-30px)}60%{-webkit-transform:translateY(-15px);transform:translateY(-15px)}}@keyframes omBounce{0%,20%,50%,80%,to{-webkit-transform:translateY(0);transform:translateY(0)}40%{-webkit-transform:translateY(-30px);transform:translateY(-30px)}60%{-webkit-transform:translateY(-15px);transform:translateY(-15px)}}.om-animation-bounce{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:omBounce;animation-name:omBounce}@-webkit-keyframes omBounceIn{0%{opacity:0;-webkit-transform:scale(.3);transform:scale(.3)}50%{opacity:1;-webkit-transform:scale(1.05);transform:scale(1.05)}70%{-webkit-transform:scale(.9);transform:scale(.9)}to{opacity:1;-webkit-transform:scale(1);transform:scale(1)}}@keyframes omBounceIn{0%{opacity:0;-webkit-transform:scale(.3);transform:scale(.3)}50%{opacity:1;-webkit-transform:scale(1.05);transform:scale(1.05)}70%{-webkit-transform:scale(.9);transform:scale(.9)}to{opacity:1;-webkit-transform:scale(1);transform:scale(1)}}.om-animation-bounce-in{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omBounceIn;animation-name:omBounceIn}@-webkit-keyframes omBounceInDown{0%{opacity:0;-webkit-transform:translateY(-2000px);transform:translateY(-2000px)}60%{opacity:1;-webkit-transform:translateY(30px);transform:translateY(30px)}80%{-webkit-transform:translateY(-10px);transform:translateY(-10px)}to{-webkit-transform:translateY(0);transform:translateY(0)}}@keyframes omBounceInDown{0%{opacity:0;-webkit-transform:translateY(-2000px);transform:translateY(-2000px)}60%{opacity:1;-webkit-transform:translateY(30px);transform:translateY(30px)}80%{-webkit-transform:translateY(-10px);transform:translateY(-10px)}to{-webkit-transform:translateY(0);transform:translateY(0)}}.om-animation-bounce-in-down{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omBounceInDown;animation-name:omBounceInDown}@-webkit-keyframes omBounceInLeft{0%{opacity:0;-webkit-transform:translateX(-2000px);transform:translateX(-2000px)}60%{opacity:1;-webkit-transform:translateX(30px);transform:translateX(30px)}80%{-webkit-transform:translateX(-10px);transform:translateX(-10px)}to{-webkit-transform:translateX(0);transform:translateX(0)}}@keyframes omBounceInLeft{0%{opacity:0;-webkit-transform:translateX(-2000px);transform:translateX(-2000px)}60%{opacity:1;-webkit-transform:translateX(30px);transform:translateX(30px)}80%{-webkit-transform:translateX(-10px);transform:translateX(-10px)}to{-webkit-transform:translateX(0);transform:translateX(0)}}.om-animation-bounce-in-left{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omBounceInLeft;animation-name:omBounceInLeft}@-webkit-keyframes omBounceInRight{0%{opacity:0;-webkit-transform:translateX(2000px);transform:translateX(2000px)}60%{opacity:1;-webkit-transform:translateX(-30px);transform:translateX(-30px)}80%{-webkit-transform:translateX(10px);transform:translateX(10px)}to{-webkit-transform:translateX(0);transform:translateX(0)}}@keyframes omBounceInRight{0%{opacity:0;-webkit-transform:translateX(2000px);transform:translateX(2000px)}60%{opacity:1;-webkit-transform:translateX(-30px);transform:translateX(-30px)}80%{-webkit-transform:translateX(10px);transform:translateX(10px)}to{-webkit-transform:translateX(0);transform:translateX(0)}}.om-animation-bounce-in-right{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omBounceInRight;animation-name:omBounceInRight}@-webkit-keyframes omBounceInUp{0%{opacity:0;-webkit-transform:translateY(2000px);transform:translateY(2000px)}60%{opacity:1;-webkit-transform:translateY(-30px);transform:translateY(-30px)}80%{-webkit-transform:translateY(10px);transform:translateY(10px)}to{-webkit-transform:translateY(0);transform:translateY(0)}}@keyframes omBounceInUp{0%{opacity:0;-webkit-transform:translateY(2000px);transform:translateY(2000px)}60%{opacity:1;-webkit-transform:translateY(-30px);transform:translateY(-30px)}80%{-webkit-transform:translateY(10px);transform:translateY(10px)}to{-webkit-transform:translateY(0);transform:translateY(0)}}.om-animation-bounce-in-up{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omBounceInUp;animation-name:omBounceInUp}@-webkit-keyframes omFlash{0%,50%,to{opacity:1}25%,75%{opacity:0}}@keyframes omFlash{0%,50%,to{opacity:1}25%,75%{opacity:0}}.om-animation-flash{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:omFlash;animation-name:omFlash}@-webkit-keyframes omFlip{0%{-webkit-transform:perspective(800px) translateZ(0) rotateY(0) scale(1);transform:perspective(800px) translateZ(0) rotateY(0) scale(1);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}40%{-webkit-transform:perspective(800px) translateZ(150px) rotateY(170deg) scale(1);transform:perspective(800px) translateZ(150px) rotateY(170deg) scale(1);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}50%{-webkit-transform:perspective(800px) translateZ(150px) rotateY(190deg) scale(1);transform:perspective(800px) translateZ(150px) rotateY(190deg) scale(1);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}80%{-webkit-transform:perspective(800px) translateZ(0) rotateY(1turn) scale(.95);transform:perspective(800px) translateZ(0) rotateY(1turn) scale(.95);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}to{-webkit-transform:perspective(800px) translateZ(0) rotateY(1turn) scale(1);transform:perspective(800px) translateZ(0) rotateY(1turn) scale(1);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}}@keyframes omFlip{0%{-webkit-transform:perspective(800px) translateZ(0) rotateY(0) scale(1);transform:perspective(800px) translateZ(0) rotateY(0) scale(1);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}40%{-webkit-transform:perspective(800px) translateZ(150px) rotateY(170deg) scale(1);transform:perspective(800px) translateZ(150px) rotateY(170deg) scale(1);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}50%{-webkit-transform:perspective(800px) translateZ(150px) rotateY(190deg) scale(1);transform:perspective(800px) translateZ(150px) rotateY(190deg) scale(1);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}80%{-webkit-transform:perspective(800px) translateZ(0) rotateY(1turn) scale(.95);transform:perspective(800px) translateZ(0) rotateY(1turn) scale(.95);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}to{-webkit-transform:perspective(800px) translateZ(0) rotateY(1turn) scale(1);transform:perspective(800px) translateZ(0) rotateY(1turn) scale(1);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}}.om-animation-flip{-webkit-animation-duration:1s;animation-duration:1s;-webkit-backface-visibility:visible;backface-visibility:visible;-webkit-animation-name:omFlip;animation-name:omFlip}@-webkit-keyframes omFlipInX{0%{-webkit-transform:perspective(800px) rotateX(90deg);transform:perspective(800px) rotateX(90deg);opacity:0}40%{-webkit-transform:perspective(800px) rotateX(-10deg);transform:perspective(800px) rotateX(-10deg)}70%{-webkit-transform:perspective(800px) rotateX(10deg);transform:perspective(800px) rotateX(10deg)}to{-webkit-transform:perspective(800px) rotateX(0deg);transform:perspective(800px) rotateX(0deg);opacity:1}}@keyframes omFlipInX{0%{-webkit-transform:perspective(800px) rotateX(90deg);transform:perspective(800px) rotateX(90deg);opacity:0}40%{-webkit-transform:perspective(800px) rotateX(-10deg);transform:perspective(800px) rotateX(-10deg)}70%{-webkit-transform:perspective(800px) rotateX(10deg);transform:perspective(800px) rotateX(10deg)}to{-webkit-transform:perspective(800px) rotateX(0deg);transform:perspective(800px) rotateX(0deg);opacity:1}}.om-animation-flip-down{-webkit-animation-duration:1s;animation-duration:1s;-webkit-backface-visibility:visible;backface-visibility:visible;-webkit-animation-name:omFlipInX;animation-name:omFlipInX}@-webkit-keyframes omFlipInY{0%{-webkit-transform:perspective(800px) rotateY(90deg);transform:perspective(800px) rotateY(90deg);opacity:0}40%{-webkit-transform:perspective(800px) rotateY(-10deg);transform:perspective(800px) rotateY(-10deg)}70%{-webkit-transform:perspective(800px) rotateY(10deg);transform:perspective(800px) rotateY(10deg)}to{-webkit-transform:perspective(800px) rotateY(0deg);transform:perspective(800px) rotateY(0deg);opacity:1}}@keyframes omFlipInY{0%{-webkit-transform:perspective(800px) rotateY(90deg);transform:perspective(800px) rotateY(90deg);opacity:0}40%{-webkit-transform:perspective(800px) rotateY(-10deg);transform:perspective(800px) rotateY(-10deg)}70%{-webkit-transform:perspective(800px) rotateY(10deg);transform:perspective(800px) rotateY(10deg)}to{-webkit-transform:perspective(800px) rotateY(0deg);transform:perspective(800px) rotateY(0deg);opacity:1}}.om-animation-flip-side{-webkit-animation-duration:1s;animation-duration:1s;-webkit-backface-visibility:visible;backface-visibility:visible;-webkit-animation-name:omFlipInY;animation-name:omFlipInY}@-webkit-keyframes omLightSpeedIn{0%{-webkit-transform:translateX(100%) skewX(-30deg);transform:translateX(100%) skewX(-30deg);opacity:0}60%{-webkit-transform:translateX(-20%) skewX(30deg);transform:translateX(-20%) skewX(30deg);opacity:1}80%{-webkit-transform:translateX(0) skewX(-15deg);transform:translateX(0) skewX(-15deg);opacity:1}to{-webkit-transform:translateX(0) skewX(0deg);transform:translateX(0) skewX(0deg);opacity:1}}@keyframes omLightSpeedIn{0%{-webkit-transform:translateX(100%) skewX(-30deg);transform:translateX(100%) skewX(-30deg);opacity:0}60%{-webkit-transform:translateX(-20%) skewX(30deg);transform:translateX(-20%) skewX(30deg);opacity:1}80%{-webkit-transform:translateX(0) skewX(-15deg);transform:translateX(0) skewX(-15deg);opacity:1}to{-webkit-transform:translateX(0) skewX(0deg);transform:translateX(0) skewX(0deg);opacity:1}}.om-animation-light-speed{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omLightSpeedIn;animation-name:omLightSpeedIn;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}@-webkit-keyframes omPulse{0%{-webkit-transform:scale(1);transform:scale(1)}50%{-webkit-transform:scale(1.1);transform:scale(1.1)}to{-webkit-transform:scale(1);transform:scale(1)}}@keyframes omPulse{0%{-webkit-transform:scale(1);transform:scale(1)}50%{-webkit-transform:scale(1.1);transform:scale(1.1)}to{-webkit-transform:scale(1);transform:scale(1)}}.om-animation-pulse{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:omPulse;animation-name:omPulse}@-webkit-keyframes omRollIn{0%{opacity:0;-webkit-transform:translateX(-100%) rotate(-120deg);transform:translateX(-100%) rotate(-120deg)}to{opacity:1;-webkit-transform:translateX(0) rotate(0deg);transform:translateX(0) rotate(0deg)}}@keyframes omRollIn{0%{opacity:0;-webkit-transform:translateX(-100%) rotate(-120deg);transform:translateX(-100%) rotate(-120deg)}to{opacity:1;-webkit-transform:translateX(0) rotate(0deg);transform:translateX(0) rotate(0deg)}}.om-animation-roll-in{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omRollIn;animation-name:omRollIn}@-webkit-keyframes omRotateIn{0%{-webkit-transform-origin:center center;transform-origin:center center;-webkit-transform:rotate(-200deg);transform:rotate(-200deg);opacity:0}to{-webkit-transform-origin:center center;transform-origin:center center;-webkit-transform:rotate(0);transform:rotate(0);opacity:1}}@keyframes omRotateIn{0%{-webkit-transform-origin:center center;transform-origin:center center;-webkit-transform:rotate(-200deg);transform:rotate(-200deg);opacity:0}to{-webkit-transform-origin:center center;transform-origin:center center;-webkit-transform:rotate(0);transform:rotate(0);opacity:1}}.om-animation-rotate{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omRotateIn;animation-name:omRotateIn}@-webkit-keyframes omRotateInDownLeft{0%{-webkit-transform-origin:left bottom;transform-origin:left bottom;-webkit-transform:rotate(-90deg);transform:rotate(-90deg);opacity:0}to{-webkit-transform-origin:left bottom;transform-origin:left bottom;-webkit-transform:rotate(0);transform:rotate(0);opacity:1}}@keyframes omRotateInDownLeft{0%{-webkit-transform-origin:left bottom;transform-origin:left bottom;-webkit-transform:rotate(-90deg);transform:rotate(-90deg);opacity:0}to{-webkit-transform-origin:left bottom;transform-origin:left bottom;-webkit-transform:rotate(0);transform:rotate(0);opacity:1}}.om-animation-rotate-down-left{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omRotateInDownLeft;animation-name:omRotateInDownLeft}@-webkit-keyframes omRotateInDownRight{0%{-webkit-transform-origin:right bottom;transform-origin:right bottom;-webkit-transform:rotate(90deg);transform:rotate(90deg);opacity:0}to{-webkit-transform-origin:right bottom;transform-origin:right bottom;-webkit-transform:rotate(0);transform:rotate(0);opacity:1}}@keyframes omRotateInDownRight{0%{-webkit-transform-origin:right bottom;transform-origin:right bottom;-webkit-transform:rotate(90deg);transform:rotate(90deg);opacity:0}to{-webkit-transform-origin:right bottom;transform-origin:right bottom;-webkit-transform:rotate(0);transform:rotate(0);opacity:1}}.om-animation-rotate-down-right{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omRotateInDownRight;animation-name:omRotateInDownRight}@-webkit-keyframes omRotateInUpLeft{0%{-webkit-transform-origin:left bottom;transform-origin:left bottom;-webkit-transform:rotate(90deg);transform:rotate(90deg);opacity:0}to{-webkit-transform-origin:left bottom;transform-origin:left bottom;-webkit-transform:rotate(0);transform:rotate(0);opacity:1}}@keyframes omRotateInUpLeft{0%{-webkit-transform-origin:left bottom;transform-origin:left bottom;-webkit-transform:rotate(90deg);transform:rotate(90deg);opacity:0}to{-webkit-transform-origin:left bottom;transform-origin:left bottom;-webkit-transform:rotate(0);transform:rotate(0);opacity:1}}.om-animation-rotate-up-left{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omRotateInUpLeft;animation-name:omRotateInUpLeft}@-webkit-keyframes omRotateInUpRight{0%{-webkit-transform-origin:right bottom;transform-origin:right bottom;-webkit-transform:rotate(-90deg);transform:rotate(-90deg);opacity:0}to{-webkit-transform-origin:right bottom;transform-origin:right bottom;-webkit-transform:rotate(0);transform:rotate(0);opacity:1}}@keyframes omRotateInUpRight{0%{-webkit-transform-origin:right bottom;transform-origin:right bottom;-webkit-transform:rotate(-90deg);transform:rotate(-90deg);opacity:0}to{-webkit-transform-origin:right bottom;transform-origin:right bottom;-webkit-transform:rotate(0);transform:rotate(0);opacity:1}}.om-animation-rotate-up-right{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omRotateInUpRight;animation-name:omRotateInUpRight}@-webkit-keyframes omRubberBand{0%{-webkit-transform:scale(1);transform:scale(1)}30%{-webkit-transform:scaleX(1.25) scaleY(.75);transform:scaleX(1.25) scaleY(.75)}40%{-webkit-transform:scaleX(.75) scaleY(1.25);transform:scaleX(.75) scaleY(1.25)}60%{-webkit-transform:scaleX(1.15) scaleY(.85);transform:scaleX(1.15) scaleY(.85)}to{-webkit-transform:scale(1);transform:scale(1)}}@keyframes omRubberBand{0%{-webkit-transform:scale(1);transform:scale(1)}30%{-webkit-transform:scaleX(1.25) scaleY(.75);transform:scaleX(1.25) scaleY(.75)}40%{-webkit-transform:scaleX(.75) scaleY(1.25);transform:scaleX(.75) scaleY(1.25)}60%{-webkit-transform:scaleX(1.15) scaleY(.85);transform:scaleX(1.15) scaleY(.85)}to{-webkit-transform:scale(1);transform:scale(1)}}.om-animation-rubber-band{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:omRubberBand;animation-name:omRubberBand}@-webkit-keyframes omShake{0%,to{-webkit-transform:translateX(0);transform:translateX(0)}10%,30%,50%,70%,90%{-webkit-transform:translateX(-10px);transform:translateX(-10px)}20%,40%,60%,80%{-webkit-transform:translateX(10px);transform:translateX(10px)}}@keyframes omShake{0%,to{-webkit-transform:translateX(0);transform:translateX(0)}10%,30%,50%,70%,90%{-webkit-transform:translateX(-10px);transform:translateX(-10px)}20%,40%,60%,80%{-webkit-transform:translateX(10px);transform:translateX(10px)}}.om-animation-shake{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:omShake;animation-name:omShake}@-webkit-keyframes omSlideInDown{0%{opacity:0;-webkit-transform:translateY(-2000px);transform:translateY(-2000px)}to{-webkit-transform:translateY(0);transform:translateY(0)}}@keyframes omSlideInDown{0%{opacity:0;-webkit-transform:translateY(-2000px);transform:translateY(-2000px)}to{-webkit-transform:translateY(0);transform:translateY(0)}}.om-animation-slide-in-down{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omSlideInDown;animation-name:omSlideInDown}@-webkit-keyframes omSlideInLeft{0%{opacity:0;-webkit-transform:translateX(-2000px);transform:translateX(-2000px)}to{-webkit-transform:translateX(0);transform:translateX(0)}}@keyframes omSlideInLeft{0%{opacity:0;-webkit-transform:translateX(-2000px);transform:translateX(-2000px)}to{-webkit-transform:translateX(0);transform:translateX(0)}}.om-animation-slide-in-left{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omSlideInLeft;animation-name:omSlideInLeft}@-webkit-keyframes omSlideInRight{0%{opacity:0;-webkit-transform:translateX(2000px);transform:translateX(2000px)}to{-webkit-transform:translateX(0);transform:translateX(0)}}@keyframes omSlideInRight{0%{opacity:0;-webkit-transform:translateX(2000px);transform:translateX(2000px)}to{-webkit-transform:translateX(0);transform:translateX(0)}}.om-animation-slide-in-right{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omSlideInRight;animation-name:omSlideInRight}@-webkit-keyframes omSwing{20%{-webkit-transform:rotate(15deg);transform:rotate(15deg)}40%{-webkit-transform:rotate(-10deg);transform:rotate(-10deg)}60%{-webkit-transform:rotate(5deg);transform:rotate(5deg)}80%{-webkit-transform:rotate(-5deg);transform:rotate(-5deg)}to{-webkit-transform:rotate(0deg);transform:rotate(0deg)}}@keyframes omSwing{20%{-webkit-transform:rotate(15deg);transform:rotate(15deg)}40%{-webkit-transform:rotate(-10deg);transform:rotate(-10deg)}60%{-webkit-transform:rotate(5deg);transform:rotate(5deg)}80%{-webkit-transform:rotate(-5deg);transform:rotate(-5deg)}to{-webkit-transform:rotate(0deg);transform:rotate(0deg)}}.om-animation-swing{-webkit-animation-duration:1s;animation-duration:1s;-webkit-transform-origin:top center;transform-origin:top center;-webkit-animation-name:omSwing;animation-name:omSwing}@-webkit-keyframes omTada{0%{-webkit-transform:scale(1);transform:scale(1)}10%,20%{-webkit-transform:scale(.9) rotate(-3deg);transform:scale(.9) rotate(-3deg)}30%,50%,70%,90%{-webkit-transform:scale(1.1) rotate(3deg);transform:scale(1.1) rotate(3deg)}40%,60%,80%{-webkit-transform:scale(1.1) rotate(-3deg);transform:scale(1.1) rotate(-3deg)}to{-webkit-transform:scale(1) rotate(0);transform:scale(1) rotate(0)}}@keyframes omTada{0%{-webkit-transform:scale(1);transform:scale(1)}10%,20%{-webkit-transform:scale(.9) rotate(-3deg);transform:scale(.9) rotate(-3deg)}30%,50%,70%,90%{-webkit-transform:scale(1.1) rotate(3deg);transform:scale(1.1) rotate(3deg)}40%,60%,80%{-webkit-transform:scale(1.1) rotate(-3deg);transform:scale(1.1) rotate(-3deg)}to{-webkit-transform:scale(1) rotate(0);transform:scale(1) rotate(0)}}.om-animation-tada{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omTada;animation-name:omTada}@-webkit-keyframes omWobble{0%{-webkit-transform:translateX(0);transform:translateX(0)}15%{-webkit-transform:translateX(-25%) rotate(-5deg);transform:translateX(-25%) rotate(-5deg)}30%{-webkit-transform:translateX(20%) rotate(3deg);transform:translateX(20%) rotate(3deg)}45%{-webkit-transform:translateX(-15%) rotate(-3deg);transform:translateX(-15%) rotate(-3deg)}60%{-webkit-transform:translateX(10%) rotate(2deg);transform:translateX(10%) rotate(2deg)}75%{-webkit-transform:translateX(-5%) rotate(-1deg);transform:translateX(-5%) rotate(-1deg)}to{-webkit-transform:translateX(0);transform:translateX(0)}}@keyframes omWobble{0%{-webkit-transform:translateX(0);transform:translateX(0)}15%{-webkit-transform:translateX(-25%) rotate(-5deg);transform:translateX(-25%) rotate(-5deg)}30%{-webkit-transform:translateX(20%) rotate(3deg);transform:translateX(20%) rotate(3deg)}45%{-webkit-transform:translateX(-15%) rotate(-3deg);transform:translateX(-15%) rotate(-3deg)}60%{-webkit-transform:translateX(10%) rotate(2deg);transform:translateX(10%) rotate(2deg)}75%{-webkit-transform:translateX(-5%) rotate(-1deg);transform:translateX(-5%) rotate(-1deg)}to{-webkit-transform:translateX(0);transform:translateX(0)}}.om-animation-wobble{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-name:omWobble;animation-name:omWobble}.om-content-lock{color:transparent!important;text-shadow:rgba(0,0,0,.5) 0 0 10px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;pointer-events:none;filter:url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='10'%20/></filter></svg>#blur");-webkit-filter:blur(10px);-ms-filter:blur(10px);-o-filter:blur(10px);filter:blur(10px)}html.om-mobile-position,html.om-mobile-position body{position:fixed!important}html.om-ios-form,html.om-ios-form body{-webkit-transform:translateZ(0)!important;transform:translateZ(0)!important;-webkit-overflow-scrolling:touch!important;height:100%!important;overflow:auto!important}html.om-position-popup body{overflow:hidden!important}html.om-position-floating-top{transition:padding-top .5s ease!important}html.om-position-floating-bottom{transition:padding-bottom .5s ease!important}html.om-reset-dimensions{height:100%!important;width:100%!important}.om-verification-confirmation{font-family:Lato,Arial,Helvetica,sans-serif;position:fixed;border-radius:10px;bottom:20px;left:20px;padding:10px 20px;opacity:0;transition:opacity .3s ease-in;background:#85bf31;color:#fff;font-size:18px;font-weight:700;z-index:9999}</style><script src="./Building Inverted Index in MapReduce __files/f(2).txt"></script><script src="./Building Inverted Index in MapReduce __files/f(3).txt"></script><script src="./Building Inverted Index in MapReduce __files/f(4).txt"></script><script src="./Building Inverted Index in MapReduce __files/f(5).txt"></script><script src="./Building Inverted Index in MapReduce __files/f(6).txt"></script><style id="verloopCss" type="text/css">
+					.no-transition {
+						transition: none;
+					}
+
+					.verloop-button {
+						position: fixed;
+						bottom: 20px;
+						right: 20px;
+						z-index: 2147483647;
+						font-family: 'Source Sans Pro', sans-serif;
+						font-weight: 400;
+						font-size: 14px;
+						width: 60px;
+						height: 60px;
+						border-radius: 50%;
+						cursor: pointer;
+						box-shadow: -1px 2px 10px rgba(0, 0, 0, 0.28);
+						background-color: #1b7cfb;
+						transition: all 200ms ease-in-out;
+						transform: none;
+						opacity: 1;
+					}
+
+					.verloop-button strong {
+						font-weight: 600;
+					}
+
+					.verloop-trigger-msg {
+						direction: ltr !important;
+						position: absolute;
+						bottom: 0px;
+						right: 68px;
+						width: 280px;
+						font-size: 0.95em;
+						font-weight: 300;
+						border-radius: 5px 5px 0 5px;
+						box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.2);
+						color: #505050;
+						padding: 12px 18px;
+						background-color: #fff;
+						animation-duration: 200ms;
+						animation-fill-mode: both;
+						display: none;
+						z-index: 2147483647;
+					}
+
+					.verloop-trigger-msg:after {
+						content: "";
+						position: absolute;
+						bottom: 0;
+						right: -6px;
+						width: 0;
+						height: 0;
+						border-style: solid;
+						border-width: 0 9px 6px 0;
+						border-color: transparent transparent #fff
+					}
+
+					.verloop-trigger-msg.open {
+						animation-name: window-fade-in-up;
+						animation-timing-function: ease-in;
+					}
+
+					.verloop-trigger-user {
+						margin-bottom: 8px;
+					}
+
+					.verloop-trigger-name {
+						margin-right: 3px;
+					}
+
+					.verloop-widget.starting .verloop-button, .verloop-widget.opened .verloop-button, .verloop-widget.opening .verloop-button, .verloop-widget.closing .verloop-button {
+						opacity: 0;
+						transform: scale3d(0, 0, 0);
+					}
+
+					.verloop-livechat-logo {
+						height: 60px;
+						width: 60px;
+						background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAAA/NJREFUWAm9l9uLjWscx2ctQyF7a1PkQpTa7Z19obYk0oQbuRLKFcrFVi5cqP1PYB9y4UJy4QJlKCnuXZAGETU0RWqiHCOHzRx8Ps/7/tY8611rzB6t8avv+/zOh+d5D2vVusah0dHROqZ6rVYbChd0P8P/Dn4Di8GPYBp4B56CftAHbhP3nrWLmBqLeYaV/xcRZNJE8N1gC+gFz8FE9AmHa+AAWJTnCf6rK0Hd4QC/FlwGVRpCIT6XCHm44jiA/EeWr5E7dE0rzg0HeCd4D4KczEIjE8Amwhc20WmuCyzG2qjxteL/FnHp+pFrdbLMPC5ro/9l1uvwS9s2gSE/87+yoDxBpp4U6665I1IfWNjUBIqaKJX74IMiKORJryMjbkKiOBaF8yDq1RtngnIFeAWkNHmWoNB+wzXLYRPR0f5yYB/1gjCeKfN3rHj0mzXhUyMNgiVWTh0g9MBvVQGl+4EXRyF14JrlMrcvJN8Pe0wdW7ADXuNnVxpiaSEDR1q0KCr++rjdLa7o8qm2I/9U5+LzuaH0Tg5Zx6rNZHEbtOGW5Jm/fvpMQ9fScOaHS5ev9TU6LwfLgJR2JOve4jZl8SCTq6+O6OThpy01TK6qn/lCt9qCvwLJBPkONGT0Z8F6sB3cBJEkEsXk97HtBD3gOOii2eSb9aFsbukXz++gXULxmpX3cVGW/LDMKvzTea9EfqEB0if8PsBvCj9X5ItA8u6PRzDPfcsd8JPajtJuYLjFEH4TZpdON1gflbyL00uD4LoMvnNcoavFUuysPDbzRu75NjBdAxTbWUhj8iqC5tKE33xpDYh7RjnOfTH8OhX4viXGvD3KEGLTE1Boufplim4aylJnc9IKcIoER1nngT/BD8Bz1Md4d8GC/+DnM/4Q7AIbgeSNmxjWfNCXfgdOYNkN4kZS5xQG6NzSIPakj6Q6QtFQIY1dqzmU9XXnLsQEY+5wWWKLGxDnnHjsUlMMgrn000cKvuqoPXa3P5gUwWBVZ/XqfDtG4jjzFFO5hC0mbJfPPKG/1tQAU0WRSt60KwZFYIs9U+jTlDdsYzMkzQDXK20dI6DTa2XAc8jPv2sDDOR94TE9A8dA+63SMAWUPyWHmH7Ae25KdyA7c+8t/+BY7xL4G0j1KW2AKS3i5P7OmAHugb3o/TZ0sw43NeCW4NARKqe3sGTxu2AbRR+XxdNfvryBUYzjPoZmqZJFAtiMFU48RC4L+Hq2xkWwGV1/Xhxd+hYYILlOagdImAK5ROMWC2gbBIfBERuqFtfBj9FMGcht6hTdIVEvOEnhhyZtV1y9Dfgr5gF4DfIjQZyQ3ALP+Q14AuLveR+FzRff/6a/+eqDvgAdeHSpWDn94wAAAABJRU5ErkJggg==');
+						background-size: 28px 28px;
+						background-repeat: no-repeat;
+						background-position: center center;
+					}
+					
+					.verloop-livechat-unread-count {
+						position: absolute;
+						top: -4px;
+						left: -2px;
+						width: 23px;
+						height: 23px;
+						line-height: 19px;
+						border-radius: 50%;
+						font-size: 13px;
+						font-weight: bold;
+						border-width: 2px;
+						color: #fff;
+						text-align: center;
+						border-style: solid;
+						border-color: #fff;
+						background: #0C9735;
+						box-sizing: border-box;
+						display: none;
+					}
+
+					.verloop-container {
+						height: 0px;
+						width: 0px;
+						position: fixed;
+						right: 20px;
+						bottom: 20px;
+						display: none;
+					}
+
+					.verloop-container.visible {
+						height: calc(100% - 150px);
+						width: 370px;
+						min-height: 200px;
+						display: block;
+						z-index: 2147483647;
+						border-radius: 8px;
+						overflow: hidden;
+						box-shadow: 0 0 20px rgba(0, 0, 0, 0.28);
+						animation-duration: 200ms;
+						animation-fill-mode: both;
+					}
+
+					.verloop-widget.opening .verloop-container {
+						animation-name: window-fade-in-up;
+						animation-timing-function: ease-in;
+					}
+
+					.verloop-widget.closing .verloop-container {
+						animation-name: window-fade-out-down;
+						animation-timing-function: ease-out;
+					}
+
+					#verloop-iframe {
+						width: 100%;
+						height: 100%;
+						border: none;
+					}
+
+					@keyframes window-fade-in-up {
+					from {
+						opacity: 0;
+						transform: translate3d(0, 10px, 0);
+					}
+
+					to {
+						opacity: 1;
+						transform: none;
+					}
+					}
+
+					@keyframes window-fade-out-down {
+					from {
+						opacity: 1;
+						transform: none;
+					}
+
+					to {
+						opacity: 0;
+						transform: translate3d(0, 10px, 0);
+					}
+					}
+
+					@media only screen and (max-width: 480px) {
+						.verloop-container.visible {
+							height: 100%;
+							top: 0;
+							bottom: 0;
+							left: 0;
+							right: 0;
+							width: 100%;
+							border-radius: 0;
+							box-shadow: none;
+						}
+					}
+				</style><link href="./Building Inverted Index in MapReduce __files/css" rel="stylesheet"><link rel="preload" href="./Building Inverted Index in MapReduce __files/f(7).txt" as="script"><script type="text/javascript" src="./Building Inverted Index in MapReduce __files/f(7).txt"></script><script async="" src="./Building Inverted Index in MapReduce __files/modules.8892a865463d29e21514.js.download" charset="utf-8"></script><style type="text/css">iframe#_hjRemoteVarsFrame {display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;}</style><link rel="stylesheet" href="./Building Inverted Index in MapReduce __files/OneSignalSDKStyles.css"><script charset="utf-8" src="./Building Inverted Index in MapReduce __files/bundle.js.download"></script><style type="text/css">.ub-emb-iframe-wrapper{display:none;position:relative;vertical-align:middle}.ub-emb-iframe-wrapper.ub-emb-visible{display:inline-block}.ub-emb-iframe-wrapper .ub-emb-close{background-color:hsla(0,0%,100%,.6);border:0;border-radius:50%;color:#525151;cursor:pointer;font-family:Arial,sans-serif;font-size:20px;font-weight:400;height:20px;line-height:1;outline:none;padding:0;position:absolute;right:10px;text-align:center;top:10px;transition:transform .2s ease-in-out,background-color .2s ease-in-out;width:20px;z-index:1}.ub-emb-iframe-wrapper.ub-emb-mobile .ub-emb-close{transition:none}.ub-emb-iframe-wrapper .ub-emb-close:before{content:"";height:40px;position:absolute;right:-10px;top:-10px;width:40px}.ub-emb-iframe-wrapper .ub-emb-close:hover{-ms-transform:scale(1.2);background-color:#fff;transform:scale(1.2)}.ub-emb-iframe-wrapper .ub-emb-close:active,.ub-emb-iframe-wrapper .ub-emb-close:focus{background:hsla(0,0%,100%,.35);color:#444;outline:none}.ub-emb-iframe-wrapper .ub-emb-iframe{border:0;max-height:100%;max-width:100%}.ub-emb-overlay .ub-emb-iframe-wrapper .ub-emb-iframe{box-shadow:0 0 12px rgba(0,0,0,.3),0 1px 5px rgba(0,0,0,.2)}.ub-emb-overlay .ub-emb-iframe-wrapper.ub-emb-mobile{max-width:100vw}</style><style type="text/css">.ub-emb-overlay{transition:visibility .3s step-end;visibility:hidden}.ub-emb-overlay.ub-emb-visible{transition:none;visibility:visible}.ub-emb-overlay .ub-emb-backdrop,.ub-emb-overlay .ub-emb-scroll-wrapper{opacity:0;position:fixed;transition:opacity .3s ease,z-index .3s step-end;z-index:-1}.ub-emb-overlay .ub-emb-backdrop{background:rgba(0,0,0,.6);bottom:-1000px;left:-1000px;right:-1000px;top:-1000px}.ub-emb-overlay .ub-emb-scroll-wrapper{-webkit-overflow-scrolling:touch;bottom:0;box-sizing:border-box;left:0;overflow:auto;padding:30px;right:0;text-align:center;top:0;white-space:nowrap;width:100%}.ub-emb-overlay .ub-emb-scroll-wrapper:before{content:"";display:inline-block;height:100%;vertical-align:middle}.ub-emb-overlay.ub-emb-mobile .ub-emb-scroll-wrapper{padding:30px 0}.ub-emb-overlay.ub-emb-visible .ub-emb-backdrop,.ub-emb-overlay.ub-emb-visible .ub-emb-scroll-wrapper{opacity:1;transition:opacity .4s ease;z-index:2147483647}</style><style type="text/css">.ub-emb-bar{transition:visibility .2s step-end;visibility:hidden}.ub-emb-bar.ub-emb-visible{transition:none;visibility:visible}.ub-emb-bar .ub-emb-bar-frame{left:0;position:fixed;right:0;text-align:center;transition:bottom .2s ease-in-out,top .2s ease-in-out,z-index .2s step-end;z-index:-1}.ub-emb-bar.ub-emb-ios .ub-emb-bar-frame{right:auto;width:100%}.ub-emb-bar.ub-emb-visible .ub-emb-bar-frame{transition:bottom .3s ease-in-out,top .3s ease-in-out;z-index:2147483646}.ub-emb-bar .ub-emb-close{bottom:0;margin:auto 0;top:0}.ub-emb-bar:not(.ub-emb-mobile) .ub-emb-close{right:20px}</style><script type="text/javascript" src="./Building Inverted Index in MapReduce __files/WebTracker.aspx"></script></head>
+<body id="tie-body" class="post-template-default single single-post postid-5130 single-format-standard theme-jannah woocommerce-js wrapper-has-shadow block-head-1 magazine2 is-desktop is-header-layout-1 sidebar-right has-sidebar post-layout-3 wide-title-narrow-media has-mobile-share" style="transform: none;">
+<div class="background-overlay" style="transform: none;">
+<div id="tie-container" class="site tie-container" style="transform: none;">
+<div id="tie-wrapper" style="transform: none;">
+<header id="theme-header" class="header-layout-1 main-nav-light main-nav-below has-custom-sticky-logo mobile-header-default">
+<div class="main-nav-wrapper" style="height: 87px;">
+<nav id="main-nav" data-skin="search-in-main-nav live-search-light" class="live-search-parent default-behavior-mode fixed fixed-top fixed-not-bottom" style="line-height:87px" aria-label="Primary Navigation">
+<div class="container">
+<div class="main-menu-wrapper">
+<div class="header-layout-1-logo  has-line-height" style="width:144px">
+<a href="https://acadgild.com/blog/building-inverted-index-mapreduce#" id="mobile-menu-icon"><span class="nav-icon"></span></a>
+<div id="logo" class="image-logo" style="margin-top: 20px; margin-bottom: 20px;">
+<a title="acadgild" href="https://acadgild.com/blog/">
+<img src="./Building Inverted Index in MapReduce __files/acadgild-logo.png" alt="acadgild" class="logo_normal" width="144" height="47" style="max-height:47px; width: auto;">
+<img src="./Building Inverted Index in MapReduce __files/acadgild-logo.png" alt="acadgild" class="logo_2x" width="144" height="47" style="max-height:47px; width: auto;">
+</a>
+</div>
+</div>
+<div id="menu-components-wrap">
+<div id="sticky-logo" class="image-logo">
+<a title="acadgild" href="https://acadgild.com/blog/">
+<img src="./Building Inverted Index in MapReduce __files/acadgild-logo.png" alt="acadgild" class="logo_normal" style="max-height:49px; width: auto;">
+<img src="./Building Inverted Index in MapReduce __files/acadgild-logo.png" alt="acadgild" class="logo_2x" style="max-height:49px; width: auto;">
+</a>
+</div>
+<div class="flex-placeholder"></div>
+<div class="main-menu main-menu-wrap tie-alignleft">
+<div id="main-nav-menu" class="main-menu"><ul id="menu-my-course" class="menu" role="menubar"><li id="menu-item-47159" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-47159"><a href="https://acadgild.com/browse-all-courses">Courses</a></li>
+<li id="menu-item-47157" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-47157"><a href="https://acadgild.com/corporate-training-program">Corporate Training</a></li>
+<li id="menu-item-48800" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-48800"><a href="https://acadgild.com/customers/reviews">Reviews</a></li>
+<li id="menu-item-48801" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-48801" aria-haspopup="true" aria-expanded="false" tabindex="0"><a>Downloads &amp; eBooks</a>
+<ul class="sub-menu menu-sub-content" style="opacity: 0; display: none; transform: translateY(-17.7176px);">
+<li id="menu-item-49148" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-49148"><a href="https://acadgild.com/blog/hadoop-use-cases-e-book-5">Real-world Hadoop Use Cases E-Book</a></li>
+<li id="menu-item-48803" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-48803"><a href="https://acadgild.com/blog/hadoop-projects-big-data-training-real-world">Mastering Big Data Hadoop With Real World Projects</a></li>
+</ul>
+</li>
+<li id="menu-item-48822" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-48822" aria-haspopup="true" aria-expanded="false" tabindex="0"><a>Categories</a>
+<ul class="sub-menu menu-sub-content" style="opacity: 0; display: none; transform: translateY(-17.4417px);">
+<li id="menu-item-48843" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48843"><a href="https://acadgild.com/blog/category/acadgild">All Categories</a></li>
+<li id="menu-item-48817" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48817"><a href="https://acadgild.com/blog/category/data-science">Data Science and Artificial Intelligence</a></li>
+<li id="menu-item-48819" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48819"><a href="https://acadgild.com/blog/category/r-machine-learning">Data Analytics with R, Excel &amp; Tableau</a></li>
+<li id="menu-item-48820" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48820"><a href="https://acadgild.com/blog/category/blockchain">Blockchain</a></li>
+<li id="menu-item-48813" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48813"><a href="https://acadgild.com/blog/category/big-data-and-hadoop">Big Data Hadoop &amp; Spark</a></li>
+<li id="menu-item-48815" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-48815"><a href="https://acadgild.com/blog/category/big-data-and-hadoop-advanced">Big Data Hadoop &amp; Spark – Advanced</a></li>
+<li id="menu-item-48816" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48816"><a href="https://acadgild.com/blog/category/full-stack">Full stack Web Development</a></li>
+<li id="menu-item-48821" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48821"><a href="https://acadgild.com/blog/category/graphic-design">Graphic Design &amp; UX</a></li>
+<li id="menu-item-48814" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48814"><a href="https://acadgild.com/blog/category/android">Android App Development</a></li>
+<li id="menu-item-48818" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48818"><a href="https://acadgild.com/blog/category/careers">Careers</a></li>
+</ul>
+</li>
+</ul></div> </div>
+<ul class="components"> <li class="search-compact-icon menu-item custom-menu-link">
+<a href="https://acadgild.com/blog/building-inverted-index-mapreduce#" data-type="modal-trigger" class="tie-search-trigger">
+<span class="fa fa-search" aria-hidden="true"></span>
+<span class="screen-reader-text">Search for</span>
+</a>
+<span class="cd-modal-bg"></span>
+</li>
+<li class="side-aside-nav-icon menu-item custom-menu-link">
+<a href="https://acadgild.com/blog/building-inverted-index-mapreduce#">
+<span class="fa fa-navicon" aria-hidden="true"></span>
+<span class="screen-reader-text">Sidebar</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+</div>
+</header>
+<div class="container">
+<div class="container-wrapper fullwidth-entry-title">
+<header class="entry-header-outer">
+<nav id="breadcrumb"><a href="https://acadgild.com/blog/"><span class="fa fa-home" aria-hidden="true"></span> Home</a><em class="delimiter">/</em><a href="https://acadgild.com/blog/category/big-data-and-hadoop-advanced">Big Data Hadoop &amp; Spark - Advanced</a><em class="delimiter">/</em><span class="current">Building Inverted Index in MapReduce</span></nav><script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"BreadcrumbList","@id":"#Breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"item":{"name":"Home","@id":"https:\/\/acadgild.com\/blog\/"}},{"@type":"ListItem","position":2,"item":{"name":"Big Data Hadoop &amp; Spark - Advanced","@id":"https:\/\/acadgild.com\/blog\/category\/big-data-and-hadoop-advanced"}}]}</script>
+<div class="entry-header">
+<h5 class="post-cat-wrap"><a class="post-cat tie-cat-57" href="https://acadgild.com/blog/category/big-data-and-hadoop-advanced">Big Data Hadoop &amp; Spark - Advanced</a></h5>
+<h1 class="post-title entry-title">Building Inverted Index in MapReduce</h1>
+<div class="post-meta">
+<span class="meta-author-avatar">
+<a href="https://acadgild.com/blog/author/brundesh"><img alt="" src="https://secure.gravatar.com/avatar/be42d513b70cfa1a2ad8389d87f4c33f?s=140&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/be42d513b70cfa1a2ad8389d87f4c33f?s=280&amp;d=mm&amp;r=g 2x" class="avatar avatar-140 photo" height="140" width="140">
+</a>
+</span>
+<span class="meta-author meta-item"><a href="https://acadgild.com/blog/author/brundesh" class="author-name" title="R Brundesh">R Brundesh</a>
+</span>
+<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>May 23, 2016</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://acadgild.com/blog/building-inverted-index-mapreduce#comments"><span class="fa fa-comments" aria-hidden="true"></span> 5</a></span><span class="meta-views meta-item very-hot"><span class="tie-icon-fire" aria-hidden="true"></span> 15,046 </span> </div><div class="clearfix"></div></div> </div>
+</header>
+</div>
+</div>
+<div id="content" class="site-content container" style="transform: none;">
+<div class="tie-row main-content-row" style="transform: none;">
+<div class="main-content tie-col-md-8 tie-col-xs-12" role="main">
+<article id="the-post" class="container-wrapper post-content">
+<div class="featured-area"><div class="featured-area-inner"><figure class="single-featured-image"><img width="780" height="300" src="./Building Inverted Index in MapReduce __files/Inverted-index-in-MapReduce.jpg" class="attachment-full size-full wp-post-image" alt="" srcset="https://acadgild.com/blog/wp-content/uploads/2016/05/Inverted-index-in-MapReduce.jpg 780w, https://acadgild.com/blog/wp-content/uploads/2016/05/Inverted-index-in-MapReduce-600x231.jpg 600w, https://acadgild.com/blog/wp-content/uploads/2016/05/Inverted-index-in-MapReduce-300x115.jpg 300w, https://acadgild.com/blog/wp-content/uploads/2016/05/Inverted-index-in-MapReduce-768x295.jpg 768w" sizes="(max-width: 780px) 100vw, 780px"></figure></div></div>
+<div class="entry-content entry clearfix">
+<p class="western" style="text-align: justify;" align="justify">Inverted index is index data structure for storing mapping results from content, such as words or numbers, to its locations in a database file or in a document or a set of documents. Most of the text searching systems rely on inverted index to search the documents that contains a given word or a term.</p>
+<p class="western" style="text-align: justify;" align="justify">In this post, we will implement the <a href="https://acadgild.com/big-data/big-data-development-training-certification">MapReduce</a> application to build an inverted index to generate the list of words in the files and the set of files that contains each terms and the word frequency in each of the files.</p>
+<p class="western" style="text-align: justify;">The prerequisites to build the inverted index are as follows:</p>
+<ul style="text-align: justify;">
+<li>
+<p class="western">Hadoop should be up and running.</p>
+</li>
+</ul>
+<ul style="text-align: justify;">
+<li>
+<p class="western">Must contain a directory in the HDFS containing one or more text files.(content of files can be any text data).</p>
+</li>
+</ul>
+<p class="western" style="text-align: justify;" align="justify"><i>Now, let’s analyze the steps required to build the inverted index.</i></p>
+<p class="western" style="text-align: justify;">As an input to the program, we will get the list of files with text data in it.</p>
+<p class="western" style="text-align: justify;">File1 → text data</p>
+<p class="western" style="text-align: justify;">File2 → text data</p>
+<p class="western" style="text-align: justify;">Output of the program should be as shown below:</p>
+<p class="western" style="text-align: justify;">Word1 [file1→count of the word1 in file1, file2→count of the word1 in file2 ………]
+</p><p class="western" style="text-align: justify;">Word2 [file1→count of the word2 in file1, file2→count of the word2 in file2 ………]
+</p><p class="western" style="text-align: justify;">For executing this program, we are taking two sample text files as shown in the below screen shot</p>
+<p class="western" style="text-align: justify;"><img class="aligncenter" src="./Building Inverted Index in MapReduce __files/input.png" width="757" height="166"></p>
+<p class="western" style="text-align: justify;"><b>Code for Mapper: </b></p>
+<p class="western" style="text-align: justify;"><i>/* This program uses Text Input format which will emit byte offset as key and entire line as value to Mapper as input. We need to split the lines and get individual words </i><i>from .</i><i>&nbsp;</i></p>
+<p class="western" style="text-align: justify;"><i>** As an output of mapper, we need to emit word as key and filename in which is present as value */</i></p>
+<pre class="lang:java decode:true ">public class Map extends Mapper&lt;LongWritable,Text,Text,Text&gt; {
+@Override
+public void map(LongWritable key, Text value, Context context)
+throws IOException,InterruptedException
+{
+/*Get the name of the file using context.getInputSplit()method*/
+String fileName = ((FileSplit) context.getInputSplit()).getPath().getName();
+String line=value.toString();
+//Split the line in words
+String words[]=line.split(" ");
+for(String s:words){
+//for each word emit word as key and file name as value
+context.write(new Text(s), new Text(fileName));
+}
+}
+}</pre>
+<p><a style="color: #000000;" href="https://acadgild.com/blog/take-quiz-test-hadoop-knowledge-intermediate?utm_source=Blog(organic)&amp;utm_medium=Blog%20article&amp;utm_campaign=Big%20Data%20Landing%20Page" target="_blank"><img class="wp-image-165 size-full aligncenter" src="./Building Inverted Index in MapReduce __files/bigdata_quiz_dark.png" alt="Hadoop"></a></p>
+<p class="western" style="text-align: justify;"><b>Reducer Code: </b></p>
+<p class="western" style="text-align: justify;" align="justify"><i>/* Reducer will receive Word as key and list of file names in which the word is present as value.</i></p>
+<p class="western" style="text-align: justify;" align="justify"><i>**If the word has occurred N times in the file then file name will be present N in the list of values from the Mapper*/ </i></p>
+<pre class="lang:java decode:true">public static class Reduce extends
+Reducer&lt;Text, Text, Text, Text&gt; {
+@Override
+public void reduce(Text key, Iterable&lt;Text&gt; values, Context context)
+throws IOException, InterruptedException {
+/*Declare the Hash Map to store File name as key to compute and store number of times the filename is occurred for as value*/
+HashMap m=new HashMap();
+int count=0;
+for(Text t:values){
+String str=t.toString();
+/*Check if file name is present in the HashMap ,if File name is not present then add the Filename to the HashMap and increment the counter by one , This condition will be satisfied on first occurrence of that word*/
+if(m!=null &amp;&amp;m.get(str)!=null){
+count=(int)m.get(str);
+m.put(str, ++count);
+}else{
+/*Else part will execute if file name is already added then just increase the count for that file name which is stored as key in the hash map*/
+m.put(str, 1);
+}
+}
+/* Emit word and [file1→count of the word1 in file1 , file2→count of the word1 in file2 ………] as output*/
+context.write(key, new Text(m.toString()));
+}
+}</pre>
+<p class="western" style="text-align: justify;"><b>Driver Program:</b></p>
+<pre class="lang:java decode:true ">public static void main(String[] args) throws Exception {
+Configuration conf= new Configuration();
+Job job = new Job(conf,"UseCase1");
+//Defining the output key and value class for the mapper
+job.setMapOutputKeyClass(Text.class);
+job.setMapOutputValueClass(Text.class);
+job.setJarByClass(InvertedIndex.class);
+job.setMapperClass(Map.class);
+job.setReducerClass(Reduce.class);
+//Defining the output value class for the mapper
+job.setOutputKeyClass(Text.class);
+job.setOutputValueClass(Text.class);
+job.setInputFormatClass(TextInputFormat.class);
+job.setOutputFormatClass(TextOutputFormat.class);
+Path outputPath = new Path(args[1]);
+FileInputFormat.addInputPath(job, new Path(args[0]));
+FileOutputFormat.setOutputPath(job, outputPath);
+//deleting the output path automatically from hdfs so that we don't have delete it explicitly
+outputPath.getFileSystem(conf).delete(outputPath);
+//exiting the job only if the flag value becomes false
+System.exit(job.waitForCompletion(true) ? 0 : 1);
+}
+}</pre>
+<p class="western" style="text-align: justify;"><span style="font-family: Times New Roman,serif;"><span style="font-size: small;"><b>Steps to Execute</b></span></span></p>
+<p class="western" style="text-align: justify;"><span style="font-family: Times New Roman,serif;"><span style="font-size: small;">-Copy the two files in a folder and copy that folder into HDFS.</span></span></p>
+<p class="western" style="text-align: justify;"><span style="font-family: Times New Roman,serif;"><span style="font-size: small;">-Build the Jar file for the above program</span></span></p>
+<p class="western" style="text-align: justify;"><span style="font-family: Times New Roman,serif;"><span style="font-size: small;">-Give the command to run the jar file. In our case the command is as below</span></span></p>
+<p class="western" style="text-align: justify;"><span style="font-family: Times New Roman,serif;"><span style="font-size: small;"><b>hadoop jar /home/kiran/jars/invert.jar /invert /invert_output</b></span></span></p>
+<p class="western" style="text-align: justify;"><span style="font-family: Courier New,serif;"><span style="font-size: small;">We have built the jar file with name </span></span><span style="font-family: Courier New,serif;"><span style="font-size: small;"><i><b>invert.jar </b></i></span></span><span style="font-family: Courier New,serif;"><span style="font-size: small;">and we have copied the two input files into the folder </span></span><span style="font-family: Courier New,serif;"><span style="font-size: small;"><i><b>invert </b></i></span></span><span style="font-family: Courier New,serif;"><span style="font-size: small;">and we have given the output file as </span></span><span style="font-family: Courier New,serif;"><span style="font-size: small;"><i><b>invert_output.</b></i></span></span></p>
+<p class="western" style="text-align: justify;"><span style="font-family: Courier New,serif;"><span style="font-size: small;"><i><b>Please follow the below screen shots to check the output.</b></i></span></span></p>
+<p class="western" style="text-align: justify;"><img class="aligncenter" src="./Building Inverted Index in MapReduce __files/execution.png" width="1305" height="708"></p>
+<p class="western" style="text-align: justify;"><span style="font-family: Courier New,serif;"><span style="font-size: small;"><i><b>Executed Output:</b></i></span></span></p>
+<p class="western" style="text-align: justify;"><img class="aligncenter" src="./Building Inverted Index in MapReduce __files/output.png" width="1308" height="368"></p>
+<p class="western" style="text-align: justify;" align="justify">Hope this post has been helpful in understanding how to build an inverted index in <a href="https://acadgild.com/big-data/big-data-development-training-certification">MapReduce</a>. In case of any questions doubts on this topic, feel free to comment below and we will get back to you at the earliest.</p>
+<p class="western" style="text-align: justify;" align="justify">Keep visiting our site <a href="https://acadgild.com/">www.acadgild.com</a> for more updates on Bigdata and other technologies.</p>
+<p><a style="color: #000000;" href="https://acadgild.com/big-data/big-data-development?utm_source=Blog(organic)&amp;utm_medium=Blog%20article&amp;utm_campaign=Big%20Data%20Landing%20Page"><img class="wp-image-165 size-full aligncenter" src="./Building Inverted Index in MapReduce __files/Big-Data_Dev_Banner.jpg" alt="Hadoop"></a></p>
+<span id="tve_leads_end_content" style="display: block; visibility: hidden; border: 1px solid transparent;"></span>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-visual jp-relatedposts-grid "><div class="jp-relatedposts-post jp-relatedposts-post0 jp-relatedposts-post-thumbs" data-post-id="41512" data-post-format="false"><a class="jp-relatedposts-post-a" href="https://acadgild.com/blog/spark-elasticsearch" title="Spark With Elasticsearch
+
+In this blog post, let’s dive deep and discuss the detailed concept of Spark with Elasticsearch Integration. What is Apache Spark? Apache Spark is a lightning-fast cluster computing technology, designed for fast computation. It is based on Hadoop MapReduce and extends the MapReduce model to efficiently implement for more computations…" data-origin="5130" data-position="0"><img class="jp-relatedposts-post-img" src="./Building Inverted Index in MapReduce __files/Spark-with-elastic-search.jpg" width="350" alt="Spark With Elasticsearch"></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://acadgild.com/blog/spark-elasticsearch" title="Spark With Elasticsearch
+
+In this blog post, let’s dive deep and discuss the detailed concept of Spark with Elasticsearch Integration. What is Apache Spark? Apache Spark is a lightning-fast cluster computing technology, designed for fast computation. It is based on Hadoop MapReduce and extends the MapReduce model to efficiently implement for more computations…" data-origin="5130" data-position="0">Spark With Elasticsearch</a></h4><p class="jp-relatedposts-post-excerpt">In this blog post, let’s dive deep and discuss the detailed concept of Spark with Elasticsearch Integration. What is Apache Spark? Apache Spark is a lightning-fast cluster computing technology, designed for fast computation. It is based on Hadoop MapReduce and extends the MapReduce model to efficiently implement for more computations…</p><p class="jp-relatedposts-post-date" style="display: block;">December 19, 2017</p><p class="jp-relatedposts-post-context">In "Big Data Hadoop &amp; Spark"</p></div><div class="jp-relatedposts-post jp-relatedposts-post1 jp-relatedposts-post-thumbs" data-post-id="25033" data-post-format="false"><a class="jp-relatedposts-post-a" href="https://acadgild.com/blog/avro-file-processing-using-mapreduce" title="Avro File Processing Using MapReduce
+
+Hadoop has a rich set of file formats like TextFile, SequenceFile, RCFile, ORCFile, Avro file, Paraquet file and much more. In this tutorial, we will show you a demo on Avro File Processing Using MapReduce. Here we will take an Avro file as input and we will process the Avro…" data-origin="5130" data-position="1"><img class="jp-relatedposts-post-img" src="./Building Inverted Index in MapReduce __files/Avro-in-MapReduce.jpg" width="350" alt="Avro File Processing Using MapReduce"></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://acadgild.com/blog/avro-file-processing-using-mapreduce" title="Avro File Processing Using MapReduce
+
+Hadoop has a rich set of file formats like TextFile, SequenceFile, RCFile, ORCFile, Avro file, Paraquet file and much more. In this tutorial, we will show you a demo on Avro File Processing Using MapReduce. Here we will take an Avro file as input and we will process the Avro…" data-origin="5130" data-position="1">Avro File Processing Using MapReduce</a></h4><p class="jp-relatedposts-post-excerpt">Hadoop has a rich set of file formats like TextFile, SequenceFile, RCFile, ORCFile, Avro file, Paraquet file and much more. In this tutorial, we will show you a demo on Avro File Processing Using MapReduce. Here we will take an Avro file as input and we will process the Avro…</p><p class="jp-relatedposts-post-date" style="display: block;">February 5, 2018</p><p class="jp-relatedposts-post-context">In "All Categories"</p></div><div class="jp-relatedposts-post jp-relatedposts-post2 jp-relatedposts-post-thumbs" data-post-id="24950" data-post-format="false"><a class="jp-relatedposts-post-a" href="https://acadgild.com/blog/mapreduce-program-removing-redundant-image-files" title="MapReduce Program: Removing Redundant Image Files
+
+As the amount of data is getting increased day by day it is better to maintain less or no redundant data to save the cluster storage size and to increase faster data processing to get the required results in lesser time. So today, we will be discussing how we can…" data-origin="5130" data-position="2"><img class="jp-relatedposts-post-img" src="./Building Inverted Index in MapReduce __files/Remove-redundant-images-using-Map-reduce-program.jpg" width="350" alt="MapReduce Program: Removing Redundant Image Files"></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://acadgild.com/blog/mapreduce-program-removing-redundant-image-files" title="MapReduce Program: Removing Redundant Image Files
+
+As the amount of data is getting increased day by day it is better to maintain less or no redundant data to save the cluster storage size and to increase faster data processing to get the required results in lesser time. So today, we will be discussing how we can…" data-origin="5130" data-position="2">MapReduce Program: Removing Redundant Image Files</a></h4><p class="jp-relatedposts-post-excerpt">As the amount of data is getting increased day by day it is better to maintain less or no redundant data to save the cluster storage size and to increase faster data processing to get the required results in lesser time. So today, we will be discussing how we can…</p><p class="jp-relatedposts-post-date" style="display: block;">February 23, 2018</p><p class="jp-relatedposts-post-context">In "Big Data Hadoop &amp; Spark"</p></div></div></div>
+</div>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"BlogPosting","dateCreated":"2016-05-23T11:50:20+05:30","datePublished":"2016-05-23T11:50:20+05:30","dateModified":"2016-05-23T11:50:20+05:30","headline":"Building Inverted Index in MapReduce","name":"Building Inverted Index in MapReduce","keywords":[],"url":"https:\/\/acadgild.com\/blog\/building-inverted-index-mapreduce","description":"Inverted index is index data structure for storing mapping results from content, such as words or numbers, to its locations in a database file or in a document or a set of documents. Most of the text","copyrightYear":"2016","articleSection":"Big Data Hadoop &amp; Spark - Advanced","articleBody":"Inverted index is index data structure for storing mapping results from content, such as words or numbers, to its locations in a database file or in a document or a set of documents. Most of the text searching systems rely on inverted index to search the documents that contains a given word or a term.\nIn this post, we will implement the MapReduce application to build an inverted index to generate the list of words in the files and the set of files that contains each terms and the word frequency in each of the files.\nThe prerequisites to build the inverted index are as follows:\n\n \t\nHadoop should be up and running.\n\n\n\n \t\nMust contain a directory in the HDFS containing one or more text files.(content of files can be any text data).\n\n\nNow, let\u2019s analyze the steps required to build the inverted index.\nAs an input to the program, we will get the list of files with text data in it.\nFile1 \u2192 text data\nFile2 \u2192 text data\nOutput of the program should be as shown below:\nWord1 [file1\u2192count of the word1 in file1, file2\u2192count of the word1 in file2 \u2026\u2026\u2026]\nWord2 [file1\u2192count of the word2 in file1, file2\u2192count of the word2 in file2 \u2026\u2026\u2026]\nFor executing this program, we are taking two sample text files as shown in the below screen shot\n\nCode for Mapper: \n\/* This program uses Text Input format which will emit byte offset as key and entire line as value to Mapper as input. We need to split the lines and get individual words from .\u00a0\n** As an output of mapper, we need to emit word as key and filename in which is present as value *\/\npublic class Map extends Mapper&lt;LongWritable,Text,Text,Text&gt; {\n@Override\npublic void map(LongWritable key, Text value, Context context)\nthrows IOException,InterruptedException\n{\n\/*Get the name of the file using context.getInputSplit()method*\/\nString fileName = ((FileSplit) context.getInputSplit()).getPath().getName();\nString line=value.toString();\n\/\/Split the line in words\nString words[]=line.split(\" \");\nfor(String s:words){\n\/\/for each word emit word as key and file name as value\ncontext.write(new Text(s), new Text(fileName));\n}\n}\n}\n\nReducer Code: \n\/* Reducer will receive Word as key and list of file names in which the word is present as value.\n**If the word has occurred N times in the file then file name will be present N in the list of values from the Mapper*\/ \npublic static class Reduce extends\nReducer&lt;Text, Text, Text, Text&gt; {\n@Override\npublic void reduce(Text key, Iterable&lt;Text&gt; values, Context context)\nthrows IOException, InterruptedException {\n\/*Declare the Hash Map to store File name as key to compute and store number of times the filename is occurred for as value*\/\nHashMap m=new HashMap();\nint count=0;\nfor(Text t:values){\nString str=t.toString();\n\/*Check if file name is present in the HashMap ,if File name is not present then add the Filename to the HashMap and increment the counter by one , This condition will be satisfied on first occurrence of that word*\/\nif(m!=null &amp;&amp;m.get(str)!=null){\ncount=(int)m.get(str);\nm.put(str, ++count);\n}else{\n\/*Else part will execute if file name is already added then just increase the count for that file name which is stored as key in the hash map*\/\nm.put(str, 1);\n}\n}\n\/* Emit word and [file1\u2192count of the word1 in file1 , file2\u2192count of the word1 in file2 \u2026\u2026\u2026] as output*\/\ncontext.write(key, new Text(m.toString()));\n}\n}\nDriver Program:\npublic static void main(String[] args) throws Exception {\nConfiguration conf= new Configuration();\nJob job = new Job(conf,\"UseCase1\");\n\/\/Defining the output key and value class for the mapper\njob.setMapOutputKeyClass(Text.class);\njob.setMapOutputValueClass(Text.class);\njob.setJarByClass(InvertedIndex.class);\njob.setMapperClass(Map.class);\njob.setReducerClass(Reduce.class);\n\/\/Defining the output value class for the mapper\njob.setOutputKeyClass(Text.class);\njob.setOutputValueClass(Text.class);\njob.setInputFormatClass(TextInputFormat.class);\njob.setOutputFormatClass(TextOutputFormat.class);\nPath outputPath = new Path(args[1]);\nFileInputFormat.addInputPath(job, new Path(args[0]));\nFileOutputFormat.setOutputPath(job, outputPath);\n\/\/deleting the output path automatically from hdfs so that we don't have delete it explicitly\noutputPath.getFileSystem(conf).delete(outputPath);\n\/\/exiting the job only if the flag value becomes false\nSystem.exit(job.waitForCompletion(true) ? 0 : 1);\n}\n}\nSteps to Execute\n-Copy the two files in a folder and copy that folder into HDFS.\n-Build the Jar file for the above program\n-Give the command to run the jar file. In our case the command is as below\nhadoop jar \/home\/kiran\/jars\/invert.jar \/invert \/invert_output\nWe have built the jar file with name invert.jar and we have copied the two input files into the folder invert and we have given the output file as invert_output.\nPlease follow the below screen shots to check the output.\n\nExecuted Output:\n\nHope this post has been helpful in understanding how to build an inverted index in MapReduce. In case of any questions doubts on this topic, feel free to comment below and we will get back to you at the earliest.\nKeep visiting our site www.acadgild.com for more updates on Bigdata and other technologies.\n","publisher":{"@id":"#Publisher","@type":"Organization","name":"AcadGild","logo":{"@type":"ImageObject","url":"https:\/\/acadgild.com\/blog\/wp-content\/uploads\/2018\/05\/acadgild-logo.png"},"sameAs":["https:\/\/plus.google.com\/+Acadgild","https:\/\/www.facebook.com\/acadgild","https:\/\/twitter.com\/acadgild","https:\/\/www.linkedin.com\/company\/3787659\/","https:\/\/www.youtube.com\/channel\/UCaQfgvMsjpImSxrJQDBjd-Q"]},"sourceOrganization":{"@id":"#Publisher"},"copyrightHolder":{"@id":"#Publisher"},"mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/acadgild.com\/blog\/building-inverted-index-mapreduce","breadcrumb":{"@id":"#Breadcrumb"}},"author":{"@type":"Person","name":"R Brundesh","url":"https:\/\/acadgild.com\/blog\/author\/brundesh"},"image":{"@type":"ImageObject","url":"https:\/\/acadgild.com\/blog\/wp-content\/uploads\/2016\/05\/Inverted-index-in-MapReduce.jpg","width":780,"height":300}}</script>
+<div class="post-footer post-footer-on-bottom">
+<div class="share-links  share-centered icons-text">
+<div class="share-title">
+<span class="fa fa-share-alt" aria-hidden="true"></span>
+<span> Share</span>
+</div>
+<a href="http://www.facebook.com/sharer.php?u=https://acadgild.com/blog/building-inverted-index-mapreduce" rel="external" target="_blank" class="facebook-share-btn large-share-button"><span class="fa fa-facebook"></span> <span class="social-text">Facebook</span></a><a href="https://twitter.com/intent/tweet?text=Building+Inverted+Index+in+MapReduce&amp;url=https://acadgild.com/blog/building-inverted-index-mapreduce" rel="external" target="_blank" class="twitter-share-btn large-share-button"><span class="fa fa-twitter"></span> <span class="social-text">Twitter</span></a><a href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=https://acadgild.com/blog/building-inverted-index-mapreduce&amp;name=Building+Inverted+Index+in+MapReduce" rel="external" target="_blank" class="google-share-btn large-share-button"><span class="fa fa-google"></span> <span class="social-text">Google+</span></a><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://acadgild.com/blog/building-inverted-index-mapreduce&amp;title=Building+Inverted+Index+in+MapReduce" rel="external" target="_blank" class="linkedin-share-btn large-share-button"><span class="fa fa-linkedin"></span> <span class="social-text">LinkedIn</span></a><a href="mailto:?subject=Building+Inverted+Index+in+MapReduce&amp;body=https://acadgild.com/blog/building-inverted-index-mapreduce" rel="external" target="_blank" class="email-share-btn large-share-button"><span class="fa fa-envelope"></span> <span class="social-text">Share via Email</span></a><a href="https://acadgild.com/blog/building-inverted-index-mapreduce#" rel="external" target="_blank" class="print-share-btn large-share-button"><span class="fa fa-print"></span> <span class="social-text">Print</span></a> </div>
+</div>
+</article>
+<div class="post-components">
+<div class="about-author container-wrapper">
+<div class="author-avatar">
+<a href="https://acadgild.com/blog/author/brundesh">
+<img alt="" src="./Building Inverted Index in MapReduce __files/be42d513b70cfa1a2ad8389d87f4c33f.png" srcset="https://secure.gravatar.com/avatar/be42d513b70cfa1a2ad8389d87f4c33f?s=360&amp;d=mm&amp;r=g 2x" class="avatar avatar-180 photo" height="180" width="180"> </a>
+</div>
+<div class="author-info">
+<h3 class="author-name"><a href="https://acadgild.com/blog/author/brundesh">R Brundesh</a></h3>
+<div class="author-bio">
+</div>
+<ul class="social-icons"></ul> </div>
+<div class="clearfix"></div>
+</div>
+<div class="prev-next-post-nav container-wrapper media-overlay">
+<div class="tie-col-xs-6 prev-post">
+<a href="https://acadgild.com/blog/hadoop-used-organizations" style="background-image: url(https://acadgild.com/blog/wp-content/uploads/2016/05/Hadoop-in-organizations.jpg)" class="post-thumb" rel="prev">
+<div class="post-thumb-overlay-wrap">
+<div class="post-thumb-overlay">
+<span class="icon"></span>
+</div>
+</div>
+</a>
+<a href="https://acadgild.com/blog/hadoop-used-organizations" rel="prev">
+<h3 class="post-title">How Hadoop is Used in Organizations</h3>
+</a>
+</div>
+<div class="tie-col-xs-6 next-post">
+<a href="https://acadgild.com/blog/horizontal-vs-vertical-scaling-hadoop" style="background-image: url(https://acadgild.com/blog/wp-content/uploads/2016/05/25-Horizontal-Scaling-vs-Vertical-Scaling-in-Hadoop.jpg)" class="post-thumb" rel="next">
+<div class="post-thumb-overlay-wrap">
+<div class="post-thumb-overlay">
+<span class="icon"></span>
+</div>
+</div>
+</a>
+<a href="https://acadgild.com/blog/horizontal-vs-vertical-scaling-hadoop" rel="next">
+<h3 class="post-title">Horizontal vs Vertical Scaling in Hadoop</h3>
+</a>
+</div>
+</div> <div id="comments" class="comments-area">
+<div id="comments-box" class="container-wrapper">
+<div class="block-head">
+<h3 id="comments-title" class="the-global-title">
+5 Comments </h3>
+</div>
+<ol class="comment-list">
+<li id="comment-544" class="comment even thread-even depth-1 parent">
+<article id="div-comment-544" class="comment-body">
+<footer class="comment-meta">
+<div class="comment-author vcard">
+<img alt="" src="./Building Inverted Index in MapReduce __files/c33e90075415b2a2f04dbd3d80ddab37.png" srcset="https://secure.gravatar.com/avatar/c33e90075415b2a2f04dbd3d80ddab37?s=140&amp;d=mm&amp;r=g 2x" class="avatar avatar-70 photo" height="70" width="70"> <b class="fn">wael</b> <span class="says">says:</span>  </div>
+<div class="comment-metadata">
+<a href="https://acadgild.com/blog/building-inverted-index-mapreduce#comment-544">
+<time datetime="2016-05-26T21:31:23+05:30">
+May 26, 2016 at 9:31 PM </time>
+</a>
+</div>
+</footer>
+<div class="comment-content">
+<p>how to sove this issue ?<br>
+org.apache.hadoop.mapreduce.lib.input.FileSplit cannot be cast to org.apache.hadoop.mapred.FileSplit</p>
+</div>
+<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://acadgild.com/blog/building-inverted-index-mapreduce#comment-544" data-commentid="544" data-postid="5130" data-belowelement="div-comment-544" data-respondelement="respond" aria-label="Reply to wael">Reply</a></div> </article>
+<ol class="children">
+<li id="comment-545" class="comment byuser comment-author-brundesh bypostauthor odd alt depth-2">
+<article id="div-comment-545" class="comment-body">
+<footer class="comment-meta">
+<div class="comment-author vcard">
+<img alt="" src="./Building Inverted Index in MapReduce __files/be42d513b70cfa1a2ad8389d87f4c33f(1).png" srcset="https://secure.gravatar.com/avatar/be42d513b70cfa1a2ad8389d87f4c33f?s=140&amp;d=mm&amp;r=g 2x" class="avatar avatar-70 photo" height="70" width="70"> <b class="fn"><a href="http://www.acadgild.com/blog/" rel="external nofollow ugc" class="url">Brundesh</a></b> <span class="says">says:</span> </div>
+<div class="comment-metadata">
+<a href="https://acadgild.com/blog/building-inverted-index-mapreduce#comment-545">
+<time datetime="2016-05-27T12:35:51+05:30">
+May 27, 2016 at 12:35 PM </time>
+</a>
+</div>
+</footer>
+<div class="comment-content">
+<p>Hi<br>
+Code example used in this post is written in MRV2 API , so please make sure all the import statements should be of org.apache.hadoop.mapreduce*, to get more detailed API difference between MRV1 and MRV2 to refer the below blog<br>
+<a href="https://acadgild.com/blog/know-api-differences-mrv1-mrv2/" rel="nofollow ugc">https://acadgild.com/blog/know-api-differences-mrv1-mrv2/</a></p>
+</div>
+<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://acadgild.com/blog/building-inverted-index-mapreduce#comment-545" data-commentid="545" data-postid="5130" data-belowelement="div-comment-545" data-respondelement="respond" aria-label="Reply to Brundesh">Reply</a></div> </article>
+</li>
+</ol>
+</li>
+<li id="comment-546" class="comment even thread-odd thread-alt depth-1">
+<article id="div-comment-546" class="comment-body">
+<footer class="comment-meta">
+<div class="comment-author vcard">
+<img alt="" src="./Building Inverted Index in MapReduce __files/2edd10c866eb06bbdb7b83051e4268f1.png" srcset="https://secure.gravatar.com/avatar/2edd10c866eb06bbdb7b83051e4268f1?s=140&amp;d=mm&amp;r=g 2x" class="avatar avatar-70 photo" height="70" width="70"> <b class="fn">GiraffaDrop</b> <span class="says">says:</span> </div>
+<div class="comment-metadata">
+<a href="https://acadgild.com/blog/building-inverted-index-mapreduce#comment-546">
+<time datetime="2016-06-24T19:03:43+05:30">
+June 24, 2016 at 7:03 PM </time>
+</a>
+</div>
+</footer>
+<div class="comment-content">
+<p>HI,<br>
+What is InvertedIndeX class used?Thanks 🙂</p>
+</div>
+<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://acadgild.com/blog/building-inverted-index-mapreduce#comment-546" data-commentid="546" data-postid="5130" data-belowelement="div-comment-546" data-respondelement="respond" aria-label="Reply to GiraffaDrop">Reply</a></div> </article>
+</li>
+<li id="comment-547" class="comment odd alt thread-even depth-1">
+<article id="div-comment-547" class="comment-body">
+<footer class="comment-meta">
+<div class="comment-author vcard">
+<img alt="" src="./Building Inverted Index in MapReduce __files/de5153008dcec3595a9f545976cac951.png" srcset="https://secure.gravatar.com/avatar/de5153008dcec3595a9f545976cac951?s=140&amp;d=mm&amp;r=g 2x" class="avatar avatar-70 photo" height="70" width="70"> <b class="fn">mohan</b> <span class="says">says:</span> </div>
+<div class="comment-metadata">
+<a href="https://acadgild.com/blog/building-inverted-index-mapreduce#comment-547">
+<time datetime="2016-09-30T13:03:37+05:30">
+September 30, 2016 at 1:03 PM </time>
+</a>
+</div>
+</footer>
+<div class="comment-content">
+<p>I am extremely impressed with the information on your blog. thanks for sharing.. good explanation</p>
+</div>
+<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://acadgild.com/blog/building-inverted-index-mapreduce#comment-547" data-commentid="547" data-postid="5130" data-belowelement="div-comment-547" data-respondelement="respond" aria-label="Reply to mohan">Reply</a></div> </article>
+</li>
+<li id="comment-48652" class="comment even thread-odd thread-alt depth-1">
+<article id="div-comment-48652" class="comment-body">
+<footer class="comment-meta">
+<div class="comment-author vcard">
+<img alt="" src="./Building Inverted Index in MapReduce __files/51759922d17682e1305acedf33f5af88.png" srcset="https://secure.gravatar.com/avatar/51759922d17682e1305acedf33f5af88?s=140&amp;d=mm&amp;r=g 2x" class="avatar avatar-70 photo" height="70" width="70"> <b class="fn">Aekansh Gupta</b> <span class="says">says:</span> </div>
+<div class="comment-metadata">
+<a href="https://acadgild.com/blog/building-inverted-index-mapreduce#comment-48652">
+<time datetime="2019-10-19T10:49:14+05:30">
+October 19, 2019 at 10:49 AM </time>
+</a>
+</div>
+</footer>
+<div class="comment-content">
+<p>9/10/19 05:18:14 INFO mapreduce.Job: Task Id : attempt_1528714825862_168465_m_000000_2, Status : FAILED<br>
+Error: java.lang.RuntimeException: java.lang.NoSuchMethodException: invert$Map.()<br>
+at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:131)<br>
+at org.apache.hadoop.mapred.MapTask.runNewMapper(MapTask.java:751)<br>
+at org.apache.hadoop.mapred.MapTask.run(MapTask.java:341)<br>
+at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:164)<br>
+at java.security.AccessController.doPrivileged(Native Method)<br>
+at javax.security.auth.Subject.doAs(Subject.java:422)<br>
+at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1920)<br>
+at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:158)<br>
+Caused by: java.lang.NoSuchMethodException: invert$Map.()<br>
+at java.lang.Class.getConstructor0(Class.java:3082)<br>
+at java.lang.Class.getDeclaredConstructor(Class.java:2178)<br>
+at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:125)<br>
+… 7 more</p>
+</div>
+<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://acadgild.com/blog/building-inverted-index-mapreduce#comment-48652" data-commentid="48652" data-postid="5130" data-belowelement="div-comment-48652" data-respondelement="respond" aria-label="Reply to Aekansh Gupta">Reply</a></div> </article>
+</li>
+</ol>
+</div>
+<div id="add-comment-block" class="container-wrapper"> <div id="respond" class="comment-respond">
+<h3 id="reply-title" class="comment-reply-title the-global-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://acadgild.com/blog/building-inverted-index-mapreduce#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://acadgild.com/blog/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate=""><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required="required"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required="required"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label></p>
+<p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;"> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="5130" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="469c0e7c54"></p><p class="wysija-after-comment"><label for="wysija-box-after-comment"><input type="checkbox" id="wysija-box-after-comment" value="1" name="wysija[comment_subscribe]">Yes, add me to your mailing list.</label></p><p style="display: none;"></p><input type="hidden" id="ak_js" name="ak_js" value="1603335052763"></form> </div>
+</div><p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div>
+<div id="related-posts" class="container-wrapper has-extra-post">
+<div class="mag-box-title the-global-title">
+<h3>Related Articles</h3>
+</div>
+<div class="related-posts-list">
+<div class="related-item tie-standard">
+<a href="https://acadgild.com/blog/big-data-python" title="Big Data Python" class="post-thumb">
+<div class="post-thumb-overlay-wrap">
+<div class="post-thumb-overlay">
+<span class="icon"></span>
+</div>
+</div>
+<img width="390" height="167" src="./Building Inverted Index in MapReduce __files/AC_blog_Hadoop-390x167.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" srcset="https://acadgild.com/blog/wp-content/uploads/2018/12/AC_blog_Hadoop-390x167.png 390w, https://acadgild.com/blog/wp-content/uploads/2018/12/AC_blog_Hadoop-150x64.png 150w, https://acadgild.com/blog/wp-content/uploads/2018/12/AC_blog_Hadoop-300x129.png 300w, https://acadgild.com/blog/wp-content/uploads/2018/12/AC_blog_Hadoop-600x257.png 600w, https://acadgild.com/blog/wp-content/uploads/2018/12/AC_blog_Hadoop.png 700w" sizes="(max-width: 390px) 100vw, 390px"></a><div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 27, 2020</span></span><div class="tie-alignright"><span class="meta-views meta-item warm"><span class="tie-icon-fire" aria-hidden="true"></span> 764 </span> </div><div class="clearfix"></div></div>
+<h3 class="post-title"><a href="https://acadgild.com/blog/big-data-python" title="Big Data Python">Big Data Python</a></h3>
+</div>
+<div class="related-item tie-standard">
+<a href="https://acadgild.com/blog/apache-hive-architecture-what-is-hive" title="Apache Hive Architecture | What Is Hive?" class="post-thumb">
+<div class="post-thumb-overlay-wrap">
+<div class="post-thumb-overlay">
+<span class="icon"></span>
+</div>
+</div>
+<img width="390" height="167" src="./Building Inverted Index in MapReduce __files/Hive-Architecture--390x167.jpg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" srcset="https://acadgild.com/blog/wp-content/uploads/2019/12/Hive-Architecture--390x167.jpg 390w, https://acadgild.com/blog/wp-content/uploads/2019/12/Hive-Architecture--150x64.jpg 150w, https://acadgild.com/blog/wp-content/uploads/2019/12/Hive-Architecture--300x129.jpg 300w, https://acadgild.com/blog/wp-content/uploads/2019/12/Hive-Architecture--600x257.jpg 600w, https://acadgild.com/blog/wp-content/uploads/2019/12/Hive-Architecture-.jpg 700w" sizes="(max-width: 390px) 100vw, 390px"></a><div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>December 17, 2019</span></span><div class="tie-alignright"><span class="meta-views meta-item very-hot"><span class="tie-icon-fire" aria-hidden="true"></span> 2,260 </span> </div><div class="clearfix"></div></div>
+<h3 class="post-title"><a href="https://acadgild.com/blog/apache-hive-architecture-what-is-hive" title="Apache Hive Architecture | What Is Hive?">Apache Hive Architecture | What Is Hive?</a></h3>
+</div>
+<div class="related-item is-trending tie-standard">
+<a href="https://acadgild.com/blog/soccer-data-analysis-using-apache-spark-sql-use-case" title="Soccer Data Analysis Using Apache Spark SQL (Use Case)" class="post-thumb">
+<div class="post-thumb-overlay-wrap">
+<div class="post-thumb-overlay">
+<span class="icon"></span>
+</div>
+</div>
+<img width="390" height="167" src="./Building Inverted Index in MapReduce __files/Olympics-Data-Analysis-using-SparkSQL-390x167.jpg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="Featured image" srcset="https://acadgild.com/blog/wp-content/uploads/2019/05/Olympics-Data-Analysis-using-SparkSQL-390x167.jpg 390w, https://acadgild.com/blog/wp-content/uploads/2019/05/Olympics-Data-Analysis-using-SparkSQL-150x64.jpg 150w, https://acadgild.com/blog/wp-content/uploads/2019/05/Olympics-Data-Analysis-using-SparkSQL-300x129.jpg 300w, https://acadgild.com/blog/wp-content/uploads/2019/05/Olympics-Data-Analysis-using-SparkSQL-600x257.jpg 600w, https://acadgild.com/blog/wp-content/uploads/2019/05/Olympics-Data-Analysis-using-SparkSQL.jpg 700w" sizes="(max-width: 390px) 100vw, 390px"></a><div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>May 17, 2019</span></span><div class="tie-alignright"><span class="meta-views meta-item very-hot"><span class="tie-icon-fire" aria-hidden="true"></span> 2,958 </span> </div><div class="clearfix"></div></div>
+<h3 class="post-title"><a href="https://acadgild.com/blog/soccer-data-analysis-using-apache-spark-sql-use-case" title="Soccer Data Analysis Using Apache Spark SQL (Use Case)">Soccer Data Analysis Using Apache Spark SQL (Use Case)</a></h3>
+</div>
+<div class="related-item tie-standard">
+<a href="https://acadgild.com/blog/broadcast-variables-and-accumulators-in-spark" title="Broadcast Variables and Accumulators in Spark" class="post-thumb">
+<div class="post-thumb-overlay-wrap">
+<div class="post-thumb-overlay">
+<span class="icon"></span>
+</div>
+</div>
+<img width="296" height="167" src="./Building Inverted Index in MapReduce __files/Apache_Spark_logo-1-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt=""></a><div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>May 15, 2019</span></span><div class="tie-alignright"><span class="meta-views meta-item very-hot"><span class="tie-icon-fire" aria-hidden="true"></span> 18,729 </span> </div><div class="clearfix"></div></div>
+<h3 class="post-title"><a href="https://acadgild.com/blog/broadcast-variables-and-accumulators-in-spark" title="Broadcast Variables and Accumulators in Spark">Broadcast Variables and Accumulators in Spark</a></h3>
+</div>
+</div>
+</div>
+</div>
+</div>
+<aside class="sidebar tie-col-md-4 tie-col-xs-12 normal-side is-sticky" aria-label="Primary Sidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+<div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static;">
+<div id="text-html-widget-2" class="container-wrapper widget text-html"><div class="widget-title the-global-title"><h4>Data Scientists with domain knowledge make around Rs 22,00,000. Start a new career story now!<span class="widget-title-icon fa"></span></h4></div><div><div role="form" class="wpcf7" id="wpcf7-f1255-o1" lang="en-US" dir="ltr">
+<div class="screen-reader-response" aria-live="polite"></div>
+<form action="https://acadgild.com/blog/building-inverted-index-mapreduce#wpcf7-f1255-o1" method="post" class="wpcf7-form" novalidate="novalidate">
+<div style="display: none;">
+<input type="hidden" name="_wpcf7" value="1255">
+<input type="hidden" name="_wpcf7_version" value="5.1.9">
+<input type="hidden" name="_wpcf7_locale" value="en_US">
+<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f1255-o1">
+<input type="hidden" name="_wpcf7_container_post" value="0">
+</div>
+<p><label> Name*<br>
+<span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></span> </label></p>
+<p><label> Mobile No*<br>
+<span class="wpcf7-form-control-wrap Phone"><input type="tel" name="Phone" value="" size="40" maxlength="10" minlength="10" class="wpcf7-form-control wpcf7-text wpcf7-tel wpcf7-validates-as-required wpcf7-validates-as-tel" aria-required="true" aria-invalid="false" placeholder="Enter 10 digit mobile number"></span> </label></p>
+<p><label> Email*<br>
+<span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false"></span> </label></p>
+<p><label> Choose Your Course (required)<br>
+<span class="wpcf7-form-control-wrap ChooseYourCourse"><select name="ChooseYourCourse" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required" aria-required="true" aria-invalid="false"><option value="Data Science Bootcamp with NIT KKR">Data Science Bootcamp with NIT KKR</option><option value="Data Science Masters">Data Science Masters</option><option value="Data Analytics">Data Analytics</option><option value="UX &amp; Visual Design">UX &amp; Visual Design</option></select></span> </label></p>
+<p><label> City<br>
+<span class="wpcf7-form-control-wrap City"><input type="text" name="City" value="" size="40" class="wpcf7-form-control wpcf7-text" aria-invalid="false"></span> </label></p>
+<p><input type="submit" value="Become an Expert Now" class="wpcf7-form-control wpcf7-submit"><span class="ajax-loader"></span></p>
+<div class="wpcf7-response-output wpcf7-display-none" aria-hidden="true"></div></form></div></div><div class="clearfix"></div></div><div id="relatedyoutubevideos-2" class="container-wrapper widget widget_relatedyoutubevideos"><div class="widget-title the-global-title"><h4>Video Tutorials<span class="widget-title-icon fa"></span></h4></div> <ul class="relatedYouTubeVideos ">
+<li>
+<div class="tie-fluid-width-video-wrapper" style="padding-top: 77.7778%;"><object data="./Building Inverted Index in MapReduce __files/Abt8RBO2Ino" name="fitvid0">
+<param name="movie" value="https://www.youtube.com/v/Abt8RBO2Ino?rel=1">
+<param name="wmode" value="transparent">
+<param name="allowfullscreen" value="true">
+<a href="https://www.youtube.com/watch?v=Abt8RBO2Ino"><img src="./Building Inverted Index in MapReduce __files/0.jpg" alt="Acadgild Data sciecne Masters training"><br>YouTube Video</a>
+</object></div>
+<div class="title">Acadgild Data sciecne Masters training</div>
+</li>
+<li>
+<div class="tie-fluid-width-video-wrapper" style="padding-top: 77.7778%;"><object data="./Building Inverted Index in MapReduce __files/UoCnsh6x2ls" name="fitvid1">
+<param name="movie" value="https://www.youtube.com/v/UoCnsh6x2ls?rel=1">
+<param name="wmode" value="transparent">
+<param name="allowfullscreen" value="true">
+<a href="https://www.youtube.com/watch?v=UoCnsh6x2ls"><img src="./Building Inverted Index in MapReduce __files/0(1).jpg" alt="Introduction to Full Stack Developer | Full Stack Web Development Course 2018 | Acadgild"><br>YouTube Video</a>
+</object></div>
+<div class="title">Introduction to Full Stack Developer | Full Stack Web Development Course 2018 | Acadgild</div>
+</li>
+<li>
+<div class="tie-fluid-width-video-wrapper" style="padding-top: 77.7778%;"><object data="./Building Inverted Index in MapReduce __files/kF8FVSNHuwM" name="fitvid2">
+<param name="movie" value="https://www.youtube.com/v/kF8FVSNHuwM?rel=1">
+<param name="wmode" value="transparent">
+<param name="allowfullscreen" value="true">
+<a href="https://www.youtube.com/watch?v=kF8FVSNHuwM"><img src="./Building Inverted Index in MapReduce __files/0(2).jpg" alt="Acadgild Reviews | Acadgild Data Science Reviews - Student Feedback | Data Science Course Review"><br>YouTube Video</a>
+</object></div>
+<div class="title">Acadgild Reviews | Acadgild Data Science Reviews - Student Feedback | Data Science Course Review</div>
+</li>
+<li>
+<div class="tie-fluid-width-video-wrapper" style="padding-top: 77.7778%;"><object data="./Building Inverted Index in MapReduce __files/o7pDf975RXc" name="fitvid3">
+<param name="movie" value="https://www.youtube.com/v/o7pDf975RXc?rel=1">
+<param name="wmode" value="transparent">
+<param name="allowfullscreen" value="true">
+<a href="https://www.youtube.com/watch?v=o7pDf975RXc"><img src="./Building Inverted Index in MapReduce __files/0(3).jpg" alt="Acadgild Promotional Brand"><br>YouTube Video</a>
+</object></div>
+<div class="title">Acadgild Promotional Brand</div>
+</li>
+<li>
+<div class="tie-fluid-width-video-wrapper" style="padding-top: 77.7778%;"><object data="./Building Inverted Index in MapReduce __files/SP3decnfhCM" name="fitvid4">
+<param name="movie" value="https://www.youtube.com/v/SP3decnfhCM?rel=1">
+<param name="wmode" value="transparent">
+<param name="allowfullscreen" value="true">
+<a href="https://www.youtube.com/watch?v=SP3decnfhCM"><img src="./Building Inverted Index in MapReduce __files/0(4).jpg" alt="What is Data Analytics - Decoded in 60 Seconds | Data Analytics Explained | Acadgild"><br>YouTube Video</a>
+</object></div>
+<div class="title">What is Data Analytics - Decoded in 60 Seconds | Data Analytics Explained | Acadgild</div>
+</li>
+</ul>
+<div id="posts-list-widget-19" class="container-wrapper widget posts-list"><div class="widget-title the-global-title"><h4>Trending Blogs<span class="widget-title-icon fa"></span></h4></div><div class="media-overlay "><ul class="posts-list-items">
+<li class="widget-post-list tie-standard">
+<div class="post-widget-thumbnail">
+<a href="https://acadgild.com/blog/parquet-file-format-hadoop" title="Parquet File Format Hadoop" class="post-thumb">
+<div class="post-thumb-overlay-wrap">
+<div class="post-thumb-overlay">
+<span class="icon"></span>
+</div>
+</div>
+<img width="220" height="71" src="./Building Inverted Index in MapReduce __files/Parquet-File-format-in-Hive.jpg" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" srcset="https://acadgild.com/blog/wp-content/uploads/2016/06/Parquet-File-format-in-Hive.jpg 767w, https://acadgild.com/blog/wp-content/uploads/2016/06/Parquet-File-format-in-Hive-600x195.jpg 600w, https://acadgild.com/blog/wp-content/uploads/2016/06/Parquet-File-format-in-Hive-300x97.jpg 300w" sizes="(max-width: 220px) 100vw, 220px"></a> </div>
+<div class="post-widget-body ">
+<h3 class="post-title"><a href="https://acadgild.com/blog/parquet-file-format-hadoop" title="Parquet File Format Hadoop">Parquet File Format Hadoop</a></h3>
+<div class="post-meta">
+<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>June 21, 2016</span></span> </div>
+</div>
+</li>
+<li class="widget-post-list tie-standard">
+<div class="post-widget-thumbnail">
+<a href="https://acadgild.com/blog/bucketing-in-hive" title="Bucketing in Hive" class="post-thumb">
+<div class="post-thumb-overlay-wrap">
+<div class="post-thumb-overlay">
+<span class="icon"></span>
+</div>
+</div>
+<img width="220" height="71" src="./Building Inverted Index in MapReduce __files/Bucketing-In-Hive.jpg" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" srcset="https://acadgild.com/blog/wp-content/uploads/2016/04/Bucketing-In-Hive.jpg 725w, https://acadgild.com/blog/wp-content/uploads/2016/04/Bucketing-In-Hive-600x194.jpg 600w, https://acadgild.com/blog/wp-content/uploads/2016/04/Bucketing-In-Hive-300x97.jpg 300w" sizes="(max-width: 220px) 100vw, 220px"></a> </div>
+<div class="post-widget-body ">
+<h3 class="post-title"><a href="https://acadgild.com/blog/bucketing-in-hive" title="Bucketing in Hive">Bucketing in Hive</a></h3>
+<div class="post-meta">
+<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>April 7, 2016</span></span> </div>
+</div>
+</li>
+<li class="widget-post-list tie-standard">
+<div class="post-widget-thumbnail">
+<a href="https://acadgild.com/blog/hive-complex-data-types-with-examples" title="Working With Hive Complex Data Types" class="post-thumb">
+<div class="post-thumb-overlay-wrap">
+<div class="post-thumb-overlay">
+<span class="icon"></span>
+</div>
+</div>
+<img width="220" height="85" src="./Building Inverted Index in MapReduce __files/Complex-types-in-Hive.jpg" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="Working With Hive Complex Data Types" srcset="https://acadgild.com/blog/wp-content/uploads/2017/04/Complex-types-in-Hive.jpg 780w, https://acadgild.com/blog/wp-content/uploads/2017/04/Complex-types-in-Hive-600x231.jpg 600w, https://acadgild.com/blog/wp-content/uploads/2017/04/Complex-types-in-Hive-300x115.jpg 300w, https://acadgild.com/blog/wp-content/uploads/2017/04/Complex-types-in-Hive-768x295.jpg 768w" sizes="(max-width: 220px) 100vw, 220px"></a> </div>
+<div class="post-widget-body ">
+<h3 class="post-title"><a href="https://acadgild.com/blog/hive-complex-data-types-with-examples" title="Working With Hive Complex Data Types">Working With Hive Complex Data Types</a></h3>
+<div class="post-meta">
+<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>April 26, 2017</span></span> </div>
+</div>
+</li>
+<li class="widget-post-list tie-standard">
+<div class="post-widget-thumbnail">
+<a href="https://acadgild.com/blog/windowing-functions-in-hive" title="Windowing Functions In Hive" class="post-thumb">
+<div class="post-thumb-overlay-wrap">
+<div class="post-thumb-overlay">
+<span class="icon"></span>
+</div>
+</div>
+<img width="220" height="85" src="./Building Inverted Index in MapReduce __files/Windowing-in-hive.jpg" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="Windowing Functions In Hive" srcset="https://acadgild.com/blog/wp-content/uploads/2017/03/Windowing-in-hive.jpg 780w, https://acadgild.com/blog/wp-content/uploads/2017/03/Windowing-in-hive-600x231.jpg 600w, https://acadgild.com/blog/wp-content/uploads/2017/03/Windowing-in-hive-300x115.jpg 300w, https://acadgild.com/blog/wp-content/uploads/2017/03/Windowing-in-hive-768x295.jpg 768w" sizes="(max-width: 220px) 100vw, 220px"></a> </div>
+<div class="post-widget-body ">
+<h3 class="post-title"><a href="https://acadgild.com/blog/windowing-functions-in-hive" title="Windowing Functions In Hive">Windowing Functions In Hive</a></h3>
+<div class="post-meta">
+<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>March 8, 2017</span></span> </div>
+</div>
+</li>
+<li class="widget-post-list tie-standard">
+<div class="post-widget-thumbnail">
+<a href="https://acadgild.com/blog/how-to-access-hive-tables-to-spark-sql" title="How to Access Hive Tables using Spark SQL" class="post-thumb">
+<div class="post-thumb-overlay-wrap">
+<div class="post-thumb-overlay">
+<span class="icon"></span>
+</div>
+</div>
+<img width="220" height="94" src="./Building Inverted Index in MapReduce __files/Hive-and-Spark-SQL.jpg" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="How to Access Hive Tables to Spark SQL" srcset="https://acadgild.com/blog/wp-content/uploads/2017/10/Hive-and-Spark-SQL.jpg 700w, https://acadgild.com/blog/wp-content/uploads/2017/10/Hive-and-Spark-SQL-600x257.jpg 600w, https://acadgild.com/blog/wp-content/uploads/2017/10/Hive-and-Spark-SQL-300x129.jpg 300w" sizes="(max-width: 220px) 100vw, 220px"></a> </div>
+<div class="post-widget-body ">
+<h3 class="post-title"><a href="https://acadgild.com/blog/how-to-access-hive-tables-to-spark-sql" title="How to Access Hive Tables using Spark SQL">How to Access Hive Tables using Spark SQL</a></h3>
+<div class="post-meta">
+<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>November 8, 2017</span></span> </div>
+</div>
+</li>
+</ul></div><div class="clearfix"></div></div><div class="widget social-icons-widget widget-content-only"><ul class="solid-social-icons"><li class="social-icons-item"><a class="social-link  google-social-icon" title="Google+" rel="nofollow" target="_blank" href="https://plus.google.com/+Acadgild"><span class="fa fa-google-plus"></span></a></li><li class="social-icons-item"><a class="social-link  facebook-social-icon" title="Facebook" rel="nofollow" target="_blank" href="https://www.facebook.com/acadgild"><span class="fa fa-facebook"></span></a></li><li class="social-icons-item"><a class="social-link  twitter-social-icon" title="Twitter" rel="nofollow" target="_blank" href="https://twitter.com/acadgild"><span class="fa fa-twitter"></span></a></li><li class="social-icons-item"><a class="social-link  linkedin-social-icon" title="LinkedIn" rel="nofollow" target="_blank" href="https://www.linkedin.com/company/3787659/"><span class="fa fa-linkedin"></span></a></li><li class="social-icons-item"><a class="social-link  youtube-social-icon" title="YouTube" rel="nofollow" target="_blank" href="https://www.youtube.com/channel/UCaQfgvMsjpImSxrJQDBjd-Q"><span class="fa fa-youtube"></span></a></li></ul>
+<div class="clearfix"></div></div><div id="wysija-2" class="container-wrapper widget widget_wysija"><div class="widget-title the-global-title"><h4>Like what you see? Subscribe to our blog<span class="widget-title-icon fa"></span></h4></div><div class="widget_wysija_cont"><div id="msg-form-wysija-2" class="wysija-msg ajax"></div><form id="form-wysija-2" method="post" action="https://acadgild.com/blog/building-inverted-index-mapreduce#wysija" class="widget_wysija">
+<p class="wysija-paragraph">
+<label>Email <span class="wysija-required">*</span></label>
+<input type="text" name="wysija[user][email]" class="wysija-input validate[required,custom[email]]" title="Email" value="">
+<span class="abs-req">
+<input type="text" name="wysija[user][abs][email]" class="wysija-input validated[abs][email]" value="">
+</span>
+</p>
+<input class="wysija-submit wysija-submit-field" type="submit" value="Subscribe!">
+<input type="hidden" name="form_id" value="1">
+<input type="hidden" name="action" value="save">
+<input type="hidden" name="controller" value="subscribers">
+<input type="hidden" value="1" name="wysija-page">
+<input type="hidden" name="wysija[user_list][list_ids]" value="1">
+</form></div><div class="clearfix"></div></div> </div>
+</div></aside>
+</div>
+</div>
+<footer id="footer" class="site-footer dark-skin dark-widgetized-area">
+<div id="site-info" class="site-info-layout-2">
+<div class="container">
+<div class="tie-row">
+<div class="tie-col-md-12">
+<div class="copyright-text copyright-text-first">Copyright © AeonLearning Pvt. Ltd. 2020, All Rights Reserved.</div><div class="footer-menu"><ul id="menu-my-course-1" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-47159"><a href="https://acadgild.com/browse-all-courses">Courses</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-47157"><a href="https://acadgild.com/corporate-training-program">Corporate Training</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-48800"><a href="https://acadgild.com/customers/reviews">Reviews</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-48801"><a>Downloads &amp; eBooks</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-48822"><a>Categories</a></li>
+</ul></div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<div class="post-footer post-footer-on-mobile">
+<div class="share-links  icons-only">
+<a href="http://www.facebook.com/sharer.php?u=https://acadgild.com/blog/building-inverted-index-mapreduce" rel="external" target="_blank" class="facebook-share-btn"><span class="fa fa-facebook"></span> <span class="screen-reader-text">Facebook</span></a><a href="https://twitter.com/intent/tweet?text=Building+Inverted+Index+in+MapReduce&amp;url=https://acadgild.com/blog/building-inverted-index-mapreduce" rel="external" target="_blank" class="twitter-share-btn"><span class="fa fa-twitter"></span> <span class="screen-reader-text">Twitter</span></a><a href="whatsapp://send?text=Building+Inverted+Index+in+MapReduce - https://acadgild.com/blog/building-inverted-index-mapreduce" rel="external" target="_blank" class="whatsapp-share-btn"><span class="fa fa-whatsapp"></span> <span class="screen-reader-text">WhatsApp</span></a><a href="tg://msg?text=Building+Inverted+Index+in+MapReduce - https://acadgild.com/blog/building-inverted-index-mapreduce" rel="external" target="_blank" class="telegram-share-btn"><span class="fa fa-paper-plane"></span> <span class="screen-reader-text">Telegram</span></a> </div>
+</div>
+<div class="mobile-share-buttons-spacer"></div>
+<a id="go-to-top" class="go-to-top-button" href="https://acadgild.com/blog/building-inverted-index-mapreduce#go-to-tie-body"><span class="fa fa-angle-up"></span></a><div class="clear"></div>
+</div>
+<aside class="side-aside normal-side tie-aside-effect dark-skin dark-widgetized-area is-fullwidth" aria-label="Secondary Sidebar">
+<div data-height="100%" class="side-aside-wrapper has-custom-scroll mCustomScrollbar _mCS_1 mCS-autoHide" style="height: 100%;"><div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" style="max-height: none;" tabindex="0"><div id="mCSB_1_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
+<a href="https://acadgild.com/blog/building-inverted-index-mapreduce#" class="close-side-aside remove big-btn light-btn">
+<span class="screen-reader-text">Close</span>
+</a>
+<div id="mobile-container">
+<div id="mobile-menu" class="hide-menu-icons"><ul class="menu" role="menubar"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-47159"><a href="https://acadgild.com/browse-all-courses">Courses</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-47157"><a href="https://acadgild.com/corporate-training-program">Corporate Training</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-48800"><a href="https://acadgild.com/customers/reviews">Reviews</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-48801" aria-haspopup="true" aria-expanded="false" tabindex="0"><a>Downloads &amp; eBooks</a>
+<ul class="sub-menu menu-sub-content" style="opacity: 0;">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-49148"><a href="https://acadgild.com/blog/hadoop-use-cases-e-book-5">Real-world Hadoop Use Cases E-Book</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-48803"><a href="https://acadgild.com/blog/hadoop-projects-big-data-training-real-world">Mastering Big Data Hadoop With Real World Projects</a></li>
+</ul>
+<span class="mobile-arrows fa fa-chevron-down"></span></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-48822" aria-haspopup="true" aria-expanded="false" tabindex="0"><a>Categories</a>
+<ul class="sub-menu menu-sub-content" style="opacity: 0;">
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48843"><a href="https://acadgild.com/blog/category/acadgild">All Categories</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48817"><a href="https://acadgild.com/blog/category/data-science">Data Science and Artificial Intelligence</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48819"><a href="https://acadgild.com/blog/category/r-machine-learning">Data Analytics with R, Excel &amp; Tableau</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48820"><a href="https://acadgild.com/blog/category/blockchain">Blockchain</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48813"><a href="https://acadgild.com/blog/category/big-data-and-hadoop">Big Data Hadoop &amp; Spark</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-48815"><a href="https://acadgild.com/blog/category/big-data-and-hadoop-advanced">Big Data Hadoop &amp; Spark – Advanced</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48816"><a href="https://acadgild.com/blog/category/full-stack">Full stack Web Development</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48821"><a href="https://acadgild.com/blog/category/graphic-design">Graphic Design &amp; UX</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48814"><a href="https://acadgild.com/blog/category/android">Android App Development</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48818"><a href="https://acadgild.com/blog/category/careers">Careers</a></li>
+</ul>
+<span class="mobile-arrows fa fa-chevron-down"></span></li>
+</ul></div>
+<div class="mobile-social-search">
+<div id="mobile-social-icons" class="social-icons-widget solid-social-icons">
+<ul><li class="social-icons-item"><a class="social-link  google-social-icon" title="Google+" rel="nofollow" target="_blank" href="https://plus.google.com/+Acadgild"><span class="fa fa-google-plus"></span></a></li><li class="social-icons-item"><a class="social-link  facebook-social-icon" title="Facebook" rel="nofollow" target="_blank" href="https://www.facebook.com/acadgild"><span class="fa fa-facebook"></span></a></li><li class="social-icons-item"><a class="social-link  twitter-social-icon" title="Twitter" rel="nofollow" target="_blank" href="https://twitter.com/acadgild"><span class="fa fa-twitter"></span></a></li><li class="social-icons-item"><a class="social-link  linkedin-social-icon" title="LinkedIn" rel="nofollow" target="_blank" href="https://www.linkedin.com/company/3787659/"><span class="fa fa-linkedin"></span></a></li><li class="social-icons-item"><a class="social-link  youtube-social-icon" title="YouTube" rel="nofollow" target="_blank" href="https://www.youtube.com/channel/UCaQfgvMsjpImSxrJQDBjd-Q"><span class="fa fa-youtube"></span></a></li></ul>
+</div>
+<div id="mobile-search">
+<form role="search" method="get" class="search-form" action="https://acadgild.com/blog/">
+<label>
+<span class="screen-reader-text">Search for:</span>
+<input type="search" class="search-field" placeholder="Search …" value="" name="s">
+</label>
+<input type="submit" class="search-submit" value="Search">
+</form> </div>
+</div>
+</div>
+<div id="slide-sidebar-widgets">
+<div id="categories-9" class="container-wrapper widget widget_categories"><div class="widget-title the-global-title"><h4>Categories<span class="widget-title-icon fa"></span></h4></div> <ul>
+<li class="cat-item cat-item-55"><a href="https://acadgild.com/blog/category/acadgild">All Categories</a>
+</li>
+<li class="cat-item cat-item-63"><a href="https://acadgild.com/blog/category/android">Android App Development</a>
+</li>
+<li class="cat-item cat-item-78"><a href="https://acadgild.com/blog/category/big-data-and-hadoop">Big Data Hadoop &amp; Spark</a>
+</li>
+<li class="cat-item cat-item-57"><a href="https://acadgild.com/blog/category/big-data-and-hadoop-advanced">Big Data Hadoop &amp; Spark – Advanced</a>
+</li>
+<li class="cat-item cat-item-363"><a href="https://acadgild.com/blog/category/blockchain">Blockchain</a>
+</li>
+<li class="cat-item cat-item-102"><a href="https://acadgild.com/blog/category/careers">Careers</a>
+</li>
+<li class="cat-item cat-item-66"><a href="https://acadgild.com/blog/category/r-machine-learning">Data Analytics with R, Excel &amp; Tableau</a>
+</li>
+<li class="cat-item cat-item-296"><a href="https://acadgild.com/blog/category/data-science">Data Science and Artificial Intelligence</a>
+</li>
+<li class="cat-item cat-item-70"><a href="https://acadgild.com/blog/category/full-stack">Full stack Web Development</a>
+</li>
+<li class="cat-item cat-item-96"><a href="https://acadgild.com/blog/category/graphic-design">Graphic Design &amp; UX</a>
+</li>
+<li class="cat-item cat-item-1"><a href="https://acadgild.com/blog/category/uncategorized">Uncategorized</a>
+</li>
+</ul>
+<div class="clearfix"></div></div> <div id="recent-posts-5" class="container-wrapper widget widget_recent_entries"> <div class="widget-title the-global-title"><h4>Recent Post<span class="widget-title-icon fa"></span></h4></div> <ul>
+<li>
+<a href="https://acadgild.com/blog/word-cloud-using-python">Word Cloud using Python</a>
+<span class="post-date">March 28, 2020</span>
+</li>
+<li>
+<a href="https://acadgild.com/blog/data-analytics-resume-building">Data Analytics resume building</a>
+<span class="post-date">March 26, 2020</span>
+</li>
+<li>
+<a href="https://acadgild.com/blog/web-scraping-with-python">Web Scraping with Python</a>
+<span class="post-date">March 20, 2020</span>
+</li>
+<li>
+<a href="https://acadgild.com/blog/android-instant-apps">Android Instant Apps</a>
+<span class="post-date">March 5, 2020</span>
+</li>
+<li>
+<a href="https://acadgild.com/blog/transformation-through-ar-and-vr">Transformation Through AR and VR</a>
+<span class="post-date">March 2, 2020</span>
+</li>
+</ul>
+<div class="clearfix"></div></div> </div>
+</div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-light mCSB_scrollTools_vertical" style="display: block;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; display: block; height: 607px; max-height: 688px; top: 0px;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div>
+</aside>
+</div>
+</div>
+<script type="text/javascript"><!--
+			var seriesdropdown = document.getElementById("orgseries_dropdown");
+			if (seriesdropdown) {
+			 function onSeriesChange() {
+					if ( seriesdropdown.options[seriesdropdown.selectedIndex].value != ( 0 || -1 ) ) {
+						location.href = "https://acadgild.com/blog/series/"+seriesdropdown.options[seriesdropdown.selectedIndex].value;
+					}
+				}
+				seriesdropdown.onchange = onSeriesChange;
+			}
+			--></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var TVE_Ult_Data = {"ajaxurl":"https:\/\/acadgild.com\/blog\/wp-admin\/admin-ajax.php","ajax_load_action":"tve_ult_ajax_load","conversion_events_action":"tve_ult_conversion_event","shortcode_campaign_ids":[],"matched_display_settings":[],"campaign_ids":[],"post_id":5130,"is_singular":true,"tu_em":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/no-campaign.min.js.download"></script><script type="text/javascript">function ytc_init_MPAU() {jQuery('.ytc-lightbox').magnificPopupAU({disableOn:320,type:'iframe',mainClass:'ytc-mfp-lightbox',removalDelay:160,preloader:false,fixedContentPos:false});}jQuery(window).on('load',function(){ytc_init_MPAU();});jQuery(document).ajaxComplete(function(){ytc_init_MPAU();});</script> <div style="display:none">
+<div class="grofile-hash-map-be42d513b70cfa1a2ad8389d87f4c33f">
+</div>
+<div class="grofile-hash-map-c33e90075415b2a2f04dbd3d80ddab37">
+</div>
+<div class="grofile-hash-map-be42d513b70cfa1a2ad8389d87f4c33f">
+</div>
+<div class="grofile-hash-map-2edd10c866eb06bbdb7b83051e4268f1">
+</div>
+<div class="grofile-hash-map-de5153008dcec3595a9f545976cac951">
+</div>
+<div class="grofile-hash-map-51759922d17682e1305acedf33f5af88">
+</div>
+</div>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT9ZZS9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div id="reading-position-indicator"></div><div id="fb-root"></div> <div id="tie-popup-search-wrap" class="tie-popup">
+<a href="https://acadgild.com/blog/building-inverted-index-mapreduce#" class="tie-btn-close remove big-btn light-btn">
+<span class="screen-reader-text">Close</span>
+</a>
+<div class="container">
+<div class="popup-search-wrap-inner">
+<div class="tie-row">
+<div id="pop-up-live-search" class="tie-col-md-12 live-search-parent" data-skin="live-search-popup" aria-label="Search">
+<form method="get" id="tie-popup-search-form" action="https://acadgild.com/blog//">
+<input id="tie-popup-search-input" class="is-ajax-search" type="text" name="s" title="Search for" autocomplete="off" placeholder="Type and hit Enter">
+<button id="tie-popup-search-submit" type="submit"><span class="fa fa-search" aria-hidden="true"></span></button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tie-popup-login" class="tie-popup">
+<a href="https://acadgild.com/blog/building-inverted-index-mapreduce#" class="tie-btn-close remove big-btn light-btn">
+<span class="screen-reader-text">Close</span>
+</a>
+<div class="tie-popup-container">
+<div class="container-wrapper">
+<div class="widget login-widget">
+<div class="widget-title the-global-title">
+<h4>Log In <span class="widget-title-icon fa "></span>
+</h4>
+</div>
+<div class="widget-container">
+<div class="login-form">
+<form name="registerform" action="https://acadgild.com/blog/wp-login.php" method="post">
+<input type="text" name="log" title="Username" placeholder="Username">
+<div class="pass-container">
+<input type="password" name="pwd" title="Password" placeholder="Password">
+<a class="forget-text" href="https://acadgild.com/blog/my-account/lost-password">Forget?</a>
+</div>
+<input type="hidden" name="redirect_to" value="/blog/building-inverted-index-mapreduce">
+<label for="rememberme" class="rememberme">
+<input id="rememberme" name="rememberme" type="checkbox" checked="checked" value="forever"> Remember me </label>
+<button type="submit" class="button fullwidth login-submit">Log In</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+		var c = document.body.className;
+		c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+		document.body.className = c;
+	</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/acadgild.com\/blog\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"cached":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/scripts.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var ebd_inline = {"ajaxurl":"https:\/\/acadgild.com\/blog\/wp-admin\/admin-ajax.php","ajax_nonce":"f6d27d6c32"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/email-before-download-public.js.download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/imagesloaded.min.js.download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/masonry.min.js.download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/jquery.masonry.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var tve_frontend_options = {"is_editor_page":"","page_events":[],"is_single":"1","ajaxurl":"https:\/\/acadgild.com\/blog\/wp-admin\/admin-ajax.php","social_fb_app_id":"","dash_url":"https:\/\/acadgild.com\/blog\/wp-content\/plugins\/thrive-visual-editor\/thrive-dashboard","translations":{"Copy":"Copy"},"post_id":"5130","ip":"2600:8804:88c0:8df:68c7:4b1c:a75:7cab","current_user":[],"post_title":"Building Inverted Index in MapReduce","post_type":"post","post_url":"https:\/\/acadgild.com\/blog\/building-inverted-index-mapreduce","is_lp":"","post_request_data":[]};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/frontend.min.js(1).download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/frontend.min.js(2).download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/jquery.blockUI.min.js.download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/js.cookie.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var woocommerce_params = {"ajax_url":"\/blog\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/blog\/?wc-ajax=%%endpoint%%"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/woocommerce.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wc_cart_fragments_params = {"ajax_url":"\/blog\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/blog\/?wc-ajax=%%endpoint%%","cart_hash_key":"wc_cart_hash_50e086f4f03ca9bf1334ada2467c1379","fragment_name":"wc_fragments_50e086f4f03ca9bf1334ada2467c1379","request_timeout":"5000"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/cart-fragments.min.js.download"></script>
+<script type="text/javascript">
+		jQuery( 'body' ).bind( 'wc_fragments_refreshed', function() {
+			var jetpackLazyImagesLoadEvent;
+			try {
+				jetpackLazyImagesLoadEvent = new Event( 'jetpack-lazy-images-load', {
+					bubbles: true,
+					cancelable: true
+				} );
+			} catch ( e ) {
+				jetpackLazyImagesLoadEvent = document.createEvent( 'Event' )
+				jetpackLazyImagesLoadEvent.initEvent( 'jetpack-lazy-images-load', true, true );
+			}
+			jQuery( 'body' ).get( 0 ).dispatchEvent( jetpackLazyImagesLoadEvent );
+		} );
+	
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7_redirect_forms = {"1255":{"page_id":"0","external_url":"","use_external_url":"","open_in_new_tab":"","http_build_query":"","http_build_query_selectively":"","http_build_query_selectively_fields":"","delay_redirect":"","after_sent_script":"","thankyou_page_url":""},"10166":{"page_id":"","external_url":"","use_external_url":"","open_in_new_tab":"","http_build_query":"","http_build_query_selectively":"","http_build_query_selectively_fields":"","delay_redirect":"","after_sent_script":"","thankyou_page_url":""},"7990":{"page_id":"","external_url":"","use_external_url":"","open_in_new_tab":"","http_build_query":"","http_build_query_selectively":"","http_build_query_selectively_fields":"","delay_redirect":"","after_sent_script":"","thankyou_page_url":""},"2587":{"page_id":"","external_url":"","use_external_url":"","open_in_new_tab":"","http_build_query":"","http_build_query_selectively":"","http_build_query_selectively_fields":"","delay_redirect":"","after_sent_script":"","thankyou_page_url":""},"1790":{"page_id":"","external_url":"","use_external_url":"","open_in_new_tab":"","http_build_query":"","http_build_query_selectively":"","http_build_query_selectively_fields":"","delay_redirect":"","after_sent_script":"","thankyou_page_url":""},"393":{"page_id":"","external_url":"","use_external_url":"","open_in_new_tab":"","http_build_query":"","http_build_query_selectively":"","http_build_query_selectively_fields":"","delay_redirect":"","after_sent_script":"","thankyou_page_url":""}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/wpcf7-redirect-script.js.download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/jquery.magnific-popup.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var voice_search = {"button_message":"Speech Input","talk_message":"Start Talking\u2026"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/voice-search.min .js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var tve_dash_front = {"ajaxurl":"https:\/\/acadgild.com\/blog\/wp-admin\/admin-ajax.php","force_ajax_send":"1","is_crawler":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/frontend.min.js(3).download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/scripts.min.js.download"></script>
+<script type="text/javascript">
+					jQuery.ajax({
+						type : "GET",
+						url  : "https://acadgild.com/blog/wp-admin/admin-ajax.php",
+						data : "postviews_id=5130&action=tie_postviews",
+						cache: !1
+					});
+				
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/comment-reply.min.js.download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/enlighterjs.min.js.download"></script>
+<script type="text/javascript">
+!function(n,o){"undefined"!=typeof EnlighterJS?(n.EnlighterJSINIT=function(){EnlighterJS.init("pre.EnlighterJSRAW", "code.EnlighterJSRAW", {"indent":4,"ampersandCleanup":true,"linehover":true,"rawcodeDbclick":false,"textOverflow":"break","linenumbers":true,"theme":"enlighter","language":"enlighter","retainCssClasses":false,"collapse":false,"toolbarOuter":"","toolbarTop":"{BTN_RAW}{BTN_COPY}{BTN_WINDOW}{BTN_WEBSITE}","toolbarBottom":""})})():(o&&(o.error||o.log)||function(){})("Error: EnlighterJS resources not loaded yet!")}(window,console);
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/wp-embed.min.js.download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/OneSignalSDK.js.download" async="async"></script>
+<script async="async" type="text/javascript" src="./Building Inverted Index in MapReduce __files/form.js.download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/jquery.validationEngine-en.js.download"></script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/jquery.validationEngine.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wysijaAJAX = {"action":"wysija_ajax","controller":"subscribers","ajaxurl":"https:\/\/acadgild.com\/blog\/wp-admin\/admin-ajax.php","loadingTrans":"Loading...","is_rtl":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Building Inverted Index in MapReduce __files/front-subscribers.js.download"></script>
+<script type="text/javascript">var tcb_post_lists=JSON.parse('[]');</script><script type="text/javascript">/*<![CDATA[*/if ( !window.TL_Const ) {var TL_Const={"security":"d5edc35889","ajax_url":"https:\/\/acadgild.com\/blog\/wp-admin\/admin-ajax.php","forms":{"widget":{"_key":"94","trigger":"page_load","trigger_config":{},"form_type_id":52015,"main_group_id":33646,"active_test_id":"1"}},"action_conversion":"tve_leads_ajax_conversion","action_impression":"tve_leads_ajax_impression","ajax_load":0,"main_group_id":33646,"display_options":{"allowed_post_types":[],"flag_url_match":false},"custom_post_data":[],"current_screen":{"screen_type":4,"screen_id":5130},"ignored_fields":["email","_captcha_size","_captcha_theme","_captcha_type","_submit_option","_use_captcha","g-recaptcha-response","__tcb_lg_fc","__tcb_lg_msg","_state","_form_type","_error_message_option","_back_url","_submit_option","url","_asset_group","_asset_option","mailchimp_optin"]};} else {ThriveGlobal.$j.extend(true, TL_Const, {"security":"d5edc35889","ajax_url":"https:\/\/acadgild.com\/blog\/wp-admin\/admin-ajax.php","forms":{"widget":{"_key":"94","trigger":"page_load","trigger_config":{},"form_type_id":52015,"main_group_id":33646,"active_test_id":"1"}},"action_conversion":"tve_leads_ajax_conversion","action_impression":"tve_leads_ajax_impression","ajax_load":0,"main_group_id":33646,"display_options":{"allowed_post_types":[],"flag_url_match":false},"custom_post_data":[],"current_screen":{"screen_type":4,"screen_id":5130},"ignored_fields":["email","_captcha_size","_captcha_theme","_captcha_type","_submit_option","_use_captcha","g-recaptcha-response","__tcb_lg_fc","__tcb_lg_msg","_state","_form_type","_error_message_option","_back_url","_submit_option","url","_asset_group","_asset_option","mailchimp_optin"]})} /*]]> */</script><script type="text/javascript">
+	(function ($) {
+	$(function () {
+		var event_data = {"form_id":"tve-leads-track-widget-94","form_type":"widget"};
+		event_data.source = 'page_load';
+		setTimeout(function () {
+			ThriveGlobal.$j(TL_Front).trigger('showform.thriveleads', event_data);
+			}, 200);
+		});
+	})
+(ThriveGlobal.$j);
+</script><script type="text/javascript" src="./Building Inverted Index in MapReduce __files/e-202043.js.download" async="async" defer="defer"></script>
+<script type="text/javascript">
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:8.5',blog:'103159356',post:'5130',tz:'5.5',srv:'acadgild.com'} ]);
+	_stq.push([ 'clickTrackerInit', '103159356', '5130' ]);
+</script>
+
+
+<img alt="preload image" style="display: none;"><img alt="preload image" style="display: none;"><div class="autocomplete-suggestions" style="position: absolute; display: none; width: 370px; z-index: 9999;"></div><img src="./Building Inverted Index in MapReduce __files/g.gif" alt=":)" width="6" height="5" id="wpstats">
+
+<script type="text/javascript" id="">!function(d,e,f,a,b,c){d.qp||(a=d.qp=function(){a.qp?a.qp.apply(a,arguments):a.queue.push(arguments)},a.queue=[],b=document.createElement(e),b.async=!0,b.src=f,c=document.getElementsByTagName(e)[0],c.parentNode.insertBefore(b,c))}(window,"script","https://a.quora.com/qevents.js");qp("init","72f33134c03a460e97488c18c362c3cf");qp("track","ViewContent");</script>
+<noscript><img height="1" width="1" style="display:none" src="https://q.quora.com/_/ad/72f33134c03a460e97488c18c362c3cf/pixel?tag=ViewContent&amp;noscript=1"></noscript>
+
+<script type="text/javascript" id="">qp("track","GenerateLead");</script><script type="text/javascript" id="" src="./Building Inverted Index in MapReduce __files/f(8).txt"></script><script type="text/javascript" id="">var om48383_42536,om48383_42536_poll=function(){var b=0;return function(d,c){clearInterval(b);b=setInterval(d,c)}}();
+!function(b,d,c){if(b.getElementById(c))om48383_42536_poll(function(){if(window.om_loaded&&!om48383_42536)return om48383_42536=new OptinMonsterApp,om48383_42536.init({a:42536,staging:0,dev:0,beta:0})},25);else{var e=!1,a=b.createElement(d);a.id=c;a.src="https://a.optmstr.com/app/js/api.min.js";a.async=!0;a.onload=a.onreadystatechange=function(){if(!(e||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{e=om_loaded=!0,om48383_42536=new OptinMonsterApp,om48383_42536.init({a:42536,
+staging:0,dev:0,beta:0}),a.onload=a.onreadystatechange=null}catch(f){}};(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(a)}}(document,"script","omapi-script");</script>
+<script type="text/javascript" id="">(function(a,c,e,f,d,b){a.hj=a.hj||function(){(a.hj.q=a.hj.q||[]).push(arguments)};a._hjSettings={hjid:931580,hjsv:6};d=c.getElementsByTagName("head")[0];b=c.createElement("script");b.async=1;b.src=e+a._hjSettings.hjid+f+a._hjSettings.hjsv;d.appendChild(b)})(window,document,"https://static.hotjar.com/c/hotjar-",".js?sv\x3d");</script><script type="text/javascript" id="" src="./Building Inverted Index in MapReduce __files/saved_resource"></script>
+<script type="text/javascript" id="" src="./Building Inverted Index in MapReduce __files/Tracker.js.download"></script><script type="text/javascript" id="">document.addEventListener("wpcf7mailsent",function(a){window.dataLayer.push({event:"cf7submission",formId:a.detail.contactFormId,response:a.detail.inputs})});</script><div data-state="closed" class="verloop-widget started">
+				<div class="verloop-button" style="background-color: rgb(40, 22, 170);">
+					<div class="verloop-livechat-logo"></div>
+					<div class="verloop-livechat-unread-count">1</div>
+				</div>
+				<div class="verloop-container">
+					<iframe id="verloop-iframe" src="./Building Inverted Index in MapReduce __files/livechat.html" allowtransparency="true" allowfullscreen=""></iframe>
+				</div>
+			</div>
+<script type="text/javascript" id="">(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-1229166109254519",enable_page_level_ads:!0});</script><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:0px;margin:0;padding:0;position:relative;visibility:visible;width:0px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:0px;margin:0;padding:0;position:relative;visibility:visible;width:0px;background-color:transparent;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" src="./Building Inverted Index in MapReduce __files/ads.html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!0" data-load-complete="true"></iframe></ins></ins></ins><div id="onesignal-bell-container" class="onesignal-bell-container onesignal-reset onesignal-bell-container-bottom-left"><div id="onesignal-bell-launcher" class="onesignal-bell-launcher onesignal-bell-launcher-sm onesignal-bell-launcher-bottom-left onesignal-bell-launcher-theme-default onesignal-bell-launcher-active"><div class="onesignal-bell-launcher-button"><svg class="onesignal-bell-svg" xmlns="http://www.w3.org/2000/svg" width="99.7" height="99.7" viewBox="0 0 99.7 99.7" style="filter: drop-shadow(0 2px 4px rgba(34,36,38,0.35));; -webkit-filter: drop-shadow(0 2px 4px rgba(34,36,38,0.35));;"><circle class="background" cx="49.9" cy="49.9" r="49.9" style=""></circle><path class="foreground" d="M50.1 66.2H27.7s-2-.2-2-2.1c0-1.9 1.7-2 1.7-2s6.7-3.2 6.7-5.5S33 52.7 33 43.3s6-16.6 13.2-16.6c0 0 1-2.4 3.9-2.4 2.8 0 3.8 2.4 3.8 2.4 7.2 0 13.2 7.2 13.2 16.6s-1 11-1 13.3c0 2.3 6.7 5.5 6.7 5.5s1.7.1 1.7 2c0 1.8-2.1 2.1-2.1 2.1H50.1zm-7.2 2.3h14.5s-1 6.3-7.2 6.3-7.3-6.3-7.3-6.3z" style=""></path><ellipse class="stroke" cx="49.9" cy="49.9" rx="37.4" ry="36.9" style=""></ellipse></svg></div><div class="onesignal-bell-launcher-badge" style="filter: drop-shadow(0 2px 4px rgba(34,36,38,0));; -webkit-filter: drop-shadow(0 2px 4px rgba(34,36,38,0));;"></div><div class="onesignal-bell-launcher-message"><div class="onesignal-bell-launcher-message-body"></div></div><div class="onesignal-bell-launcher-dialog" style="filter: drop-shadow(0px 2px 2px rgba(34,36,38,.15));; -webkit-filter: drop-shadow(0px 2px 2px rgba(34,36,38,.15));;"><div class="onesignal-bell-launcher-dialog-body"></div></div></div></div><iframe name="_hjRemoteVarsFrame" title="_hjRemoteVarsFrame" id="_hjRemoteVarsFrame" src="./Building Inverted Index in MapReduce __files/box-469cf41adb11dc78be68c1ae7f9457a4.html" style="display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;"></iframe><div class="ub-emb-container"><div></div></div><iframe id="google_osd_static_frame_9489141482026" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./Building Inverted Index in MapReduce __files/saved_resource.html"></iframe>
+<script type="text/javascript" id="">pidTracker("28510");</script>
+</body><iframe id="google_esf" name="google_esf" src="./Building Inverted Index in MapReduce __files/zrt_lookup.html" data-ad-client="ca-pub-1229166109254519" style="display: none;"></iframe></html>

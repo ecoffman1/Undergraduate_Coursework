@@ -1,0 +1,11 @@
+# Virtual environment
+/venv
+__pycache__/
+
+# Build files
+/dist
+/build
+
+# DB files
+*.swp
+*.pyc

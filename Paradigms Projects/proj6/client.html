@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <style>
+body {
+    background-color: #e0d8d0;
+    font-family: verdana, tahoma, geneva, sans-serif;
+    font-size: 20px;
+}
+
+@media (max-width: 990px) {
+    body,td,center {
+        font-size: 34px;
+    }
+}
+.box1 {
+  display: inline-block;
+  width: 200px;
+  height: 500px;
+  margin: 1em;
+}
+.box2 {
+  display: inline-block;
+  width: 1000px;
+  height: 500px;
+  margin: 1em;
+}
+
+.button {
+    margin: 0;
+    margin-top:0;
+}
+        </style>
+    </head>
+    <title>client.html</title>
+    <body>
+        <div id = "content" class = "box2">    
+            <script>
+                const on_push = () => {
+                        let el = document.getElementById("content");
+                        var script = document.createElement('script');
+                        script = document.createElement('script'); // Create the script
+                        script.src = 'game.js';
+                        sessionStorage.setItem("name", document.getElementById('name').value);
+                        el.innerHTML = '<canvas id="myCanvas" width="1000" height="500" style="border:1px solid #cccccc;"></canvas>';
+                        el.appendChild(script);
+                    }
+            </script>
+            <label class = "button">Name:</label>
+            <input type="text" id = "name" name="name" class = "button" value="">
+            <button onclick=on_push() class = "button">Start</button>
+        </div> 
+        <div id = "leaderboard" class = "box1"></div>
+    </body>
+</html>

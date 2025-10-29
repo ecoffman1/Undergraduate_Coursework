@@ -1,0 +1,1260 @@
+Script started on 2024-11-21 19:43:21-0600
+groups: cannot find name for group ID 762800513
+]0;ejc012@turing: ~/Operating Systems/FoodCourt[01;32mejc012@turing[00m:[01;34m~/Operating Systems/FoodCourt[00m$ exit./run.bash
+Simulation time = 200 seconds	Number of customers = 250
+Customer 1 enters the food court
+Customer 0 enters the food court
+Customer 4 enters the food court
+Customer 4 enters the waiting area
+Customer 3 enters the food court
+Customer 3 enters the waiting area
+Customer 2 enters the food court
+Customer 11 enters the food court
+Customer 1 enters the waiting area
+Customer 12 enters the food court
+Customer 11 enters the waiting area
+Customer 10 enters the food court
+Customer 2 enters the waiting area
+Customer 9 enters the food court
+Customer 8 enters the food court
+Customer 8 enters the waiting area
+Customer 7 enters the food court
+Customer 4 leaves the wait area and joins counter 1(Counter count:1)
+Customer 6 enters the food court
+Customer 6 enters the waiting area
+Customer 5 enters the food court
+Customer 0 enters the waiting area
+Customer 36 enters the food court
+Customer 35 enters the food court
+Customer 34 enters the food court
+Customer 34 enters the waiting area
+Customer 33 enters the food court
+Customer 5 enters the waiting area
+Customer 32 enters the food court
+Customer 32 enters the waiting area
+Customer 31 enters the food court
+Customer 30 enters the food court
+Customer 3 leaves the wait area and joins counter 3(Counter count:1)
+Customer 29 enters the food court
+Customer 28 enters the food court
+Customer 28 enters the waiting area
+Customer 27 enters the food court
+Customer 27 enters the waiting area
+Customer 7 enters the waiting area
+Customer 26 enters the food court
+Customer 26 enters the waiting area
+Customer 25 enters the food court
+Customer 24 enters the food court
+Customer 24 enters the waiting area
+Customer 23 enters the food court
+Customer 9 enters the waiting area
+Customer 22 enters the food court
+Customer 21 enters the food court
+Customer 10 enters the waiting area
+Customer 20 enters the food court
+Customer 20 enters the waiting area
+Customer 19 enters the food court
+Customer 19 enters the waiting area
+Customer 18 enters the food court
+Customer 17 enters the food court
+Customer 12 enters the waiting area
+Customer 16 enters the food court
+Customer 16 enters the waiting area
+Customer 15 enters the food court
+Customer 15 enters the waiting area
+Customer 14 enters the food court
+Customer 14 enters the waiting area
+Customer 13 enters the food court
+Customer 13 enters the waiting area
+Customer 70 enters the food court
+Customer 70 enters the waiting area
+Customer 69 enters the food court
+Customer 68 enters the food court
+Customer 68 enters the waiting area
+Customer 67 enters the food court
+Customer 67 enters the waiting area
+Customer 66 enters the food court
+Customer 65 enters the food court
+Customer 65 enters the waiting area
+Customer 64 enters the food court
+Customer 17 enters the waiting area
+Customer 18 enters the waiting area
+Customer 63 enters the food court
+Customer 62 enters the food court
+Customer 61 enters the food court
+Customer 61 enters the waiting area
+Customer 60 enters the food court
+Customer 60 enters the waiting area
+Customer 59 enters the food court
+Customer 59 enters the waiting area
+Customer 58 enters the food court
+Customer 57 enters the food court
+Customer 57 enters the waiting area
+Customer 82 enters the food court
+Customer 21 enters the waiting area
+Customer 56 enters the food court
+Customer 56 enters the waiting area
+Customer 55 enters the food court
+Customer 22 enters the waiting area
+Customer 54 enters the food court
+Customer 53 enters the food court
+Customer 23 enters the waiting area
+Customer 90 enters the food court
+Customer 91 enters the food court
+Customer 52 enters the food court
+Customer 51 enters the food court
+Customer 51 enters the waiting area
+Customer 50 enters the food court
+Customer 25 enters the waiting area
+Customer 49 enters the food court
+Customer 48 enters the food court
+Customer 47 enters the food court
+Customer 46 enters the food court
+Customer 46 enters the waiting area
+Customer 45 enters the food court
+Customer 44 enters the food court
+Customer 43 enters the food court
+Customer 42 enters the food court
+Customer 42 enters the waiting area
+Customer 41 enters the food court
+Customer 40 enters the food court
+Customer 40 enters the waiting area
+Customer 29 enters the waiting area
+Customer 1 leaves the wait area and joins counter 3(Counter count:2)
+Customer 39 enters the food court
+Customer 38 enters the food court
+Customer 38 enters the waiting area
+Customer 37 enters the food court
+Customer 37 enters the waiting area
+Customer 30 enters the waiting area
+Customer 31 enters the waiting area
+Customer 33 enters the waiting area
+Customer 35 enters the waiting area
+Customer 36 enters the waiting area
+Customer 115 enters the food court
+Customer 115 enters the waiting area
+Customer 114 enters the food court
+Customer 39 enters the waiting area
+Customer 113 enters the food court
+Customer 112 enters the food court
+Customer 112 enters the waiting area
+Customer 11 leaves the wait area and joins counter 1(Counter count:2)
+Customer 111 enters the food court
+Customer 110 enters the food court
+Customer 109 enters the food court
+Customer 109 enters the waiting area
+Customer 108 enters the food court
+Customer 107 enters the food court
+Customer 41 enters the waiting area
+Customer 106 enters the food court
+Customer 105 enters the food court
+Customer 105 enters the waiting area
+Customer 43 enters the waiting area
+Customer 104 enters the food court
+Customer 104 enters the waiting area
+Customer 44 enters the waiting area
+Customer 103 enters the food court
+Customer 45 enters the waiting area
+Customer 102 enters the food court
+Customer 133 enters the food court
+Customer 101 enters the food court
+Customer 101 enters the waiting area
+Customer 100 enters the food court
+Customer 47 enters the waiting area
+Customer 99 enters the food court
+Customer 99 enters the waiting area
+Customer 48 enters the waiting area
+Customer 98 enters the food court
+Customer 98 enters the waiting area
+Customer 49 enters the waiting area
+Customer 97 enters the food court
+Customer 96 enters the food court
+Customer 50 enters the waiting area
+Customer 95 enters the food court
+Customer 94 enters the food court
+Customer 94 enters the waiting area
+Customer 93 enters the food court
+Customer 93 enters the waiting area
+Customer 52 enters the waiting area
+Customer 91 enters the waiting area
+Customer 92 enters the food court
+Customer 90 enters the waiting area
+Customer 150 enters the food court
+Customer 150 enters the waiting area
+Customer 53 enters the waiting area
+Customer 89 enters the food court
+Customer 89 enters the waiting area
+Customer 54 enters the waiting area
+Customer 88 enters the food court
+Customer 87 enters the food court
+Customer 86 enters the food court
+Customer 55 enters the waiting area
+Customer 85 enters the food court
+Customer 85 enters the waiting area
+Customer 84 enters the food court
+Customer 82 enters the waiting area
+Customer 157 enters the food court
+Customer 157 enters the waiting area
+Customer 83 enters the food court
+Customer 83 enters the waiting area
+Customer 58 enters the waiting area
+Customer 81 enters the food court
+Customer 81 enters the waiting area
+Customer 80 enters the food court
+Customer 80 enters the waiting area
+Customer 79 enters the food court
+Customer 78 enters the food court
+Customer 78 enters the waiting area
+Customer 77 enters the food court
+Customer 77 enters the waiting area
+Customer 76 enters the food court
+Customer 76 enters the waiting area
+Customer 75 enters the food court
+Customer 75 enters the waiting area
+Customer 74 enters the food court
+Customer 74 enters the waiting area
+Customer 62 enters the waiting area
+Customer 73 enters the food court
+Customer 63 enters the waiting area
+Customer 72 enters the food court
+Customer 72 enters the waiting area
+Customer 71 enters the food court
+Customer 71 enters the waiting area
+Customer 64 enters the waiting area
+Customer 66 enters the waiting area
+Customer 69 enters the waiting area
+Customer 175 enters the food court
+Customer 175 enters the waiting area
+Customer 174 enters the food court
+Customer 173 enters the food court
+Customer 173 enters the waiting area
+Customer 172 enters the food court
+Customer 172 enters the waiting area
+Customer 171 enters the food court
+Customer 171 enters the waiting area
+Customer 170 enters the food court
+Customer 170 enters the waiting area
+Customer 73 enters the waiting area
+Customer 169 enters the food court
+Customer 169 enters the waiting area
+Customer 168 enters the food court
+Customer 167 enters the food court
+Customer 166 enters the food court
+Customer 165 enters the food court
+Customer 165 enters the waiting area
+Customer 164 enters the food court
+Customer 164 enters the waiting area
+Customer 163 enters the food court
+Customer 163 enters the waiting area
+Customer 162 enters the food court
+Customer 79 enters the waiting area
+Customer 161 enters the food court
+Customer 161 enters the waiting area
+Customer 160 enters the food court
+Customer 160 enters the waiting area
+Customer 158 enters the food court
+Customer 158 enters the waiting area
+Customer 159 enters the food court
+Customer 159 enters the waiting area
+Customer 84 enters the waiting area
+Customer 156 enters the food court
+Customer 155 enters the food court
+Customer 155 enters the waiting area
+Customer 154 enters the food court
+Customer 154 enters the waiting area
+Customer 86 enters the waiting area
+Customer 87 enters the waiting area
+Customer 88 enters the waiting area
+Customer 153 enters the food court
+Customer 153 enters the waiting area
+Customer 152 enters the food court
+Customer 204 enters the food court
+Customer 151 enters the food court
+Customer 151 enters the waiting area
+Customer 92 enters the waiting area
+Customer 149 enters the food court
+Customer 149 enters the waiting area
+Customer 148 enters the food court
+Customer 147 enters the food court
+Customer 147 enters the waiting area
+Customer 146 enters the food court
+Customer 146 enters the waiting area
+Customer 145 enters the food court
+Customer 144 enters the food court
+Customer 144 enters the waiting area
+Customer 95 enters the waiting area
+Customer 143 enters the food court
+Customer 143 enters the waiting area
+Customer 96 enters the waiting area
+Customer 97 enters the waiting area
+Customer 142 enters the food court
+Customer 142 enters the waiting area
+Customer 141 enters the food court
+Customer 141 enters the waiting area
+Customer 140 enters the food court
+Customer 140 enters the waiting area
+Customer 139 enters the food court
+Customer 139 enters the waiting area
+Customer 138 enters the food court
+Customer 138 enters the waiting area
+Customer 137 enters the food court
+Customer 137 enters the waiting area
+Customer 100 enters the waiting area
+Customer 136 enters the food court
+Customer 135 enters the food court
+Customer 135 enters the waiting area
+Customer 134 enters the food court
+Customer 134 enters the waiting area
+Customer 133 enters the waiting area
+Customer 102 enters the waiting area
+Customer 212 enters the food court
+Customer 212 enters the waiting area
+Customer 132 enters the food court
+Customer 132 enters the waiting area
+Customer 103 enters the waiting area
+Customer 131 enters the food court
+Customer 131 enters the waiting area
+Customer 130 enters the food court
+Customer 130 enters the waiting area
+Customer 129 enters the food court
+Customer 129 enters the waiting area
+Customer 128 enters the food court
+Customer 128 enters the waiting area
+Customer 127 enters the food court
+Customer 127 enters the waiting area
+Customer 106 enters the waiting area
+Customer 126 enters the food court
+Customer 126 enters the waiting area
+Customer 107 enters the waiting area
+Customer 216 enters the food court
+Customer 216 enters the waiting area
+Customer 125 enters the food court
+Customer 125 enters the waiting area
+Customer 218 enters the food court
+Customer 218 enters the waiting area
+Customer 108 enters the waiting area
+Customer 124 enters the food court
+Customer 123 enters the food court
+Customer 123 enters the waiting area
+Customer 110 enters the waiting area
+Customer 122 enters the food court
+Customer 122 enters the waiting area
+Customer 111 enters the waiting area
+Customer 2 leaves the wait area and joins counter 3(Counter count:3)
+Customer 121 enters the food court
+Customer 121 enters the waiting area
+Customer 120 enters the food court
+Customer 120 enters the waiting area
+Customer 119 enters the food court
+Customer 119 enters the waiting area
+Customer 118 enters the food court
+Customer 118 enters the waiting area
+Customer 113 enters the waiting area
+Customer 117 enters the food court
+Customer 117 enters the waiting area
+Customer 114 enters the waiting area
+Customer 116 enters the food court
+Customer 116 enters the waiting area
+Customer 8 leaves the wait area and joins counter 1(Counter count:3)
+Customer 226 enters the food court
+Customer 226 enters the waiting area
+Customer 225 enters the food court
+Customer 225 enters the waiting area
+Customer 224 enters the food court
+Customer 224 enters the waiting area
+Customer 223 enters the food court
+Customer 223 enters the waiting area
+Customer 222 enters the food court
+Customer 222 enters the waiting area
+Customer 124 enters the waiting area
+Customer 221 enters the food court
+Customer 221 enters the waiting area
+Customer 220 enters the food court
+Customer 220 enters the waiting area
+Customer 219 enters the food court
+Customer 219 enters the waiting area
+Customer 217 enters the food court
+Customer 217 enters the waiting area
+Customer 215 enters the food court
+Customer 215 enters the waiting area
+Customer 214 enters the food court
+Customer 214 enters the waiting area
+Customer 213 enters the food court
+Customer 213 enters the waiting area
+Customer 211 enters the food court
+Customer 211 enters the waiting area
+Customer 210 enters the food court
+Customer 210 enters the waiting area
+Customer 209 enters the food court
+Customer 227 enters the food court
+Customer 227 enters the waiting area
+Customer 208 enters the food court
+Customer 208 enters the waiting area
+Customer 136 enters the waiting area
+Customer 207 enters the food court
+Customer 207 enters the waiting area
+Customer 145 enters the waiting area
+Customer 148 enters the waiting area
+Customer 206 enters the food court
+Customer 206 enters the waiting area
+Customer 205 enters the food court
+Customer 205 enters the waiting area
+Customer 204 enters the waiting area
+Customer 152 enters the waiting area
+Customer 203 enters the food court
+Customer 203 enters the waiting area
+Customer 202 enters the food court
+Customer 202 enters the waiting area
+Customer 201 enters the food court
+Customer 201 enters the waiting area
+Customer 200 enters the food court
+Customer 200 enters the waiting area
+Customer 235 enters the food court
+Customer 199 enters the food court
+Customer 199 enters the waiting area
+Customer 198 enters the food court
+Customer 198 enters the waiting area
+Customer 156 enters the waiting area
+Customer 197 enters the food court
+Customer 197 enters the waiting area
+Customer 196 enters the food court
+Customer 196 enters the waiting area
+Customer 195 enters the food court
+Customer 194 enters the food court
+Customer 194 enters the waiting area
+Customer 193 enters the food court
+Customer 192 enters the food court
+Customer 192 enters the waiting area
+Customer 191 enters the food court
+Customer 191 enters the waiting area
+Customer 190 enters the food court
+Customer 190 enters the waiting area
+Customer 162 enters the waiting area
+Customer 189 enters the food court
+Customer 189 enters the waiting area
+Customer 188 enters the food court
+Customer 188 enters the waiting area
+Customer 187 enters the food court
+Customer 187 enters the waiting area
+Customer 186 enters the food court
+Customer 186 enters the waiting area
+Customer 185 enters the food court
+Customer 185 enters the waiting area
+Customer 166 enters the waiting area
+Customer 167 enters the waiting area
+Customer 184 enters the food court
+Customer 168 enters the waiting area
+Customer 183 enters the food court
+The waiting area is full, customer 183 left in frustration
+Customer 182 enters the food court
+The waiting area is full, customer 182 left in frustration
+Customer 181 enters the food court
+The waiting area is full, customer 181 left in frustration
+Customer 180 enters the food court
+The waiting area is full, customer 180 left in frustration
+Customer 179 enters the food court
+The waiting area is full, customer 179 left in frustration
+Customer 178 enters the food court
+Customer 177 enters the food court
+The waiting area is full, customer 177 left in frustration
+Customer 174 enters the waiting area
+Customer 176 enters the food court
+The waiting area is full, customer 176 left in frustration
+The waiting area is full, customer 178 left in frustration
+The waiting area is full, customer 184 left in frustration
+Customer 240 enters the food court
+Customer 239 enters the food court
+The waiting area is full, customer 239 left in frustration
+Customer 193 enters the waiting area
+Customer 195 enters the waiting area
+Customer 238 enters the food court
+The waiting area is full, customer 238 left in frustration
+Customer 237 enters the food court
+The waiting area is full, customer 237 left in frustration
+Customer 236 enters the food court
+The waiting area is full, customer 236 left in frustration
+Customer 235 enters the waiting area
+Customer 234 enters the food court
+Customer 233 enters the food court
+The waiting area is full, customer 233 left in frustration
+Customer 232 enters the food court
+The waiting area is full, customer 232 left in frustration
+Customer 231 enters the food court
+The waiting area is full, customer 231 left in frustration
+Customer 230 enters the food court
+Customer 229 enters the food court
+Customer 228 enters the food court
+The waiting area is full, customer 228 left in frustration
+Customer 209 enters the waiting area
+Customer 6 leaves the wait area and joins counter 3(Counter count:4)
+The waiting area is full, customer 229 left in frustration
+The waiting area is full, customer 230 left in frustration
+Customer 242 enters the food court
+The waiting area is full, customer 234 left in frustration
+Customer 241 enters the food court
+The waiting area is full, customer 241 left in frustration
+The waiting area is full, customer 240 left in frustration
+Customer 245 enters the food court
+Customer 244 enters the food court
+The waiting area is full, customer 244 left in frustration
+The waiting area is full, customer 242 left in frustration
+Customer 243 enters the food court
+The waiting area is full, customer 243 left in frustration
+Customer 0 leaves the wait area and joins counter 1(Counter count:4)
+Customer 248 enters the food court
+Customer 247 enters the food court
+The waiting area is full, customer 247 left in frustration
+Customer 246 enters the food court
+The waiting area is full, customer 246 left in frustration
+The waiting area is full, customer 245 left in frustration
+Customer 249 enters the food court
+The waiting area is full, customer 249 left in frustration
+The waiting area is full, customer 248 left in frustration
+Customer 34 leaves the wait area and joins counter 3(Counter count:5)
+Customer 5 leaves the wait area and joins counter 3(Counter count:6)
+Customer 32 leaves the wait area and joins counter 2(Counter count:1)
+Customer 28 leaves the wait area and joins counter 2(Counter count:2)
+Customer 27 leaves the wait area and joins counter 1(Counter count:5)
+Customer 7 leaves the wait area and joins counter 2(Counter count:3)
+Customer 26 leaves the wait area and joins counter 1(Counter count:6)
+Customer 24 leaves the wait area and joins counter 1(Counter count:7)
+Customer 9 leaves the wait area and joins counter 3(Counter count:7)
+Customer 10 leaves the wait area and joins counter 2(Counter count:4)
+Customer 20 leaves the wait area and joins counter 1(Counter count:8)
+Customer 19 leaves the wait area and joins counter 3(Counter count:8)
+Customer 12 leaves the wait area and joins counter 2(Counter count:5)
+Customer 16 leaves the wait area and joins counter 2(Counter count:6)
+Customer 15 leaves the wait area and joins counter 3(Counter count:9)
+Customer 14 leaves the wait area and joins counter 3(Counter count:10)
+Customer 13 leaves the wait area and joins counter 2(Counter count:7)
+Customer 70 leaves the wait area and joins counter 2(Counter count:8)
+Customer 68 leaves the wait area and joins counter 1(Counter count:9)
+Customer 67 leaves the wait area and joins counter 2(Counter count:9)
+Customer 65 leaves the wait area and joins counter 1(Counter count:10)
+Customer 17 leaves the wait area and joins counter 1(Counter count:11)
+Customer 18 leaves the wait area and joins counter 3(Counter count:11)
+Customer 61 leaves the wait area and joins counter 3(Counter count:12)
+Customer 60 leaves the wait area and joins counter 1(Counter count:12)
+Customer 59 leaves the wait area and joins counter 3(Counter count:13)
+Customer 57 leaves the wait area and joins counter 3(Counter count:14)
+Customer 21 leaves the wait area and joins counter 1(Counter count:13)
+Customer 56 leaves the wait area and joins counter 1(Counter count:14)
+Customer 22 leaves the wait area and joins counter 1(Counter count:15)
+Customer 23 leaves the wait area and joins counter 3(Counter count:15)
+Customer 51 leaves the wait area and joins counter 1(Counter count:16)
+Customer 25 leaves the wait area and joins counter 1(Counter count:17)
+Customer 46 leaves the wait area and joins counter 3(Counter count:16)
+Customer 42 leaves the wait area and joins counter 2(Counter count:10)
+Customer 40 leaves the wait area and joins counter 3(Counter count:17)
+Customer 29 leaves the wait area and joins counter 1(Counter count:18)
+Customer 38 leaves the wait area and joins counter 3(Counter count:18)
+Customer 37 leaves the wait area and joins counter 2(Counter count:11)
+Customer 30 leaves the wait area and joins counter 2(Counter count:12)
+Customer 31 leaves the wait area and joins counter 1(Counter count:19)
+Customer 33 leaves the wait area and joins counter 2(Counter count:13)
+Customer 35 leaves the wait area and joins counter 1(Counter count:20)
+Customer 36 leaves the wait area and joins counter 3(Counter count:19)
+Customer 115 leaves the wait area and joins counter 1(Counter count:21)
+Customer 39 leaves the wait area and joins counter 2(Counter count:14)
+Customer 112 leaves the wait area and joins counter 2(Counter count:15)
+Customer 109 leaves the wait area and joins counter 1(Counter count:22)
+Customer 41 leaves the wait area and joins counter 2(Counter count:16)
+Customer 105 leaves the wait area and joins counter 2(Counter count:17)
+Customer 43 leaves the wait area and joins counter 3(Counter count:20)
+Customer 104 leaves the wait area and joins counter 2(Counter count:18)
+Customer 44 leaves the wait area and joins counter 2(Counter count:19)
+Customer 45 leaves the wait area and joins counter 3(Counter count:21)
+Customer 101 leaves the wait area and joins counter 2(Counter count:20)
+Customer 47 leaves the wait area and joins counter 1(Counter count:23)
+Customer 99 leaves the wait area and joins counter 3(Counter count:22)
+Customer 48 leaves the wait area and joins counter 1(Counter count:24)
+Customer 98 leaves the wait area and joins counter 1(Counter count:25)
+Customer 49 leaves the wait area and joins counter 1(Counter count:26)
+Customer 50 leaves the wait area and joins counter 3(Counter count:23)
+Customer 94 leaves the wait area and joins counter 1(Counter count:27)
+Customer 93 leaves the wait area and joins counter 1(Counter count:28)
+Customer 52 leaves the wait area and joins counter 2(Counter count:21)
+Customer 91 leaves the wait area and joins counter 1(Counter count:29)
+Customer 90 leaves the wait area and joins counter 1(Counter count:30)
+Customer 150 leaves the wait area and joins counter 3(Counter count:24)
+Customer 53 leaves the wait area and joins counter 2(Counter count:22)
+Customer 89 leaves the wait area and joins counter 2(Counter count:23)
+Customer 54 leaves the wait area and joins counter 1(Counter count:31)
+Customer 55 leaves the wait area and joins counter 3(Counter count:25)
+Customer 85 leaves the wait area and joins counter 1(Counter count:32)
+Customer 82 leaves the wait area and joins counter 3(Counter count:26)
+Customer 157 leaves the wait area and joins counter 3(Counter count:27)
+Customer 83 leaves the wait area and joins counter 2(Counter count:24)
+Customer 58 leaves the wait area and joins counter 3(Counter count:28)
+Customer 81 leaves the wait area and joins counter 3(Counter count:29)
+Customer 80 leaves the wait area and joins counter 2(Counter count:25)
+Customer 78 leaves the wait area and joins counter 1(Counter count:33)
+Customer 77 leaves the wait area and joins counter 1(Counter count:34)
+Customer 76 leaves the wait area and joins counter 2(Counter count:26)
+Customer 75 leaves the wait area and joins counter 1(Counter count:35)
+Customer 74 leaves the wait area and joins counter 3(Counter count:30)
+Customer 62 leaves the wait area and joins counter 1(Counter count:36)
+Customer 63 leaves the wait area and joins counter 3(Counter count:31)
+Customer 72 leaves the wait area and joins counter 2(Counter count:27)
+Customer 71 leaves the wait area and joins counter 2(Counter count:28)
+Customer 64 leaves the wait area and joins counter 1(Counter count:37)
+Customer 66 leaves the wait area and joins counter 1(Counter count:38)
+Customer 69 leaves the wait area and joins counter 1(Counter count:39)
+Customer 175 leaves the wait area and joins counter 1(Counter count:40)
+Customer 173 leaves the wait area and joins counter 3(Counter count:32)
+Customer 73 leaves the wait area and joins counter 2(Counter count:29)
+Customer 161 leaves the wait area and joins counter 3(Counter count:33)
+Customer 158 leaves the wait area and joins counter 2(Counter count:30)
+Customer 159 leaves the wait area and joins counter 2(Counter count:31)
+Customer 84 leaves the wait area and joins counter 2(Counter count:32)
+Customer 155 leaves the wait area and joins counter 2(Counter count:33)
+Customer 87 leaves the wait area and joins counter 3(Counter count:34)
+Customer 153 leaves the wait area and joins counter 3(Counter count:35)
+Customer 92 leaves the wait area and joins counter 3(Counter count:36)
+Customer 149 leaves the wait area and joins counter 3(Counter count:37)
+Customer 147 leaves the wait area and joins counter 2(Counter count:34)
+Customer 146 leaves the wait area and joins counter 3(Counter count:38)
+Customer 144 leaves the wait area and joins counter 2(Counter count:35)
+Customer 95 leaves the wait area and joins counter 2(Counter count:36)
+Customer 96 leaves the wait area and joins counter 2(Counter count:37)
+Customer 142 leaves the wait area and joins counter 2(Counter count:38)
+Customer 141 leaves the wait area and joins counter 2(Counter count:39)
+Customer 139 leaves the wait area and joins counter 2(Counter count:40)
+Customer 138 leaves the wait area and joins counter 3(Counter count:39)
+Customer 137 leaves the wait area and joins counter 3(Counter count:40)
+Customer 103 leaves the wait area and joins counter 3(Counter count:40)
+Customer 3 leaves counter 3 and moves to the register(Register Count: 1)
+Customer 32 leaves counter 2 and moves to the register(Register Count: 2)
+Customer 135 leaves the wait area and joins counter 2(Counter count:40)
+Customer 3 leaves the food court
+Customer 28 leaves counter 2 and moves to the register(Register Count: 2)
+Customer 133 leaves the wait area and joins counter 2(Counter count:40)
+Customer 4 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 172 leaves the wait area and joins counter 1(Counter count:40)
+Customer 32 leaves the food court
+Customer 1 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 131 leaves the wait area and joins counter 3(Counter count:40)
+Customer 1 leaves the food court
+Customer 11 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 171 leaves the wait area and joins counter 1(Counter count:40)
+Customer 7 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 102 leaves the wait area and joins counter 2(Counter count:40)
+Customer 7 leaves the food court
+Customer 4 leaves the food court
+Customer 28 leaves the food court
+Customer 11 leaves the food court
+Customer 10 leaves counter 2 and moves to the register(Register Count: 1)
+Customer 212 leaves the wait area and joins counter 2(Counter count:40)
+Customer 10 leaves the food court
+Customer 8 leaves counter 1 and moves to the register(Register Count: 1)
+Customer 170 leaves the wait area and joins counter 1(Counter count:40)
+Customer 2 leaves counter 3 and moves to the register(Register Count: 2)
+Customer 129 leaves the wait area and joins counter 3(Counter count:40)
+Customer 0 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 169 leaves the wait area and joins counter 1(Counter count:40)
+Customer 6 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 128 leaves the wait area and joins counter 3(Counter count:40)
+Customer 8 leaves the food court
+Customer 0 leaves the food court
+Customer 34 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 127 leaves the wait area and joins counter 3(Counter count:40)
+Customer 2 leaves the food court
+Customer 12 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 218 leaves the wait area and joins counter 2(Counter count:40)
+Customer 6 leaves the food court
+Customer 16 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 108 leaves the wait area and joins counter 2(Counter count:40)
+Customer 27 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 165 leaves the wait area and joins counter 1(Counter count:40)
+Customer 26 leaves counter 1 and moves to the register(Register Count: 5)
+Customer 164 leaves the wait area and joins counter 1(Counter count:40)
+Customer 5 leaves counter 3 and moves to the register(Register Count: 6)
+Customer 106 leaves the wait area and joins counter 3(Counter count:40)
+Customer 34 leaves the food court
+Customer 13 leaves counter 2 and moves to the register(Register Count: 6)
+Customer 123 leaves the wait area and joins counter 2(Counter count:40)
+Customer 70 leaves counter 2 and moves to the register(Register Count: 7)
+Customer 110 leaves the wait area and joins counter 2(Counter count:40)
+Customer 9 leaves counter 3 and moves to the register(Register Count: 8)
+Customer 125 leaves the wait area and joins counter 3(Counter count:40)
+Customer 67 leaves counter 2 and moves to the register(Register Count: 9)
+Customer 121 leaves the wait area and joins counter 2(Counter count:40)
+Customer 12 leaves the food court
+Customer 13 leaves the food court
+Customer 27 leaves the food court
+Customer 26 leaves the food court
+Customer 16 leaves the food court
+Customer 5 leaves the food court
+Customer 24 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 163 leaves the wait area and joins counter 1(Counter count:40)
+Customer 70 leaves the food court
+Customer 42 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 120 leaves the wait area and joins counter 2(Counter count:40)
+Customer 20 leaves counter 1 and moves to the register(Register Count: 5)
+Customer 79 leaves the wait area and joins counter 1(Counter count:40)
+Customer 9 leaves the food court
+Customer 19 leaves counter 3 and moves to the register(Register Count: 5)
+Customer 122 leaves the wait area and joins counter 3(Counter count:40)
+Customer 24 leaves the food court
+Customer 67 leaves the food court
+Customer 68 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 160 leaves the wait area and joins counter 1(Counter count:40)
+Customer 37 leaves counter 2 and moves to the register(Register Count: 5)
+Customer 118 leaves the wait area and joins counter 2(Counter count:40)
+Customer 37 leaves the food court
+Customer 15 leaves counter 3 and moves to the register(Register Count: 5)
+Customer 226 leaves the wait area and joins counter 3(Counter count:40)
+Customer 42 leaves the food court
+Customer 65 leaves counter 1 and moves to the register(Register Count: 5)
+Customer 154 leaves the wait area and joins counter 1(Counter count:40)
+Customer 15 leaves the food court
+Customer 20 leaves the food court
+Customer 14 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 223 leaves the wait area and joins counter 3(Counter count:40)
+Customer 18 leaves counter 3 and moves to the register(Register Count: 5)
+Customer 220 leaves the wait area and joins counter 3(Counter count:40)
+Customer 68 leaves the food court
+Customer 61 leaves counter 3 and moves to the register(Register Count: 5)
+Customer 207 leaves the wait area and joins counter 3(Counter count:40)
+Customer 59 leaves counter 3 and moves to the register(Register Count: 6)
+Customer 202 leaves the wait area and joins counter 3(Counter count:40)
+Customer 19 leaves the food court
+Customer 57 leaves counter 3 and moves to the register(Register Count: 6)
+Customer 200 leaves the wait area and joins counter 3(Counter count:40)
+Customer 14 leaves the food court
+Customer 57 leaves the food court
+Customer 17 leaves counter 1 and moves to the register(Register Count: 5)
+Customer 86 leaves the wait area and joins counter 1(Counter count:40)
+Customer 17 leaves the food court
+Customer 30 leaves counter 2 and moves to the register(Register Count: 5)
+Customer 113 leaves the wait area and joins counter 2(Counter count:40)
+Customer 23 leaves counter 3 and moves to the register(Register Count: 6)
+Customer 199 leaves the wait area and joins counter 3(Counter count:40)
+Customer 46 leaves counter 3 and moves to the register(Register Count: 7)
+Customer 156 leaves the wait area and joins counter 3(Counter count:40)
+Customer 65 leaves the food court
+Customer 59 leaves the food court
+Customer 23 leaves the food court
+Customer 18 leaves the food court
+Customer 61 leaves the food court
+Customer 30 leaves the food court
+Customer 40 leaves counter 3 and moves to the register(Register Count: 2)
+Customer 192 leaves the wait area and joins counter 3(Counter count:40)
+Customer 46 leaves the food court
+Customer 33 leaves counter 2 and moves to the register(Register Count: 2)
+Customer 222 leaves the wait area and joins counter 2(Counter count:40)
+Customer 33 leaves the food court
+Customer 60 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 88 leaves the wait area and joins counter 1(Counter count:40)
+Customer 39 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 124 leaves the wait area and joins counter 2(Counter count:40)
+Customer 60 leaves the food court
+Customer 40 leaves the food court
+Customer 38 leaves counter 3 and moves to the register(Register Count: 2)
+Customer 190 leaves the wait area and joins counter 3(Counter count:40)
+Customer 38 leaves the food court
+Customer 21 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 151 leaves the wait area and joins counter 1(Counter count:40)
+Customer 36 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 188 leaves the wait area and joins counter 3(Counter count:40)
+Customer 21 leaves the food court
+Customer 56 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 143 leaves the wait area and joins counter 1(Counter count:40)
+Customer 39 leaves the food court
+Customer 112 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 217 leaves the wait area and joins counter 2(Counter count:40)
+Customer 56 leaves the food court
+Customer 41 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 215 leaves the wait area and joins counter 2(Counter count:40)
+Customer 22 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 97 leaves the wait area and joins counter 1(Counter count:40)
+Customer 105 leaves counter 2 and moves to the register(Register Count: 5)
+Customer 213 leaves the wait area and joins counter 2(Counter count:40)
+Customer 36 leaves the food court
+Customer 51 leaves counter 1 and moves to the register(Register Count: 5)
+Customer 140 leaves the wait area and joins counter 1(Counter count:40)
+Customer 43 leaves counter 3 and moves to the register(Register Count: 6)
+Customer 187 leaves the wait area and joins counter 3(Counter count:40)
+Customer 105 leaves the food court
+Customer 43 leaves the food court
+Customer 104 leaves counter 2 and moves to the register(Register Count: 5)
+Customer 211 leaves the wait area and joins counter 2(Counter count:40)
+Customer 112 leaves the food court
+Customer 104 leaves the food court
+Customer 22 leaves the food court
+Customer 41 leaves the food court
+Customer 51 leaves the food court
+Customer 45 leaves counter 3 and moves to the register(Register Count: 1)
+Customer 166 leaves the wait area and joins counter 3(Counter count:40)
+Customer 44 leaves counter 2 and moves to the register(Register Count: 2)
+Customer 145 leaves the wait area and joins counter 2(Counter count:40)
+Customer 25 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 100 leaves the wait area and joins counter 1(Counter count:40)
+Customer 29 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 134 leaves the wait area and joins counter 1(Counter count:40)
+Customer 101 leaves counter 2 and moves to the register(Register Count: 5)
+Customer 206 leaves the wait area and joins counter 2(Counter count:40)
+Customer 29 leaves the food court
+Customer 99 leaves counter 3 and moves to the register(Register Count: 5)
+Customer 183 leaves the wait area and joins counter 3(Counter count:40)
+Customer 44 leaves the food court
+Customer 31 leaves counter 1 and moves to the register(Register Count: 5)
+Customer 132 leaves the wait area and joins counter 1(Counter count:40)
+Customer 45 leaves the food court
+Customer 52 leaves counter 2 and moves to the register(Register Count: 5)
+Customer 152 leaves the wait area and joins counter 2(Counter count:40)
+Customer 25 leaves the food court
+Customer 101 leaves the food court
+Customer 35 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 130 leaves the wait area and joins counter 1(Counter count:40)
+Customer 35 leaves the food court
+Customer 50 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 176 leaves the wait area and joins counter 3(Counter count:40)
+Customer 99 leaves the food court
+Customer 53 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 203 leaves the wait area and joins counter 2(Counter count:40)
+Customer 52 leaves the food court
+Customer 150 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 178 leaves the wait area and joins counter 3(Counter count:40)
+Customer 31 leaves the food court
+Customer 150 leaves the food court
+Customer 89 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 201 leaves the wait area and joins counter 2(Counter count:40)
+Customer 83 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 198 leaves the wait area and joins counter 2(Counter count:40)
+Customer 53 leaves the food court
+Customer 83 leaves the food court
+Customer 50 leaves the food court
+Customer 115 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 126 leaves the wait area and joins counter 1(Counter count:40)
+Customer 80 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 196 leaves the wait area and joins counter 2(Counter count:40)
+Customer 89 leaves the food court
+Customer 109 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 107 leaves the wait area and joins counter 1(Counter count:40)
+Customer 55 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 239 leaves the wait area and joins counter 3(Counter count:40)
+Customer 80 leaves the food court
+Customer 82 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 193 leaves the wait area and joins counter 3(Counter count:40)
+Customer 55 leaves the food court
+Customer 109 leaves the food court
+Customer 76 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 194 leaves the wait area and joins counter 2(Counter count:40)
+Customer 115 leaves the food court
+Customer 82 leaves the food court
+Customer 72 leaves counter 2 and moves to the register(Register Count: 2)
+Customer 191 leaves the wait area and joins counter 2(Counter count:40)
+Customer 76 leaves the food court
+Customer 157 leaves counter 3 and moves to the register(Register Count: 2)
+Customer 195 leaves the wait area and joins counter 3(Counter count:40)
+Customer 47 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 216 leaves the wait area and joins counter 1(Counter count:40)
+Customer 71 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 162 leaves the wait area and joins counter 2(Counter count:40)
+Customer 157 leaves the food court
+Customer 47 leaves the food court
+Customer 58 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 232 leaves the wait area and joins counter 3(Counter count:40)
+Customer 72 leaves the food court
+Customer 71 leaves the food court
+Customer 73 leaves counter 2 and moves to the register(Register Count: 2)
+Customer 185 leaves the wait area and joins counter 2(Counter count:40)
+Customer 158 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 168 leaves the wait area and joins counter 2(Counter count:40)
+Customer 58 leaves the food court
+Customer 48 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 111 leaves the wait area and joins counter 1(Counter count:40)
+Customer 81 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 230 leaves the wait area and joins counter 3(Counter count:40)
+Customer 158 leaves the food court
+Customer 98 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 119 leaves the wait area and joins counter 1(Counter count:40)
+Customer 48 leaves the food court
+Customer 73 leaves the food court
+Customer 49 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 117 leaves the wait area and joins counter 1(Counter count:40)
+Customer 159 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 182 leaves the wait area and joins counter 2(Counter count:40)
+Customer 49 leaves the food court
+Customer 98 leaves the food court
+Customer 81 leaves the food court
+Customer 74 leaves counter 3 and moves to the register(Register Count: 2)
+Customer 244 leaves the wait area and joins counter 3(Counter count:40)
+Customer 63 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 247 leaves the wait area and joins counter 3(Counter count:40)
+Customer 94 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 114 leaves the wait area and joins counter 1(Counter count:40)
+Customer 74 leaves the food court
+Customer 93 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 116 leaves the wait area and joins counter 1(Counter count:40)
+Customer 94 leaves the food court
+Customer 84 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 181 leaves the wait area and joins counter 2(Counter count:40)
+Customer 159 leaves the food court
+Customer 173 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 246 leaves the wait area and joins counter 3(Counter count:40)
+Customer 84 leaves the food court
+Customer 63 leaves the food court
+Customer 93 leaves the food court
+Customer 91 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 225 leaves the wait area and joins counter 1(Counter count:40)
+Customer 155 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 180 leaves the wait area and joins counter 2(Counter count:40)
+Customer 147 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 177 leaves the wait area and joins counter 2(Counter count:40)
+Customer 161 leaves counter 3 and moves to the register(Register Count: 5)
+Customer 249 leaves the wait area and joins counter 3(Counter count:40)
+Customer 161 leaves the food court
+Customer 91 leaves the food court
+Customer 173 leaves the food court
+Customer 144 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 237 leaves the wait area and joins counter 2(Counter count:40)
+Customer 147 leaves the food court
+Customer 95 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 236 leaves the wait area and joins counter 2(Counter count:40)
+Customer 96 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 235 leaves the wait area and joins counter 2(Counter count:40)
+Customer 144 leaves the food court
+Customer 90 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 224 leaves the wait area and joins counter 1(Counter count:40)
+Customer 142 leaves counter 2 and moves to the register(Register Count: 5)
+Customer 233 leaves the wait area and joins counter 2(Counter count:40)
+Customer 96 leaves the food court
+Customer 87 leaves counter 3 and moves to the register(Register Count: 5)
+Customer 155 leaves the food court
+Customer 90 leaves the food court
+Customer 54 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 221 leaves the wait area and joins counter 1(Counter count:40)
+Customer 95 leaves the food court
+Customer 142 leaves the food court
+Customer 153 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 87 leaves the food court
+Customer 54 leaves the food court
+Customer 92 leaves counter 3 and moves to the register(Register Count: 2)
+Customer 149 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 141 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 228 leaves the wait area and joins counter 2(Counter count:40)
+Customer 92 leaves the food court
+Customer 139 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 209 leaves the wait area and joins counter 2(Counter count:40)
+Customer 135 leaves counter 2 and moves to the register(Register Count: 5)
+Customer 234 leaves the wait area and joins counter 2(Counter count:40)
+Customer 133 leaves counter 2 and moves to the register(Register Count: 6)
+Customer 240 leaves the wait area and joins counter 2(Counter count:40)
+Customer 85 leaves counter 1 and moves to the register(Register Count: 7)
+Customer 219 leaves the wait area and joins counter 1(Counter count:40)
+Customer 153 leaves the food court
+Customer 133 leaves the food court
+Customer 141 leaves the food court
+Customer 139 leaves the food court
+Customer 102 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 242 leaves the wait area and joins counter 2(Counter count:40)
+Customer 135 leaves the food court
+Customer 146 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 149 leaves the food court
+Customer 85 leaves the food court
+Customer 78 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 214 leaves the wait area and joins counter 1(Counter count:40)
+Customer 212 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 218 leaves counter 2 and moves to the register(Register Count: 5)
+Customer 146 leaves the food court
+Customer 138 leaves counter 3 and moves to the register(Register Count: 5)
+Customer 102 leaves the food court
+Customer 78 leaves the food court
+Customer 138 leaves the food court
+Customer 108 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 212 leaves the food court
+Customer 77 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 210 leaves the wait area and joins counter 1(Counter count:40)
+Customer 123 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 108 leaves the food court
+Customer 75 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 227 leaves the wait area and joins counter 1(Counter count:40)
+Customer 218 leaves the food court
+Customer 110 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 137 leaves counter 3 and moves to the register(Register Count: 5)
+Customer 137 leaves the food court
+Customer 62 leaves counter 1 and moves to the register(Register Count: 5)
+Customer 208 leaves the wait area and joins counter 1(Counter count:40)
+Customer 77 leaves the food court
+Customer 110 leaves the food court
+Customer 123 leaves the food court
+Customer 75 leaves the food court
+Customer 103 leaves counter 3 and moves to the register(Register Count: 2)
+Customer 121 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 120 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 120 leaves the food court
+Customer 118 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 131 leaves counter 3 and moves to the register(Register Count: 5)
+Customer 64 leaves counter 1 and moves to the register(Register Count: 6)
+Customer 136 leaves the wait area and joins counter 1(Counter count:40)
+Customer 121 leaves the food court
+Customer 62 leaves the food court
+Customer 64 leaves the food court
+Customer 118 leaves the food court
+Customer 66 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 148 leaves the wait area and joins counter 1(Counter count:40)
+Customer 129 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 103 leaves the food court
+Customer 113 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 66 leaves the food court
+Customer 131 leaves the food court
+Customer 128 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 129 leaves the food court
+Customer 113 leaves the food court
+Customer 69 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 205 leaves the wait area and joins counter 1(Counter count:40)
+Customer 222 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 175 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 204 leaves the wait area and joins counter 1(Counter count:40)
+Customer 128 leaves the food court
+Customer 124 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 127 leaves counter 3 and moves to the register(Register Count: 5)
+Customer 222 leaves the food court
+Customer 175 leaves the food court
+Customer 127 leaves the food court
+Customer 106 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 124 leaves the food court
+Customer 172 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 197 leaves the wait area and joins counter 1(Counter count:40)
+Customer 69 leaves the food court
+Customer 172 leaves the food court
+Customer 106 leaves the food court
+Customer 217 leaves counter 2 and moves to the register(Register Count: 1)
+Customer 125 leaves counter 3 and moves to the register(Register Count: 2)
+Customer 171 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 189 leaves the wait area and joins counter 1(Counter count:40)
+Customer 215 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 125 leaves the food court
+Customer 217 leaves the food court
+Customer 170 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 186 leaves the wait area and joins counter 1(Counter count:40)
+Customer 122 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 171 leaves the food court
+Customer 215 leaves the food court
+Customer 169 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 167 leaves the wait area and joins counter 1(Counter count:40)
+Customer 169 leaves the food court
+Customer 226 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 122 leaves the food court
+Customer 213 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 213 leaves the food court
+Customer 211 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 223 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 170 leaves the food court
+Customer 223 leaves the food court
+Customer 165 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 179 leaves the wait area and joins counter 1(Counter count:40)
+Customer 220 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 165 leaves the food court
+Customer 145 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 226 leaves the food court
+Customer 220 leaves the food court
+Customer 207 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 211 leaves the food court
+Customer 164 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 174 leaves the wait area and joins counter 1(Counter count:40)
+Customer 145 leaves the food court
+Customer 206 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 206 leaves the food court
+Customer 202 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 163 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 184 leaves the wait area and joins counter 1(Counter count:40)
+Customer 152 leaves counter 2 and moves to the register(Register Count: 5)
+Customer 79 leaves counter 1 and moves to the register(Register Count: 6)
+Customer 238 leaves the wait area and joins counter 1(Counter count:40)
+Customer 207 leaves the food court
+Customer 202 leaves the food court
+Customer 164 leaves the food court
+Customer 152 leaves the food court
+Customer 200 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 79 leaves the food court
+Customer 163 leaves the food court
+Customer 199 leaves counter 3 and moves to the register(Register Count: 2)
+Customer 156 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 199 leaves the food court
+Customer 200 leaves the food court
+Customer 203 leaves counter 2 and moves to the register(Register Count: 2)
+Customer 160 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 231 leaves the wait area and joins counter 1(Counter count:40)
+Customer 154 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 229 leaves the wait area and joins counter 1(Counter count:40)
+Customer 154 leaves the food court
+Customer 203 leaves the food court
+Customer 192 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 156 leaves the food court
+Customer 190 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 160 leaves the food court
+Customer 86 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 241 leaves the wait area and joins counter 1(Counter count:40)
+Customer 188 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 201 leaves counter 2 and moves to the register(Register Count: 5)
+Customer 190 leaves the food court
+Customer 88 leaves counter 1 and moves to the register(Register Count: 5)
+Customer 243 leaves the wait area and joins counter 1(Counter count:40)
+Customer 198 leaves counter 2 and moves to the register(Register Count: 6)
+Customer 196 leaves counter 2 and moves to the register(Register Count: 7)
+Customer 88 leaves the food court
+Customer 151 leaves counter 1 and moves to the register(Register Count: 7)
+Customer 245 leaves the wait area and joins counter 1(Counter count:40)
+Customer 86 leaves the food court
+Customer 192 leaves the food court
+Customer 151 leaves the food court
+Customer 187 leaves counter 3 and moves to the register(Register Count: 5)
+Customer 198 leaves the food court
+Customer 188 leaves the food court
+Customer 201 leaves the food court
+Customer 143 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 248 leaves the wait area and joins counter 1(Counter count:40)
+Customer 196 leaves the food court
+Customer 143 leaves the food court
+Customer 97 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 194 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 187 leaves the food court
+Customer 194 leaves the food court
+Customer 166 leaves counter 3 and moves to the register(Register Count: 2)
+Customer 183 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 97 leaves the food court
+Customer 140 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 191 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 183 leaves the food court
+Customer 176 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 166 leaves the food court
+Customer 178 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 191 leaves the food court
+Customer 140 leaves the food court
+Customer 162 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 162 leaves the food court
+Customer 100 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 239 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 185 leaves counter 2 and moves to the register(Register Count: 5)
+Customer 185 leaves the food court
+Customer 178 leaves the food court
+Customer 176 leaves the food court
+Customer 134 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 100 leaves the food court
+Customer 193 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 168 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 239 leaves the food court
+Customer 168 leaves the food court
+Customer 182 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 182 leaves the food court
+Customer 134 leaves the food court
+Customer 132 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 193 leaves the food court
+Customer 195 leaves counter 3 and moves to the register(Register Count: 2)
+Customer 181 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 132 leaves the food court
+Customer 180 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 130 leaves counter 1 and moves to the register(Register Count: 4)
+Customer 126 leaves counter 1 and moves to the register(Register Count: 5)
+Customer 177 leaves counter 2 and moves to the register(Register Count: 6)
+Customer 181 leaves the food court
+Customer 180 leaves the food court
+Customer 130 leaves the food court
+Customer 195 leaves the food court
+Customer 232 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 237 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 230 leaves counter 3 and moves to the register(Register Count: 5)
+Customer 107 leaves counter 1 and moves to the register(Register Count: 6)
+Customer 107 leaves the food court
+Customer 126 leaves the food court
+Customer 177 leaves the food court
+Customer 244 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 230 leaves the food court
+Customer 236 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 216 leaves counter 1 and moves to the register(Register Count: 5)
+Customer 236 leaves the food court
+Customer 232 leaves the food court
+Customer 244 leaves the food court
+Customer 237 leaves the food court
+Customer 235 leaves counter 2 and moves to the register(Register Count: 2)
+Customer 247 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 233 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 111 leaves counter 1 and moves to the register(Register Count: 5)
+Customer 216 leaves the food court
+Customer 247 leaves the food court
+Customer 111 leaves the food court
+Customer 246 leaves counter 3 and moves to the register(Register Count: 3)
+Customer 249 leaves counter 3 and moves to the register(Register Count: 4)
+Customer 233 leaves the food court
+Customer 235 leaves the food court
+Customer 119 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 249 leaves the food court
+Customer 117 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 117 leaves the food court
+Customer 228 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 228 leaves the food court
+Customer 246 leaves the food court
+Customer 119 leaves the food court
+Customer 114 leaves counter 1 and moves to the register(Register Count: 1)
+Customer 209 leaves counter 2 and moves to the register(Register Count: 2)
+Customer 116 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 114 leaves the food court
+Customer 116 leaves the food court
+Customer 209 leaves the food court
+Customer 225 leaves counter 1 and moves to the register(Register Count: 1)
+Customer 234 leaves counter 2 and moves to the register(Register Count: 2)
+Customer 225 leaves the food court
+Customer 224 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 221 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 240 leaves counter 2 and moves to the register(Register Count: 4)
+Customer 219 leaves counter 1 and moves to the register(Register Count: 5)
+Customer 234 leaves the food court
+Customer 224 leaves the food court
+Customer 221 leaves the food court
+Customer 242 leaves counter 2 and moves to the register(Register Count: 3)
+Customer 240 leaves the food court
+Customer 219 leaves the food court
+Customer 214 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 242 leaves the food court
+Customer 214 leaves the food court
+Customer 210 leaves counter 1 and moves to the register(Register Count: 1)
+Customer 227 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 210 leaves the food court
+Customer 227 leaves the food court
+Customer 208 leaves counter 1 and moves to the register(Register Count: 1)
+Customer 208 leaves the food court
+Customer 136 leaves counter 1 and moves to the register(Register Count: 1)
+Customer 136 leaves the food court
+Customer 148 leaves counter 1 and moves to the register(Register Count: 1)
+Customer 205 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 148 leaves the food court
+Customer 204 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 205 leaves the food court
+Customer 204 leaves the food court
+Customer 197 leaves counter 1 and moves to the register(Register Count: 1)
+Customer 189 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 197 leaves the food court
+Customer 186 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 189 leaves the food court
+Customer 167 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 179 leaves counter 1 and moves to the register(Register Count: 3)
+Customer 186 leaves the food court
+Customer 167 leaves the food court
+Customer 179 leaves the food court
+Customer 174 leaves counter 1 and moves to the register(Register Count: 1)
+Customer 174 leaves the food court
+Customer 184 leaves counter 1 and moves to the register(Register Count: 1)
+Customer 184 leaves the food court
+Customer 238 leaves counter 1 and moves to the register(Register Count: 1)
+Customer 238 leaves the food court
+Customer 231 leaves counter 1 and moves to the register(Register Count: 1)
+Customer 229 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 229 leaves the food court
+Customer 231 leaves the food court
+Customer 241 leaves counter 1 and moves to the register(Register Count: 1)
+Customer 243 leaves counter 1 and moves to the register(Register Count: 2)
+Customer 241 leaves the food court
+Customer 243 leaves the food court
+Customer 245 leaves counter 1 and moves to the register(Register Count: 1)
+Customer 245 leaves the food court
+Customer 248 leaves counter 1 and moves to the register(Register Count: 1)
+Customer 248 leaves the food court
+
+Simulation concludes after 200 seconds.
+]0;ejc012@turing: ~/Operating Systems/FoodCourt[01;32mejc012@turing[00m:[01;34m~/Operating Systems/FoodCourt[00m$ exit
+exit
+
+Script done on 2024-11-21 19:54:14-0600
